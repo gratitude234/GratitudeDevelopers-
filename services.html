@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Services — Gratitude Developers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Websites, Mobile Apps, E‑commerce, School Portals, UI/UX, Care & Maintenance, and Analytics support by Gratitude Developers." />
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <style>
+    :root{ --bg:#0b0f14; --panel:#0f1720; --ink:#e6e7eb; --muted:#a9b0bb; --line:rgba(255,255,255,.08); --accent:#f97316; --accent-2:#fb7185; --accent-3:#8b5cf6; --radius:16px; --shadow:0 8px 30px rgba(0,0,0,.25); --space:clamp(16px,3vw,24px) }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)} a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 var(--space)} .muted{color:var(--muted)} .card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px;padding:18px}
+    .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1rem;border-radius:12px;font-weight:600;line-height:1}
+    .btn-primary{background:var(--accent);color:#0b0f14} .btn-primary:hover{filter:brightness(1.05)} .btn-ghost{border:1px solid var(--line);background:transparent} .btn-ghost:hover{background:rgba(255,255,255,.05)}
+    .section{padding:64px 0; scroll-margin-top:86px} .chip{display:inline-flex;align-items:center;gap:.45rem;border:1px solid var(--line);background:rgba(255,255,255,.05);padding:.35rem .6rem;border-radius:999px;color:#ffd7bf;font-size:.78rem}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:60;border-bottom:1px solid var(--line);backdrop-filter:blur(10px);background:rgba(11,15,20,.65)}
+    .nav{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:700}
+    .logo{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:12px;background:conic-gradient(from 180deg,var(--accent),var(--accent-2),var(--accent-3));box-shadow:0 10px 30px rgba(249,115,22,.3)}
+    .menu{display:none;gap:1.2rem;font-size:.95rem;align-items:center}
+    .menu a{opacity:.92;position:relative} .menu a:hover{opacity:1}
+    .menu a[aria-current="true"]{opacity:1} .menu a[aria-current="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:2px;background:var(--accent)}
+    .actions{display:none;gap:.6rem}
+    .burger{display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;padding:6px}
+    .burger span{width:22px;height:2px;background:var(--ink);opacity:.9;border-radius:2px}
+
+    .drawer{position:fixed;inset:0;z-index:70;display:grid;grid-template-columns:1fr;transition:opacity .2s;opacity:0;pointer-events:none}
+    .drawer[data-open="true"]{opacity:1;pointer-events:auto}
+    .drawer .backdrop{background:rgba(0,0,0,.45);grid-column:1}
+    .drawer .panel{background:var(--panel);width:min(86%,320px);margin-left:auto;height:100%;border-left:1px solid var(--line);padding:18px var(--space);transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column;gap:14px}
+    .drawer[data-open="true"] .panel{transform:translateX(0)} .drawer .panel a{padding:.8rem 0;border-bottom:1px solid var(--line)} .drawer .panel a:last-child{border-bottom:0}
+    .no-scroll{overflow:hidden}
+
+    /* Page hero */
+    .hero{position:relative;overflow:hidden;padding:56px 0 28px}
+    .crumbs{font-size:.9rem} .crumbs a{color:#ffd7bf}
+    .hero h1{font-size:clamp(1.6rem,4vw,2.6rem);margin:.4rem 0}
+
+    /* Layout: sidebar + content */
+    .layout{display:grid;gap:20px}
+    .sidebar{position:sticky;top:88px;align-self:start}
+    .toc{position:sticky;top:88px}
+    .toc a{display:block;padding:.5rem 0;color:var(--muted)} .toc a.active{color:var(--ink)}
+
+    /* Service modules */
+    .svc{display:grid;gap:14px}
+    .svc-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .svc h2{margin:0;font-size:clamp(1.2rem,2.5vw,1.6rem)}
+    .grid-3{display:grid;gap:16px}
+    .list{margin:0;padding-left:18px} .list li{margin:.25rem 0}
+    .meta{display:grid;gap:8px}
+
+    /* Pricing table */
+    .pricing{display:grid;gap:16px}
+
+    /* FAQ */
+    details{border:1px solid var(--line);border-radius:12px;padding:12px;background:rgba(255,255,255,.04)} summary{cursor:pointer;font-weight:600}
+
+    /* Sticky mobile CTA */
+    .sticky-cta{position:fixed;left:0;right:0;bottom:max(10px,env(safe-area-inset-bottom));z-index:65;display:flex;justify-content:center;padding:8px;pointer-events:none}
+    .sticky-cta .bar{display:flex;gap:.6rem;background:rgba(15,23,32,.9);border:1px solid var(--line);backdrop-filter:blur(10px);border-radius:16px;padding:8px;pointer-events:auto}
+
+    footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.95rem;margin-top:24px}
+
+    @media (min-width:720px){ .menu{display:flex} .actions{display:flex} .burger{display:none} .layout{grid-template-columns:260px 1fr} .grid-3{grid-template-columns:repeat(3,1fr)} .pricing{grid-template-columns:repeat(3,1fr)} .sticky-cta{display:none} }
+    @media (prefers-reduced-motion: reduce){ .drawer,.drawer .panel{transition:none} }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="./index.html" aria-label="Go home">
+        <span class="logo">GD</span>
+        <span>Gratitude Developers</span>
+      </a>
+      <nav class="menu" aria-label="Primary">
+        <a href="./index.html#services">Services</a>
+        <a href="./index.html#work">Work</a>
+        <a href="./index.html#process">Process</a>
+        <a href="./index.html#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="actions">
+        <a class="btn btn-ghost" href="#quote">Get Quote</a>
+        <a class="btn btn-primary" href="#quote">Start a Project</a>
+      </div>
+      <button id="navToggle" class="burger" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div id="mobileDrawer" class="drawer" data-open="false" hidden>
+    <div class="backdrop" data-close></div>
+    <aside class="panel" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+      <a href="./index.html#services" data-close>Services</a>
+      <a href="./index.html#work" data-close>Work</a>
+      <a href="./index.html#process" data-close>Process</a>
+      <a href="./index.html#pricing" data-close>Pricing</a>
+      <a href="#contact" data-close>Contact</a>
+      <div style="display:flex;gap:.6rem;margin-top:6px"><a class="btn btn-ghost" href="#quote" data-close>Get Quote</a><a class="btn btn-primary" href="#quote" data-close>Start a Project</a></div>
+      <button class="btn btn-ghost" data-close style="margin-top:10px">Close ✕</button>
+    </aside>
+  </div>
+
+  <!-- Sticky mobile CTA -->
+  <div class="sticky-cta" role="region" aria-label="Quick actions"><div class="bar"><a class="btn btn-primary" href="#quote">Get Quote</a><a class="btn btn-ghost" href="https://wa.me/234XXXXXXXXXX" target="_blank" rel="noopener">WhatsApp</a></div></div>
+
+  <!-- Page hero -->
+  <section class="hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumbs"><a href="./index.html">Home</a> · <span class="muted">Services</span></nav>
+      <h1>Services</h1>
+      <p class="muted" style="max-width:720px">We design and build products end‑to‑end, then help you launch and grow: websites, mobile apps, e‑commerce, school portals, UI/UX, maintenance, and analytics support.</p>
+    </div>
+  </section>
+
+  <!-- Layout -->
+  <div class="container layout">
+    <!-- Sidebar TOC (desktop) -->
+    <aside class="sidebar">
+      <div class="card toc" id="toc">
+        <strong>Explore services</strong>
+        <nav>
+          <a href="#websites">Websites</a>
+          <a href="#mobile-apps">Mobile Apps</a>
+          <a href="#ecommerce">E‑commerce</a>
+          <a href="#school-portals">School Portals</a>
+          <a href="#ui-ux">UI/UX Design</a>
+          <a href="#care">Care & Maintenance</a>
+          <a href="#analytics">Analytics & Light Ads</a>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main>
+      <!-- Websites -->
+      <section id="websites" class="section svc">
+        <div class="svc-head">
+          <h2>Websites</h2>
+          <a class="btn btn-primary" href="#quote">Get a website quote</a>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <h3 style="margin:0">What you get</h3>
+            <ul class="list">
+              <li>Modern responsive design</li>
+              <li>Fast performance & SEO basics</li>
+              <li>CMS (as needed) + analytics</li>
+              <li>Contact forms & integrations</li>
+            </ul>
+          </div>
+          <div class="card meta">
+            <div><strong>Timeline</strong><div class="muted">2–3 weeks typical</div></div>
+            <div><strong>Good for</strong><div class="muted">SMEs, portfolios, NGOs, campuses</div></div>
+          </div>
+          <div class="card">
+            <h3 style="margin:0">Starter Package</h3>
+            <p class="muted">1–5 pages, copy polish, analytics</p>
+            <a class="btn btn-ghost" href="#quote">From ₦ —</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mobile Apps -->
+      <section id="mobile-apps" class="section svc">
+        <div class="svc-head">
+          <h2>Mobile Apps</h2>
+          <a class="btn btn-primary" href="#quote">Scope an app</a>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <h3 style="margin:0">What you get</h3>
+            <ul class="list">
+              <li>Cross‑platform build (Android/iOS)</li>
+              <li>Auth, push, basic offline</li>
+              <li>Clean UI kit & components</li>
+              <li>API integration & QA</li>
+            </ul>
+          </div>
+          <div class="card meta">
+            <div><strong>Timeline</strong><div class="muted">4–8 weeks typical</div></div>
+            <div><strong>Good for</strong><div class="muted">Marketplaces, portals, tools</div></div>
+          </div>
+          <div class="card">
+            <h3 style="margin:0">MVP Sprint</h3>
+            <p class="muted">Core flows only, analytics embedded</p>
+            <a class="btn btn-ghost" href="#quote">Custom</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- E‑commerce -->
+      <section id="ecommerce" class="section svc">
+        <div class="svc-head">
+          <h2>E‑commerce Stores</h2>
+          <a class="btn btn-primary" href="#quote">Start your store</a>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <h3 style="margin:0">What you get</h3>
+            <ul class="list">
+              <li>Catalog, cart, checkout</li>
+              <li>Payments & receipts</li>
+              <li>Search, filters, reviews</li>
+              <li>Basic growth analytics</li>
+            </ul>
+          </div>
+          <div class="card meta">
+            <div><strong>Timeline</strong><div class="muted">3–5 weeks typical</div></div>
+            <div><strong>Good for</strong><div class="muted">Retail, DTC brands, campus shops</div></div>
+          </div>
+          <div class="card">
+            <h3 style="margin:0">Launch Kit</h3>
+            <p class="muted">10–50 products, email/WhatsApp alerts</p>
+            <a class="btn btn-ghost" href="#quote">From ₦ —</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- School Portals -->
+      <section id="school-portals" class="section svc">
+        <div class="svc-head">
+          <h2>School Portals</h2>
+          <a class="btn btn-primary" href="#quote">Discuss portal needs</a>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <h3 style="margin:0">What you get</h3>
+            <ul class="list">
+              <li>Admissions & ID cards</li>
+              <li>Results & transcript workflows</li>
+              <li>Smart Practice & question banks</li>
+              <li>Role‑based access & audit logs</li>
+            </ul>
+          </div>
+          <div class="card meta">
+            <div><strong>Timeline</strong><div class="muted">4–8 weeks typical</div></div>
+            <div><strong>Good for</strong><div class="muted">Schools, colleges, training centres</div></div>
+          </div>
+          <div class="card">
+            <h3 style="margin:0">Campus Core</h3>
+            <p class="muted">Admissions + results + Smart Practice</p>
+            <a class="btn btn-ghost" href="#quote">Custom</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- UI/UX -->
+      <section id="ui-ux" class="section svc">
+        <div class="svc-head">
+          <h2>UI/UX Design</h2>
+          <a class="btn btn-primary" href="#quote">Book a design sprint</a>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <h3 style="margin:0">Deliverables</h3>
+            <ul class="list">
+              <li>User flows & wireframes</li>
+              <li>High‑fidelity UI screens</li>
+              <li>Design tokens & style guide</li>
+              <li>Clickable prototype</li>
+            </ul>
+          </div>
+          <div class="card meta">
+            <div><strong>Timeline</strong><div class="muted">1–3 weeks</div></div>
+            <div><strong>Good for</strong><div class="muted">New products & redesigns</div></div>
+          </div>
+          <div class="card">
+            <h3 style="margin:0">Design Sprint</h3>
+            <p class="muted">Focus on outcomes, not extra screens</p>
+            <a class="btn btn-ghost" href="#quote">From ₦ —</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Care & Maintenance -->
+      <section id="care" class="section svc">
+        <div class="svc-head">
+          <h2>Care & Maintenance</h2>
+          <a class="btn btn-primary" href="#quote">Pick a plan</a>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <h3 style="margin:0">Includes</h3>
+            <ul class="list">
+              <li>Security updates, backups</li>
+              <li>Uptime monitoring</li>
+              <li>Small monthly improvements</li>
+              <li>Priority support</li>
+            </ul>
+          </div>
+          <div class="card meta">
+            <div><strong>Cadence</strong><div class="muted">Monthly / quarterly</div></div>
+            <div><strong>Good for</strong><div class="muted">Any live product</div></div>
+          </div>
+          <div class="card">
+            <h3 style="margin:0">Site Care</h3>
+            <p class="muted">Peace of mind & small wins</p>
+            <a class="btn btn-ghost" href="#quote">Subscription</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Analytics & Light Ads -->
+      <section id="analytics" class="section svc">
+        <div class="svc-head">
+          <h2>Analytics & Light Ads</h2>
+          <a class="btn btn-primary" href="#quote">Plan traction</a>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <h3 style="margin:0">Focus</h3>
+            <ul class="list">
+              <li>Analytics setup (events, funnels)</li>
+              <li>Basic SEO on‑page fixes</li>
+              <li>Starter ad experiments</li>
+              <li>Reports & recommendations</li>
+            </ul>
+          </div>
+          <div class="card meta">
+            <div><strong>Timeline</strong><div class="muted">1–2 weeks to baseline</div></div>
+            <div><strong>Good for</strong><div class="muted">Post‑launch traction</div></div>
+          </div>
+          <div class="card">
+            <h3 style="margin:0">Launch Support</h3>
+            <p class="muted">Data first, then simple ads</p>
+            <a class="btn btn-ghost" href="#quote">Add‑on</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing overview -->
+      <section class="section">
+        <h2>Packages at a glance</h2>
+        <div class="pricing" style="margin-top:18px">
+          <div class="card"><h3 style="margin:0">Starter Website</h3><p class="muted">1–3 pages, contact, basic SEO</p><a class="btn btn-ghost" href="#quote">From ₦ —</a></div>
+          <div class="card"><h3 style="margin:0">Business Website</h3><p class="muted">5–10 pages, CMS, analytics</p><a class="btn btn-ghost" href="#quote">From ₦ —</a></div>
+          <div class="card"><h3 style="margin:0">E‑commerce / Portal</h3><p class="muted">Checkout or student portal</p><a class="btn btn-ghost" href="#quote">Custom</a></div>
+        </div>
+      </section>
+
+      <!-- FAQs -->
+      <section class="section">
+        <h2>FAQs</h2>
+        <div style="display:grid;gap:12px;margin-top:12px">
+          <details><summary>How fast can we start?</summary><p class="muted">Usually within a week. We kick off with a 30‑minute discovery call and a short brief.</p></details>
+          <details><summary>Do you write content?</summary><p class="muted">We help polish copy. If you need full content creation, we can add it to scope.</p></details>
+          <details><summary>What about hosting and domains?</summary><p class="muted">We can set up on Truehost, Vercel, or your preferred host and connect your domain.</p></details>
+          <details><summary>Do you maintain after launch?</summary><p class="muted">Yes, our Care plans handle updates, monitoring, and small improvements.</p></details>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="section" id="quote">
+        <div class="card" style="display:grid;gap:8px">
+          <h2 style="margin:0">Ready to start?</h2>
+          <p class="muted" style="margin:0">Tell us about your project and we’ll propose the simplest path to launch.</p>
+          <form id="quoteForm" style="display:grid;gap:10px;grid-template-columns:1fr;max-width:720px">
+            <input name="name" required placeholder="Your Name" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+            <input name="contact" required placeholder="Email or WhatsApp" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+            <select name="type" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+              <option value="">Project Type</option>
+              <option>Website</option><option>Mobile App</option><option>E‑commerce</option><option>School Portal</option>
+            </select>
+            <textarea name="details" rows="4" placeholder="Project details…" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)"></textarea>
+            <button class="btn btn-primary" type="submit">Send</button>
+            <p id="formMsg" class="muted" role="status" aria-live="polite" style="min-height:1.2em"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+      <div>© <span id="year"></span> Gratitude Developers. All rights reserved.</div>
+      <div><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="mailto:hello@gratitudedevelopers.com">hello@gratitudedevelopers.com</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile drawer
+    const toggle = document.getElementById('navToggle');
+    const drawer = document.getElementById('mobileDrawer');
+    function openDrawer(){ drawer.hidden=false; drawer.setAttribute('data-open','true'); toggle.setAttribute('aria-expanded','true'); document.body.classList.add('no-scroll'); const firstLink = drawer.querySelector('a,button'); firstLink && firstLink.focus(); }
+    function closeDrawer(){ drawer.setAttribute('data-open','false'); toggle.setAttribute('aria-expanded','false'); document.body.classList.remove('no-scroll'); setTimeout(()=>{ drawer.hidden=true },250); toggle.focus(); }
+    toggle.addEventListener('click',()=>{ drawer.getAttribute('data-open')==='true'?closeDrawer():openDrawer(); });
+    drawer.addEventListener('click', (e)=>{ if(e.target.hasAttribute('data-close')) closeDrawer(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && drawer.getAttribute('data-open')==='true') closeDrawer(); });
+
+    // TOC active state on scroll
+    const tocLinks = Array.from(document.querySelectorAll('#toc a'));
+    const sections = tocLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          tocLinks.forEach(l=>l.classList.remove('active'));
+          const id = '#' + entry.target.id;
+          const link = tocLinks.find(l=>l.getAttribute('href')===id);
+          link && link.classList.add('active');
+        }
+      });
+    }, { rootMargin:'-40% 0px -55% 0px', threshold:0.01 });
+    sections.forEach(s=>obs.observe(s));
+
+    // Quote form (placeholder POST)
+    const form = document.getElementById('quoteForm');
+    const msg = document.getElementById('formMsg');
+    const API_URL = 'https://jabumarket.com.ng/api/quote'; // TODO: replace with your real endpoint
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault(); msg.textContent='Sending…'; const data = Object.fromEntries(new FormData(form).entries());
+      try{ const res = await fetch(API_URL,{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)}); if(!res.ok) throw new Error('Request failed'); msg.textContent='Thanks! We will reach out soon.'; form.reset(); }
+      catch(err){ msg.textContent='Could not submit right now. Please WhatsApp us instead.'; }
+    });
+  </script>
+</body>
+</html>
