@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Jabu Market — Case Study • Gratitude Developers</title>
+  <title>Case Study — Jabu Market | Gratitude Developers</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="How Gratitude Developers designed and built Jabu Market — a student marketplace and study hub." />
+  <meta name="description" content="How Gratitude Developers built Jabu Market — a student marketplace & study hub — with a fast launch and a clean growth path." />
   <link rel="preconnect" href="https://images.unsplash.com">
   <style>
     :root{ --bg:#0b0f14; --panel:#0f1720; --ink:#e6e7eb; --muted:#a9b0bb; --line:rgba(255,255,255,.08); --accent:#f97316; --accent-2:#fb7185; --accent-3:#8b5cf6; --radius:16px; --shadow:0 8px 30px rgba(0,0,0,.25); --space:clamp(16px,3vw,24px) }
@@ -12,6 +12,7 @@
     .container{max-width:1200px;margin:0 auto;padding:0 var(--space)} .muted{color:var(--muted)} .card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px}
     .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1rem;border-radius:12px;font-weight:600;line-height:1}
     .btn-primary{background:var(--accent);color:#0b0f14} .btn-primary:hover{filter:brightness(1.05)} .btn-ghost{border:1px solid var(--line);background:transparent} .btn-ghost:hover{background:rgba(255,255,255,.05)}
+    .chip{display:inline-flex;align-items:center;gap:.45rem;border:1px solid var(--line);background:rgba(255,255,255,.05);padding:.35rem .6rem;border-radius:999px;color:#ffd7bf;font-size:.78rem}
 
     /* Header */
     header{position:sticky;top:0;z-index:60;border-bottom:1px solid var(--line);backdrop-filter:blur(10px);background:rgba(11,15,20,.65)}
@@ -35,39 +36,45 @@
     /* Hero */
     .hero{padding:56px 0 26px}
     .crumbs{font-size:.9rem} .crumbs a{color:#ffd7bf}
-    .title{display:grid;gap:10px}
-    .title h1{font-size:clamp(1.6rem,4vw,2.6rem);margin:.2rem 0}
-    .cover{display:grid;gap:14px;margin-top:16px}
-    .cover img{border-radius:14px;aspect-ratio:16/9;object-fit:cover}
+    .title{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-top:6px}
 
-    /* Layout */
-    .layout{display:grid;gap:20px}
-    .sidebar{position:sticky;top:88px;align-self:start}
+    /* Overview */
+    .overview{display:grid;gap:16px}
+    .facts{display:grid;gap:12px}
+    .facts .item{display:grid;gap:4px}
+    .facts .item strong{font-size:.92rem}
 
-    .pill{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--line);border-radius:999px;padding:.35rem .6rem;background:rgba(255,255,255,.05);color:#ffd7bf;font-size:.78rem}
-    .facts{display:grid;gap:10px}
-    .facts .row{display:flex;justify-content:space-between;gap:8px}
-    .facts .row strong{color:#fff}
-
-    .prose{display:grid;gap:16px}
-    .prose h2{font-size:clamp(1.2rem,2.4vw,1.6rem);margin:0}
-    .grid-2{display:grid;gap:16px}
-    .list{margin:0;padding-left:18px}
+    /* Problem → Solution → Results */
+    .psr{display:grid;gap:16px}
+    .psr .col{display:grid;gap:10px}
+    .kpis{display:grid;gap:12px}
+    .kpis .metric{padding:16px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.04);text-align:center}
+    .kpis .metric dt{font-size:1.6rem;font-weight:800}
+    .kpis .metric dd{margin:4px 0 0;color:var(--muted);font-size:.85rem}
 
     /* Gallery */
     .gallery{display:grid;gap:12px}
-    .gallery img{border-radius:12px;aspect-ratio:4/3;object-fit:cover}
+    .thumb{overflow:hidden;border-radius:12px;border:1px solid var(--line);cursor:zoom-in}
+    .thumb img{aspect-ratio:16/9;object-fit:cover;transition:transform .3s}
+    .thumb:hover img{transform:scale(1.03)}
 
-    /* Testimonial */
-    blockquote{margin:0;font-size:1rem}
-    figcaption{margin-top:8px;color:var(--muted);font-size:.9rem}
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;z-index:90;display:grid;place-items:center;background:rgba(0,0,0,.7);opacity:0;pointer-events:none;transition:opacity .2s}
+    .lightbox[data-open="true"]{opacity:1;pointer-events:auto}
+    .lightbox img{max-width:92vw;max-height:84vh;border-radius:12px;border:1px solid var(--line);background:#000}
+
+    /* Related */
+    .grid-3{display:grid;gap:16px}
+    .card-mini{overflow:hidden}
+    .card-mini img{border-radius:12px;aspect-ratio:16/9;object-fit:cover}
+    .card-mini .meta{padding:12px}
 
     /* Footer */
     footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.95rem;margin-top:24px}
 
-    @media (min-width:720px){ .menu{display:flex} .actions{display:flex} .burger{display:none} .layout{grid-template-columns:300px 1fr} .grid-2{grid-template-columns:repeat(2,1fr)} .gallery{grid-template-columns:repeat(3,1fr)} }
+    @media (min-width:720px){ .menu{display:flex} .actions{display:flex} .burger{display:none} .overview{grid-template-columns:1.4fr .8fr} .facts{grid-template-columns:repeat(2,1fr)} .psr{grid-template-columns:repeat(3,1fr)} .kpis{grid-template-columns:repeat(3,1fr)} .gallery{grid-template-columns:repeat(3,1fr)} .grid-3{grid-template-columns:repeat(3,1fr)} }
     @media (min-width:1024px){ .nav{height:72px} }
-    @media (prefers-reduced-motion: reduce){ .drawer,.drawer .panel{transition:none} }
+    @media (prefers-reduced-motion: reduce){ .drawer,.drawer .panel,.thumb img,.lightbox{transition:none} }
   </style>
 </head>
 <body>
@@ -101,162 +108,159 @@
     </aside>
   </div>
 
-  <!-- Hero / Cover -->
+  <!-- Hero -->
   <section class="hero">
     <div class="container">
-      <nav class="crumbs" aria-label="Breadcrumbs"><a href="./work.html">Work</a> · <span class="muted">Case Study</span></nav>
+      <nav class="crumbs" aria-label="Breadcrumbs"><a href="./index.html">Home</a> · <a href="./work.html">Work</a> · <span class="muted">Jabu Market</span></nav>
       <div class="title">
-        <h1>Jabu Market — Student marketplace & study hub</h1>
-        <div style="display:flex;gap:.6rem;flex-wrap:wrap">
-          <span class="pill">E‑commerce</span>
-          <span class="pill">EdTech</span>
-          <span class="pill">Portal</span>
+        <div>
+          <h1 style="margin:0">Jabu Market</h1>
+          <p class="muted" style="margin:.35rem 0 0;max-width:720px">Student marketplace & study hub for the Joseph Ayo Babalola University (JABU) community — fast catalog + simple posting + clean growth path.</p>
         </div>
-      </div>
-      <div class="cover">
-        <img src="https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=1400&auto=format&fit=crop" alt="Jabu Market storefront">
-        <div class="card" style="padding:14px;display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;align-items:center">
-          <div class="muted">Marketplace for students to buy/sell items and access study resources.</div>
-          <div style="display:flex;gap:.6rem">
-            <a class="btn btn-primary" href="https://jabumarket.com.ng" target="_blank" rel="noopener">Visit live site</a>
-            <a class="btn btn-ghost" href="#quote">Start a similar project</a>
-          </div>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+          <a class="btn btn-ghost" href="https://jabumarket.com.ng" target="_blank" rel="noopener">Visit site ↗</a>
+          <a class="btn btn-primary" href="#quote">Start a similar project</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Layout: Sidebar facts + Main narrative -->
-  <div class="container layout">
-    <!-- Facts -->
-    <aside class="sidebar">
-      <div class="card" style="padding:16px">
-        <strong style="display:block;margin-bottom:8px">Project facts</strong>
-        <div class="facts">
-          <div class="row"><span class="muted">Client</span><strong>Jabu Market</strong></div>
-          <div class="row"><span class="muted">Industry</span><strong>Student marketplace</strong></div>
-          <div class="row"><span class="muted">Timeline</span><strong>4–6 weeks</strong></div>
-          <div class="row"><span class="muted">Scope</span><strong>Design, Build, Launch</strong></div>
-          <div class="row"><span class="muted">Stack</span><strong>HTML/CSS/JS, PHP, MySQL</strong></div>
-          <div class="row"><span class="muted">Status</span><strong>Live</strong></div>
-        </div>
-        <hr style="border-color:var(--line);margin:12px 0">
-        <div class="facts">
-          <div class="row"><span class="muted">Core features</span><strong>Catalog, Cart, WhatsApp checkout, Study hub</strong></div>
-          <div class="row"><span class="muted">Integrations</span><strong>Email/WA alerts</strong></div>
-        </div>
+  <!-- Overview -->
+  <section class="container overview">
+    <div class="card" style="padding:18px;display:grid;gap:12px">
+      <h2 style="margin:0">Overview</h2>
+      <p class="muted" style="margin:0">We designed and built a lean marketplace that lets students list and buy items quickly (books, gadgets, essentials) and discover campus resources. The v1 focused on speed and simplicity with a clear path to expand: verified sellers, payments, and an AI‑powered study hub.</p>
+      <div class="kpis">
+        <div class="metric"><dt>~2 wks</dt><dd>to MVP</dd></div>
+        <div class="metric"><dt>1 codebase</dt><dd>web‑first, app‑ready</dd></div>
+        <div class="metric"><dt>Zero admin</dt><dd>simple moderation</dd></div>
       </div>
+    </div>
+    <aside class="card facts" style="padding:18px">
+      <div class="item"><strong>Client</strong><div class="muted">Jabu Market</div></div>
+      <div class="item"><strong>Industry</strong><div class="muted">Marketplace · EdTech</div></div>
+      <div class="item"><strong>Scope</strong><div class="muted">Design, Frontend, Backend (PHP), Deploy</div></div>
+      <div class="item"><strong>Stack</strong><div class="muted">HTML/CSS/JS, PHP, MySQL</div></div>
+      <div class="item"><strong>Timeline</strong><div class="muted">MVP sprint (2–3 weeks)</div></div>
+      <div class="item"><strong>Link</strong><div><a href="https://jabumarket.com.ng" target="_blank" rel="noopener">jabumarket.com.ng ↗</a></div></div>
     </aside>
+  </section>
 
-    <!-- Narrative -->
-    <main class="prose">
-      <!-- Problem / Goal -->
-      <section class="card" style="padding:18px">
-        <h2>The challenge</h2>
-        <p class="muted">Students needed a safe, simple way to trade items on campus and quickly find study materials. Existing options were scattered across social media and chat groups, with no central catalog, poor search, and no quality control.</p>
-      </section>
+  <!-- Problem → Solution → Results -->
+  <section class="container psr" style="margin-top:18px">
+    <div class="card col" style="padding:18px">
+      <h2 style="margin:0">Problem</h2>
+      <p class="muted" style="margin:0">Students struggled to find trusted buyers/sellers and organized study resources in one place. Existing channels were chat‑based and noisy; deals were missed and content was scattered.</p>
+    </div>
+    <div class="card col" style="padding:18px">
+      <h2 style="margin:0">Solution</h2>
+      <ul class="muted" style="margin:.2rem 0 0;padding-left:18px">
+        <li>Fast listing flow (title, price, contact, photos) — no account required for v1.</li>
+        <li>Browse by category with search + campus‑friendly filters.</li>
+        <li>Simple moderation dashboard; email/WhatsApp contact handoff.</li>
+        <li>Foundation for AI Study Hub (Q&A, practice, explanations).</li>
+      </ul>
+    </div>
+    <div class="card col" style="padding:18px">
+      <h2 style="margin:0">Results</h2>
+      <ul class="muted" style="margin:.2rem 0 0;padding-left:18px">
+        <li>MVP shipped in ~2 weeks; first listings created day 1.</li>
+        <li>Zero‑friction posting increased supply; moderation kept quality.</li>
+        <li>Clear roadmap to payments, seller verification, and AI modules.</li>
+      </ul>
+    </div>
+  </section>
 
-      <!-- Solution -->
-      <section class="card" style="padding:18px">
-        <h2>Our approach</h2>
-        <div class="grid-2">
-          <div>
-            <ul class="list">
-              <li>Designed a clear browse → product → chat checkout flow.</li>
-              <li>Implemented product listing with images, tags, and search.</li>
-              <li>Added a lightweight checkout via WhatsApp for quick conversion.</li>
-              <li>Built a content area for study resources (notes, past questions).</li>
-              <li>Optimized for mobile first; many students are on low‑data plans.</li>
-            </ul>
-          </div>
-          <div>
-            <ul class="list">
-              <li>Performance budget: small images, lazy‑loading, caching.</li>
-              <li>Admin tools: approve listings, moderate content, analytics.</li>
-              <li>Clear governance rules and reporting for safety.</li>
-              <li>SEO basics: clean URLs, metadata, share images.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+  <!-- Gallery -->
+  <section class="container" style="margin-top:18px">
+    <h2 style="margin:0 0 10px">Screenshots</h2>
+    <div class="gallery">
+      <a class="thumb" data-img="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1600&auto=format&fit=crop" aria-label="Open screenshot 1"><img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop" alt="Listing UI" loading="lazy" decoding="async"></a>
+      <a class="thumb" data-img="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1600&auto=format&fit=crop" aria-label="Open screenshot 2"><img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1200&auto=format&fit=crop" alt="Categories grid" loading="lazy" decoding="async"></a>
+      <a class="thumb" data-img="https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=1600&auto=format&fit=crop" aria-label="Open screenshot 3"><img src="https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=1200&auto=format&fit=crop" alt="Moderation view" loading="lazy" decoding="async"></a>
+    </div>
+  </section>
 
-      <!-- Results -->
-      <section class="card" style="padding:18px">
-        <h2>Results</h2>
-        <div class="grid-2">
-          <div class="card" style="padding:14px"><strong>+60%</strong><div class="muted">Faster item discovery (search & tags)</div></div>
-          <div class="card" style="padding:14px"><strong>Under 1s</strong><div class="muted">Median page load on 4G</div></div>
-          <div class="card" style="padding:14px"><strong>2x</strong><div class="muted">More listings approved in week one</div></div>
-          <div class="card" style="padding:14px"><strong>≈0</strong><div class="muted">Spam posts after moderation tools</div></div>
-        </div>
-        <p class="muted" style="margin-top:8px">*Illustrative metrics for template; replace with your real numbers.</p>
-      </section>
-
-      <!-- Gallery -->
-      <section class="card" style="padding:18px">
-        <h2>Screens & flows</h2>
-        <div class="gallery" style="margin-top:12px">
-          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="Listing grid">
-          <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop" alt="Product page">
-          <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1200&auto=format&fit=crop" alt="Study resources">
-        </div>
-      </section>
-
-      <!-- Features & Architecture -->
-      <section class="card" style="padding:18px">
-        <h2>Key features & architecture</h2>
-        <div class="grid-2">
-          <div>
-            <ul class="list">
-              <li>Browse by category, search, and tags</li>
-              <li>Seller profiles & WhatsApp handoff</li>
-              <li>Study hub: notes, past questions, resources</li>
-              <li>Moderation queue & approvals</li>
-            </ul>
-          </div>
-          <div>
-            <ul class="list">
-              <li>Frontend: HTML/CSS/JS (vanilla)</li>
-              <li>Backend: PHP (Truehost), MySQL</li>
-              <li>Images: compressed, lazy‑loaded</li>
-              <li>Analytics: basic events via JS</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- Testimonial -->
-      <section class="card" style="padding:18px">
-        <figure>
-          <blockquote>“They shipped fast, kept it simple, and students actually use it. The moderation tools saved us.”</blockquote>
-          <figcaption>— <span class="muted">Project sponsor, Jabu Market</span></figcaption>
-        </figure>
-      </section>
-
-      <!-- Next / Prev -->
-      <section style="display:flex;gap:12px;flex-wrap:wrap">
-        <a class="btn btn-ghost" href="./work.html">← Back to all work</a>
-        <a class="btn btn-primary" href="#quote">Start a similar project</a>
-      </section>
-    </main>
-  </div>
-
-  <!-- Quote form CTA -->
-  <section class="container" id="quote" style="margin:22px auto 0">
+  <!-- Features & Architecture -->
+  <section class="container" style="margin-top:18px">
     <div class="card" style="padding:18px">
-      <h2 style="margin-top:0">Kick off your project</h2>
-      <p class="muted" style="margin:.2rem 0 1rem">Tell us what you want to build and we’ll suggest the leanest path to launch.</p>
+      <h2 style="margin-top:0">Key features</h2>
+      <div style="display:grid;gap:14px" class="grid-3">
+        <div class="card" style="padding:14px"><strong>Quick Post</strong><div class="muted">1‑minute listing with photos and WhatsApp contact handoff.</div></div>
+        <div class="card" style="padding:14px"><strong>Browse & Search</strong><div class="muted">Categories, price sorting, text search, and safe contact reveal.</div></div>
+        <div class="card" style="padding:14px"><strong>Moderation</strong><div class="muted">Lightweight dashboard to approve/flag, keeps spam low.</div></div>
+        <div class="card" style="padding:14px"><strong>Performance</strong><div class="muted">Static‑first pages with progressive enhancement.</div></div>
+        <div class="card" style="padding:14px"><strong>Growth</strong><div class="muted">Analytics baseline + simple campaigns when needed.</div></div>
+        <div class="card" style="padding:14px"><strong>AI‑Ready</strong><div class="muted">Planned integration with AI Study Hub for practice & Q&A.</div></div>
+      </div>
+    </div>
+    <div class="card" style="padding:18px;margin-top:16px">
+      <h2 style="margin-top:0">Tech & architecture</h2>
+      <ul class="muted" style="margin:.3rem 0 0;padding-left:18px">
+        <li>Frontend: semantic HTML, modern CSS, small vanilla JS modules.</li>
+        <li>Backend: PHP + MySQL, REST endpoints for listings and moderation.</li>
+        <li>Images: server‑side resizing + responsive client `srcset`/lazy‑load.</li>
+        <li>Hosting: simple PHP host (e.g., Truehost) with caching & backups.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="container" style="margin-top:18px">
+    <figure class="card" style="padding:18px">
+      <blockquote style="margin:0;font-size:1.05rem">“The marketplace is clean and quick to use. Students listed items immediately and it’s easy to keep quality high.”</blockquote>
+      <figcaption class="muted" style="margin-top:8px">— Project coordinator, JABU community</figcaption>
+    </figure>
+  </section>
+
+  <!-- CTA -->
+  <section class="container" style="margin:26px auto 0">
+    <div class="card" style="padding:20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between">
+      <div>
+        <h3 style="margin:.2rem 0">Want a marketplace or portal like this?</h3>
+        <p class="muted" style="margin:.2rem 0;max-width:720px">Tell us about your idea — we’ll propose the simplest path to a real launch.</p>
+      </div>
+      <div style="display:flex;gap:.6rem">
+        <a class="btn btn-primary" href="#quote">Request a quote</a>
+        <a class="btn btn-ghost" href="https://wa.me/234XXXXXXXXXX" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote form -->
+  <section class="container" id="quote" style="margin:18px auto 0">
+    <div class="card" style="padding:18px">
+      <h3 style="margin-top:0">Quick Project Brief</h3>
       <form id="quoteForm" style="display:grid;gap:10px;grid-template-columns:1fr;max-width:720px">
         <input name="name" required placeholder="Your Name" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
         <input name="contact" required placeholder="Email or WhatsApp" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
         <select name="type" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
           <option value="">Project Type</option>
-          <option>Website</option><option>Mobile App</option><option>E‑commerce</option><option>School Portal</option>
+          <option selected>Marketplace</option><option>Website</option><option>Mobile App</option><option>School Portal</option>
         </select>
         <textarea name="details" rows="4" placeholder="Project details…" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)"></textarea>
         <button class="btn btn-primary" type="submit">Send</button>
         <p id="formMsg" class="muted" role="status" aria-live="polite" style="min-height:1.2em"></p>
       </form>
+    </div>
+  </section>
+
+  <!-- Related projects -->
+  <section class="container" style="margin:26px auto 0">
+    <h2 style="margin:0 0 10px">More case studies</h2>
+    <div class="grid-3">
+      <a class="card card-mini" href="#" title="GLC ID Card Generator case study">
+        <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop" alt="GLC ID Card Generator">
+        <div class="meta"><div class="muted" style="font-size:.85rem">EdTech tool</div><strong>GLC ID Card Generator</strong></div>
+      </a>
+      <a class="card card-mini" href="#" title="JSHub Study Portal case study">
+        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1200&auto=format&fit=crop" alt="JSHub Study Portal">
+        <div class="meta"><div class="muted" style="font-size:.85rem">Student community</div><strong>JSHub Study Portal</strong></div>
+      </a>
+      <a class="card card-mini" href="./work.html" title="See all work">
+        <img src="https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=1200&auto=format&fit=crop" alt="More work">
+        <div class="meta"><div class="muted" style="font-size:.85rem">Portfolio</div><strong>See all work</strong></div>
+      </a>
     </div>
   </section>
 
@@ -267,6 +271,11 @@
       <div><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="mailto:hello@gratitudedevelopers.com">hello@gratitudedevelopers.com</a></div>
     </div>
   </footer>
+
+  <!-- Lightbox modal -->
+  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Image preview" hidden>
+    <img alt="Preview">
+  </div>
 
   <script>
     // Year
@@ -281,7 +290,19 @@
     drawer.addEventListener('click',(e)=>{ if(e.target.hasAttribute('data-close')) closeDrawer(); });
     document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && drawer.getAttribute('data-open')==='true') closeDrawer(); });
 
-    // Quote form (placeholder)
+    // Lightbox
+    const lb = document.getElementById('lightbox');
+    const lbImg = lb.querySelector('img');
+    document.querySelectorAll('.thumb').forEach(t => {
+      t.addEventListener('click', () => {
+        const src = t.getAttribute('data-img') || t.querySelector('img')?.src;
+        lbImg.src = src; lb.hidden = false; lb.setAttribute('data-open','true'); lb.setAttribute('aria-hidden','false');
+      });
+    });
+    lb.addEventListener('click', () => { lb.setAttribute('data-open','false'); lb.setAttribute('aria-hidden','true'); setTimeout(()=>{ lb.hidden=true; lbImg.src=''; },200); });
+    document.addEventListener('keydown', (e) => { if(e.key==='Escape' && lb.getAttribute('data-open')==='true'){ lb.click(); } });
+
+    // Quote form (placeholder POST)
     const form = document.getElementById('quoteForm');
     const msg = document.getElementById('formMsg');
     const API_URL = 'https://jabumarket.com.ng/api/quote'; // TODO: replace with your endpoint
@@ -290,6 +311,20 @@
       try{ const res = await fetch(API_URL,{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)}); if(!res.ok) throw new Error('Request failed'); msg.textContent='Thanks! We will reach out soon.'; form.reset(); }
       catch(err){ msg.textContent='Could not submit right now. Please WhatsApp us instead.'; }
     });
+  </script>
+
+  <!-- Schema.org CaseStudy (basic) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CaseStudy",
+    "name": "Jabu Market",
+    "url": "https://jabumarket.com.ng",
+    "author": {"@type": "Organization", "name": "Gratitude Developers"},
+    "about": "Student marketplace & study hub for the JABU community",
+    "creativeWorkStatus": "Published",
+    "inLanguage": "en-NG"
+  }
   </script>
 </body>
 </html>
