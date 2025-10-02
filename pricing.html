@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <title>Pricing — Gratitude Developers</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Transparent pricing for websites, apps, e‑commerce, and school portals. Pick a package or use the estimator to price your project." />
+  <meta name="description" content="Transparent pricing for websites, apps, e‑commerce, and school portals. Simple tiers with clear deliverables and optional Care plans." />
   <link rel="preconnect" href="https://images.unsplash.com">
   <style>
     :root{ --bg:#0b0f14; --panel:#0f1720; --ink:#e6e7eb; --muted:#a9b0bb; --line:rgba(255,255,255,.08); --accent:#f97316; --accent-2:#fb7185; --accent-3:#8b5cf6; --radius:16px; --shadow:0 8px 30px rgba(0,0,0,.25); --space:clamp(16px,3vw,24px) }
@@ -36,27 +36,21 @@
     .hero{padding:56px 0 24px}
     .crumbs{font-size:.9rem} .crumbs a{color:#ffd7bf}
     .hero h1{font-size:clamp(1.6rem,4vw,2.6rem);margin:.4rem 0}
+    .toggle{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:6px}
+    .toggle button{border:0;background:transparent;color:var(--ink);padding:.45rem .75rem;border-radius:999px}
+    .toggle button[data-active="true"]{background:rgba(249,115,22,.18)}
 
     /* Plans */
-    .plans{display:grid;gap:16px;margin-top:12px}
-    .plan{padding:18px}
-    .plan h3{margin:.2rem 0}
-    .price{font-weight:800;font-size:1.4rem}
-    .ul{margin:0;padding-left:18px}
-    .tag{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--line);border-radius:999px;padding:.25rem .55rem;font-size:.75rem;color:#ffd7bf}
+    .plans{display:grid;gap:16px;margin-top:18px}
+    .plan{display:flex;flex-direction:column;gap:10px;padding:18px}
+    .price{font-size:2rem;font-weight:800}
+    .ribbon{display:inline-block;background:linear-gradient(90deg, rgba(249,115,22,.25), rgba(251,113,133,.22));border:1px solid var(--line);padding:.25rem .6rem;border-radius:999px;font-size:.8rem}
+    .list{margin:0;padding-left:18px}
 
     /* Comparison table */
-    .table{overflow:auto;border:1px solid var(--line);border-radius:16px}
-    table{width:100%;border-collapse:collapse;min-width:720px}
-    th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left}
-    th{font-weight:700}
-
-    /* Estimator */
-    .est{display:grid;gap:14px}
-    .row{display:grid;gap:8px}
-    .row label{display:flex;align-items:center;justify-content:space-between;gap:10px}
-    .row input[type="range"]{width:100%}
-    .est .total{font-size:1.6rem;font-weight:800}
+    .table{width:100%;border-collapse:collapse;margin-top:18px}
+    .table th,.table td{border-bottom:1px solid var(--line);padding:12px;text-align:left}
+    .table th{font-weight:700}
 
     /* FAQ */
     details{border:1px solid var(--line);border-radius:12px;padding:12px;background:rgba(255,255,255,.04)} summary{cursor:pointer;font-weight:600}
@@ -64,7 +58,8 @@
     /* Footer */
     footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.95rem;margin-top:24px}
 
-    @media (min-width:720px){ .menu{display:flex} .actions{display:flex} .burger{display:none} .plans{grid-template-columns:repeat(3,1fr)} .est{grid-template-columns:1fr 1fr} .nav{height:72px} }
+    @media (min-width:720px){ .menu{display:flex} .actions{display:flex} .burger{display:none} .plans{grid-template-columns:repeat(3,1fr)} }
+    @media (min-width:1024px){ .nav{height:72px} }
     @media (prefers-reduced-motion: reduce){ .drawer,.drawer .panel{transition:none} }
   </style>
 </head>
@@ -103,108 +98,127 @@
   <section class="hero">
     <div class="container">
       <nav class="crumbs" aria-label="Breadcrumbs"><a href="./index.html">Home</a> · <span class="muted">Pricing</span></nav>
-      <h1>Simple, transparent pricing</h1>
-      <p class="muted" style="max-width:720px">Pick a package or use the estimator to size your project. Every build includes performance basics, accessibility, and analytics setup.</p>
-    </div>
-  </section>
+      <h1>Transparent pricing</h1>
+      <p class="muted" style="max-width:720px">Start small, grow smart. Pick a tier that fits today—upgrade anytime. All plans include basic SEO, performance budget, and analytics setup.</p>
 
-  <!-- Plans -->
-  <section class="container plans">
-    <div class="card plan">
-      <div class="tag">Best for getting online</div>
-      <h3>Starter Website</h3>
-      <div class="price">From ₦ 250k</div>
-      <ul class="ul muted">
-        <li>1–5 pages, responsive design</li>
-        <li>Contact form, basic SEO</li>
-        <li>Analytics setup</li>
-      </ul>
-      <div style="margin-top:10px;display:flex;gap:.6rem"><a class="btn btn-primary" href="#quote">Get started</a><a class="btn btn-ghost" href="./services.html#websites">See details</a></div>
-    </div>
-    <div class="card plan">
-      <div class="tag">Most popular</div>
-      <h3>Business Website</h3>
-      <div class="price">From ₦ 600k</div>
-      <ul class="ul muted">
-        <li>5–10 pages, CMS</li>
-        <li>Blog/news, lead forms</li>
-        <li>On‑page SEO, analytics</li>
-      </ul>
-      <div style="margin-top:10px;display:flex;gap:.6rem"><a class="btn btn-primary" href="#quote">Start scope</a><a class="btn btn-ghost" href="./services.html#websites">See details</a></div>
-    </div>
-    <div class="card plan">
-      <div class="tag">Custom build</div>
-      <h3>E‑commerce / Portal</h3>
-      <div class="price">Custom</div>
-      <ul class="ul muted">
-        <li>Catalog, checkout or student portal</li>
-        <li>Auth, roles, dashboards</li>
-        <li>Reports + growth analytics</li>
-      </ul>
-      <div style="margin-top:10px;display:flex;gap:.6rem"><a class="btn btn-primary" href="#quote">Request quote</a><a class="btn btn-ghost" href="./services.html#ecommerce">See details</a></div>
-    </div>
-  </section>
-
-  <!-- Comparison -->
-  <section class="container" style="margin-top:18px">
-    <div class="card" style="padding:18px">
-      <h2 style="margin:0 0 8px">What’s included</h2>
-      <div class="table">
-        <table aria-label="Plan comparison">
-          <thead>
-            <tr>
-              <th>Feature</th>
-              <th>Starter</th>
-              <th>Business</th>
-              <th>E‑commerce/Portal</th>
-            </tr>
-          </thead>
-          <tbody class="muted">
-            <tr><td>Responsive design</td><td>✔︎</td><td>✔︎</td><td>✔︎</td></tr>
-            <tr><td>Pages</td><td>1–5</td><td>5–10</td><td>Unlimited</td></tr>
-            <tr><td>CMS</td><td>—</td><td>✔︎</td><td>✔︎</td></tr>
-            <tr><td>Contact/Lead forms</td><td>✔︎</td><td>✔︎ + workflows</td><td>✔︎ + roles</td></tr>
-            <tr><td>Checkout / Portal modules</td><td>—</td><td>—</td><td>✔︎</td></tr>
-            <tr><td>Analytics + on‑page SEO</td><td>✔︎</td><td>✔︎</td><td>✔︎</td></tr>
-            <tr><td>Performance budget</td><td>✔︎</td><td>✔︎</td><td>✔︎</td></tr>
-            <tr><td>Post‑launch Care plan</td><td>Optional</td><td>Optional</td><td>Recommended</td></tr>
-          </tbody>
-        </table>
+      <div class="toggle" role="tablist" aria-label="Billing period">
+        <button id="bill-monthly" role="tab" aria-controls="plans" aria-selected="true" data-active="true">Monthly</button>
+        <button id="bill-yearly" role="tab" aria-controls="plans" aria-selected="false">Yearly <span class="ribbon">Save 15%</span></button>
       </div>
     </div>
   </section>
 
-  <!-- Estimator -->
-  <section class="container" style="margin-top:18px">
-    <div class="card" style="padding:18px">
-      <h2 style="margin:0 0 8px">Project estimator (rough)</h2>
-      <p class="muted" style="margin:0 0 8px">Use the sliders and toggles to get a ballpark. We’ll confirm exact scope on a quick call.</p>
-      <div class="est">
-        <div class="row">
-          <label>Pages <span id="pagesVal">5</span></label>
-          <input id="pages" type="range" min="1" max="20" value="5">
+  <!-- Plans -->
+  <section>
+    <div class="container plans" id="plans">
+      <!-- Starter Website -->
+      <div class="card plan" data-plan="starter">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+          <h3 style="margin:0">Starter Website</h3>
+          <span class="ribbon">Best for quick launch</span>
         </div>
-        <div class="row">
-          <label>CMS <input id="cms" type="checkbox"></label>
+        <div class="price" data-price-monthly>₦  —</div>
+        <div class="price" data-price-yearly style="display:none">₦  —</div>
+        <p class="muted">1–3 pages, contact form, basic SEO</p>
+        <ul class="list">
+          <li>Responsive design</li>
+          <li>Performance & accessibility basics</li>
+          <li>Contact form integration</li>
+          <li>Analytics setup</li>
+        </ul>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap"><a class="btn btn-primary" href="#quote">Start with Starter</a><a class="btn btn-ghost" href="#compare">Compare</a></div>
+      </div>
+
+      <!-- Business Website -->
+      <div class="card plan" data-plan="business">
+        <h3 style="margin:0">Business Website</h3>
+        <div class="price" data-price-monthly>₦  —</div>
+        <div class="price" data-price-yearly style="display:none">₦  —</div>
+        <p class="muted">5–10 pages, CMS, analytics deep‑dive</p>
+        <ul class="list">
+          <li>CMS (manage pages & blog)</li>
+          <li>On‑page SEO checklist</li>
+          <li>Events & funnel analytics</li>
+          <li>2 rounds of design polish</li>
+        </ul>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap"><a class="btn btn-primary" href="#quote">Choose Business</a><a class="btn btn-ghost" href="#compare">Compare</a></div>
+      </div>
+
+      <!-- E‑commerce / Portal -->
+      <div class="card plan" data-plan="portal">
+        <h3 style="margin:0">E‑commerce / School Portal</h3>
+        <div class="price" data-price-monthly>Custom</div>
+        <div class="price" data-price-yearly style="display:none">Custom</div>
+        <p class="muted">Checkout or campus portal with approvals</p>
+        <ul class="list">
+          <li>Catalog, cart, checkout / IDs & results</li>
+          <li>Payments & notifications</li>
+          <li>Role‑based access & moderation</li>
+          <li>Launch & growth support</li>
+        </ul>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap"><a class="btn btn-primary" href="#quote">Discuss scope</a><a class="btn btn-ghost" href="#compare">Compare</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison -->
+  <section id="compare" style="margin-top:10px">
+    <div class="container">
+      <div class="card" style="padding:18px">
+        <h2 style="margin-top:0">Feature comparison</h2>
+        <div style="overflow:auto">
+          <table class="table" aria-label="Feature comparison table">
+            <thead>
+              <tr>
+                <th>Features</th>
+                <th>Starter</th>
+                <th>Business</th>
+                <th>E‑commerce / Portal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Pages</td><td>1–3</td><td>5–10</td><td>Dynamic</td></tr>
+              <tr><td>CMS</td><td>—</td><td>✓</td><td>✓</td></tr>
+              <tr><td>SEO basics</td><td>✓</td><td>✓</td><td>✓</td></tr>
+              <tr><td>Analytics</td><td>✓</td><td>Events & funnels</td><td>Custom dashboards</td></tr>
+              <tr><td>Payments</td><td>—</td><td>—</td><td>✓</td></tr>
+              <tr><td>Role‑based access</td><td>—</td><td>—</td><td>✓</td></tr>
+              <tr><td>Moderation tools</td><td>—</td><td>—</td><td>✓</td></tr>
+              <tr><td>Support</td><td>Email</td><td>Priority</td><td>Priority + SLA</td></tr>
+            </tbody>
+          </table>
         </div>
-        <div class="row">
-          <label>E‑commerce / Portal <input id="portal" type="checkbox"></label>
-        </div>
-        <div class="row">
-          <label>Custom design (UI kit) <input id="design" type="checkbox"></label>
-        </div>
-        <div class="row">
-          <label>Admin dashboard <input id="admin" type="checkbox"></label>
-        </div>
-        <div class="row">
-          <label>Care plan (monthly) <input id="care" type="checkbox"></label>
-        </div>
-        <div class="row">
-          <div class="total">Estimated: <span id="total">₦ 600,000</span></div>
-          <div class="muted">This is a rough estimate. Share your brief and we’ll send a fixed quote.</div>
-          <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:8px">
-            <a class="btn btn-primary" href="#quote">Send my brief</a>
-            <a class="btn btn-ghost" href="https://wa.me/234XXXXXXXXXX" target="_blank" rel="noopener">Chat on WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Care Plans -->
+  <section style="margin-top:10px">
+    <div class="container">
+      <div class="card" style="padding:18px">
+        <h2 style="margin-top:0">Care & Maintenance</h2>
+        <p class="muted" style="max-width:720px">Keep your site/app healthy with updates, backups, monitoring, and small improvements. Cancel anytime.</p>
+        <div class="container plans" style="padding:0">
+          <div class="card plan" style="margin:0">
+            <h3 style="margin:0">Care — Lite</h3>
+            <div class="price" data-price-monthly>₦  — / mo</div>
+            <div class="price" data-price-yearly style="display:none">₦  — / mo (billed yearly)</div>
+            <ul class="list"><li>Security updates & backups</li><li>Uptime monitoring</li><li>1 hour dev time</li></ul>
+            <a class="btn btn-primary" href="#quote">Pick Lite</a>
+          </div>
+          <div class="card plan" style="margin:0">
+            <h3 style="margin:0">Care — Standard</h3>
+            <div class="price" data-price-monthly>₦  — / mo</div>
+            <div class="price" data-price-yearly style="display:none">₦  — / mo (billed yearly)</div>
+            <ul class="list"><li>Everything in Lite</li><li>3 hours dev time</li><li>Monthly report</li></ul>
+            <a class="btn btn-primary" href="#quote">Pick Standard</a>
+          </div>
+          <div class="card plan" style="margin:0">
+            <h3 style="margin:0">Care — Pro</h3>
+            <div class="price" data-price-monthly>₦  — / mo</div>
+            <div class="price" data-price-yearly style="display:none">₦  — / mo (billed yearly)</div>
+            <ul class="list"><li>Everything in Standard</li><li>6 hours dev time</li><li>Quarterly roadmap</li></ul>
+            <a class="btn btn-primary" href="#quote">Pick Pro</a>
           </div>
         </div>
       </div>
@@ -212,17 +226,21 @@
   </section>
 
   <!-- FAQs -->
-  <section class="container" style="margin-top:18px">
-    <h2 style="margin:0 0 10px">FAQs</h2>
-    <div style="display:grid;gap:12px">
-      <details><summary>What’s the payment structure?</summary><p class="muted">Typically 60% to start, 40% at launch for fixed‑scope projects. Larger portals may use milestones.</p></details>
-      <details><summary>Can you work with my host (Truehost, etc.)?</summary><p class="muted">Yes. We can deploy to your preferred host and connect your domain and email.</p></details>
-      <details><summary>How long does a website take?</summary><p class="muted">Starter sites are ~2 weeks. Business sites 3–5 weeks. Portals depend on scope.</p></details>
-      <details><summary>Do you provide ongoing maintenance?</summary><p class="muted">Yes — optional Care plans for updates, backups, monitoring, and small monthly improvements.</p></details>
+  <section style="margin-top:10px">
+    <div class="container">
+      <div class="card" style="padding:18px">
+        <h2 style="margin-top:0">FAQs</h2>
+        <div style="display:grid;gap:12px;margin-top:12px">
+          <details><summary>What’s included in the price?</summary><p class="muted">Design, development, basic SEO and analytics setup, and coordination to launch. Hosting/domain are billed separately, or we can help set them up on your preferred provider (e.g., Truehost, Vercel).</p></details>
+          <details><summary>Can we add features later?</summary><p class="muted">Yes. Start with the smallest scope that delivers value, then iterate. You can upgrade tiers or add Care time as needed.</p></details>
+          <details><summary>How are payments structured?</summary><p class="muted">Typically 50% to start, 25% mid‑project, 25% on launch. Care plans are prepaid monthly or yearly.</p></details>
+          <details><summary>Do you offer refunds?</summary><p class="muted">If something isn’t working, we’ll make it right. For prepaid Care time that isn’t used, we can roll it forward or credit it.</p></details>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Quote form -->
+  <!-- Quote -->
   <section class="container" id="quote" style="margin:18px auto 0">
     <div class="card" style="padding:18px">
       <h3 style="margin-top:0">Quick Project Brief</h3>
@@ -234,7 +252,6 @@
           <option>Website</option><option>Mobile App</option><option>E‑commerce</option><option>School Portal</option>
         </select>
         <textarea name="details" rows="4" placeholder="Project details…" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)"></textarea>
-        <input type="hidden" name="estimate" id="estimateField" value="">
         <button class="btn btn-primary" type="submit">Send</button>
         <p id="formMsg" class="muted" role="status" aria-live="polite" style="min-height:1.2em"></p>
       </form>
@@ -262,47 +279,29 @@
     drawer.addEventListener('click',(e)=>{ if(e.target.hasAttribute('data-close')) closeDrawer(); });
     document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && drawer.getAttribute('data-open')==='true') closeDrawer(); });
 
-    // ==== Estimator logic (very rough model; adjust multipliers to taste) ====
-    const pages = document.getElementById('pages');
-    const pagesVal = document.getElementById('pagesVal');
-    const cms = document.getElementById('cms');
-    const portal = document.getElementById('portal');
-    const design = document.getElementById('design');
-    const admin = document.getElementById('admin');
-    const care = document.getElementById('care');
-    const total = document.getElementById('total');
-    const estimateField = document.getElementById('estimateField');
+    // Billing toggle
+    const btnMonthly = document.getElementById('bill-monthly');
+    const btnYearly = document.getElementById('bill-yearly');
+    const showPeriod = (period) => {
+      document.querySelectorAll('[data-price-monthly]').forEach(el => el.style.display = period==='monthly' ? '' : 'none');
+      document.querySelectorAll('[data-price-yearly]').forEach(el => el.style.display = period==='yearly' ? '' : 'none');
+      btnMonthly.dataset.active = (period==='monthly');
+      btnYearly.dataset.active = (period==='yearly');
+      btnMonthly.setAttribute('aria-selected', period==='monthly');
+      btnYearly.setAttribute('aria-selected', period==='yearly');
+    };
+    btnMonthly.addEventListener('click', ()=> showPeriod('monthly'));
+    btnYearly.addEventListener('click', ()=> showPeriod('yearly'));
 
-    function fmt(n){ return new Intl.NumberFormat('en-NG',{ style:'currency', currency:'NGN', maximumFractionDigits:0 }).format(n); }
-
-    function calc(){
-      const basePerPage = 80000; // ₦80k per page baseline
-      const base = Math.max(1, +pages.value) * basePerPage;
-      const cmsCost = cms.checked ? 250000 : 0;
-      const portalCost = portal.checked ? 600000 : 0; // ecommerce/portal module
-      const designCost = design.checked ? 200000 : 0;
-      const adminCost = admin.checked ? 250000 : 0;
-      const careCost = care.checked ? 50000 : 0; // monthly, shown for info
-      const subtotal = base + cmsCost + portalCost + designCost + adminCost;
-      const contingency = Math.ceil(subtotal * 0.1); // 10% buffer
-      const estimate = subtotal + contingency;
-      pagesVal.textContent = pages.value;
-      total.textContent = fmt(estimate) + (care.checked ? ` + ₦${(careCost).toLocaleString()} / mo` : '');
-      estimateField.value = `Pages:${pages.value}, CMS:${cms.checked}, Portal:${portal.checked}, DesignKit:${design.checked}, Admin:${admin.checked}, CareMonthly:${care.checked ? careCost : 0}, Estimate:${estimate}`;
-    }
-
-    [pages,cms,portal,design,admin,care].forEach(el=> el.addEventListener('input', calc));
-    calc();
-
-    // Quote form (placeholder POST)
+    // Quote (placeholder)
     const form = document.getElementById('quoteForm');
     const msg = document.getElementById('formMsg');
     const API_URL = 'https://jabumarket.com.ng/api/quote'; // TODO: replace with your endpoint
     form.addEventListener('submit', async (e)=>{
       e.preventDefault(); msg.textContent='Sending…'; const data = Object.fromEntries(new FormData(form).entries());
-      try{ const res = await fetch(API_URL,{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)}); if(!res.ok) throw new Error('Request failed'); msg.textContent='Thanks! We will reach out soon.'; form.reset(); calc(); }
+      try{ const res = await fetch(API_URL,{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)}); if(!res.ok) throw new Error('Request failed'); msg.textContent='Thanks! We will reach out soon.'; form.reset(); }
       catch(err){ msg.textContent='Could not submit right now. Please WhatsApp us instead.'; }
     });
   </script>
 </body>
-  </html>
+</html>
