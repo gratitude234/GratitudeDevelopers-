@@ -9,114 +9,165 @@
   <style>
     :root{
       --bg:#0b0f14; --panel:#0f1720; --ink:#e6e7eb; --muted:#a9b0bb;
-      --line:rgba(255,255,255,.08); --accent:#f97316; --accent-2:#fb7185; --accent-3:#8b5cf6;
+      --line:rgba(255,255,255,.08);
+      --accent:#f97316; --accent-2:#fb7185; --accent-3:#8b5cf6;
       --radius:16px; --shadow:0 8px 30px rgba(0,0,0,.25);
+      --space:clamp(16px, 3vw, 24px);
     }
-    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
-    .container{max-width:1200px;margin:0 auto;padding:0 16px}
-    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 1.1rem;border-radius:12px;font-weight:600}
+    .container{max-width:1200px;margin:0 auto;padding:0 var(--space)}
+    .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1rem;border-radius:12px;font-weight:600;line-height:1}
     .btn-primary{background:var(--accent);color:#0b0f14}
     .btn-primary:hover{filter:brightness(1.05)}
     .btn-ghost{border:1px solid var(--line);background:transparent}
     .btn-ghost:hover{background:rgba(255,255,255,.05)}
     .chip{display:inline-flex;align-items:center;gap:.45rem;border:1px solid var(--line);background:rgba(255,255,255,.05);padding:.35rem .6rem;border-radius:999px;color:#ffd7bf;font-size:.78rem}
-    .badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:999px;background:#f97316; color:#0b0f14;font-weight:700}
+    .badge{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:999px;background:#f97316;color:#0b0f14;font-weight:700}
     .card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px;padding:18px}
     .section{padding:64px 0}
-    .section h2{font-size:clamp(1.4rem,2.5vw,2rem);margin:0}
+    .section h2{font-size:clamp(1.35rem,2.5vw,2rem);margin:0}
     .muted{color:var(--muted)}
-    /* NAV */
-    header{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);backdrop-filter:blur(10px);background:rgba(11,15,20,.6)}
-    .nav{height:64px;display:flex;align-items:center;justify-content:space-between}
+    .grid-3{display:grid;gap:16px}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px;max-width:560px}
+    .kpis .card{text-align:center}
+    .kpis dt{font-size:1.4rem;font-weight:800}
+    .kpis dd{margin:4px 0 0;font-size:.78rem;color:var(--muted)}
+
+    /* ===== Sticky, responsive header ===== */
+    header{
+      position:sticky;top:0;z-index:60;
+      border-bottom:1px solid var(--line);
+      backdrop-filter:blur(10px);
+      background:rgba(11,15,20,.65);
+    }
+    .nav{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
     .brand{display:flex;align-items:center;gap:.6rem;font-weight:700}
     .logo{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:12px;
-      background:conic-gradient(from 180deg at 50% 50%, var(--accent), var(--accent-2), var(--accent-3));box-shadow:0 10px 30px rgba(249,115,22,.3)}
-    .menu{display:none;gap:1.2rem;font-size:.95rem}
-    .menu a{opacity:.9} .menu a:hover{opacity:1}
-    .burger{display:inline-flex;flex-direction:column;gap:4px}
-    .burger span{width:22px;height:2px;background:var(--ink);opacity:.8}
-    /* HERO */
+      background:conic-gradient(from 180deg at 50% 50%, var(--accent), var(--accent-2), var(--accent-3));
+      box-shadow:0 10px 30px rgba(249,115,22,.3)}
+    .menu{display:none;gap:1.2rem;font-size:.95rem;align-items:center}
+    .menu a{opacity:.92} .menu a:hover{opacity:1}
+    .actions{display:none;gap:.6rem}
+    .burger{display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;padding:6px}
+    .burger span{width:22px;height:2px;background:var(--ink);opacity:.9;border-radius:2px}
+
+    /* Mobile drawer */
+    .drawer{position:fixed;inset:0;z-index:70;display:grid;grid-template-columns:1fr;transition:opacity .2s;opacity:0;pointer-events:none}
+    .drawer[data-open="true"]{opacity:1;pointer-events:auto}
+    .drawer .backdrop{background:rgba(0,0,0,.45);grid-column:1}
+    .drawer .panel{
+      background:var(--panel);width:min(86%, 320px);margin-left:auto;height:100%;
+      border-left:1px solid var(--line);padding:18px var(--space);
+      transform:translateX(100%);transition:transform .25s;
+      display:flex;flex-direction:column;gap:14px
+    }
+    .drawer[data-open="true"] .panel{transform:translateX(0)}
+    .drawer .panel a{padding:.8rem 0;border-bottom:1px solid var(--line)}
+    .drawer .panel a:last-child{border-bottom:0}
+
+    .no-scroll{overflow:hidden}
+
+    /* ===== HERO ===== */
     .hero{position:relative;overflow:hidden;padding:72px 0}
-    .blur-a,.blur-b{position:absolute;inset:auto;filter:blur(80px);z-index:-1;opacity:.8}
+    .blur-a,.blur-b{position:absolute;filter:blur(80px);z-index:-1;opacity:.85}
     .blur-a{top:-140px;right:10%;width:520px;height:520px;background:radial-gradient(closest-side, rgba(249,115,22,.25), transparent)}
     .blur-b{bottom:-160px;left:15%;width:560px;height:560px;background:radial-gradient(closest-side, rgba(139,92,246,.18), transparent)}
-    .hero-grid{display:grid;gap:28px}
+    .hero-grid{display:grid;gap:24px}
     .hero h1{font-size:clamp(1.8rem,4.8vw,3.2rem);line-height:1.1;margin:.4rem 0}
-    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px;max-width:540px}
-    .kpis .card{text-align:center}
-    .kpis dt{font-size:1.5rem;font-weight:800}
-    .kpis dd{margin:4px 0 0;font-size:.78rem;color:var(--muted)}
-    /* GRIDS */
-    .grid-3{display:grid;gap:16px}
-    /* PROCESS */
+
+    /* ===== PROCESS / TESTIMONIALS ===== */
     .steps{display:grid;gap:14px}
     .steps .card{display:flex;gap:12px}
-    /* TESTIMONIALS */
     .quotes{display:grid;gap:16px}
     blockquote{margin:0;font-size:.98rem}
     figcaption{margin-top:8px;color:var(--muted);font-size:.9rem}
-    /* CTA band */
-    .cta{position:relative;overflow:hidden;border-radius:20px;background:linear-gradient(90deg, rgba(249,115,22,.15), rgba(251,113,133,.12), rgba(139,92,246,.12));border:1px solid var(--line)}
-    .cta::before,.cta::after{content:\"\";position:absolute;filter:blur(70px);border-radius:999px}
+
+    /* ===== CTA band ===== */
+    .cta{position:relative;overflow:hidden;border-radius:20px;
+      background:linear-gradient(90deg, rgba(249,115,22,.15), rgba(251,113,133,.12), rgba(139,92,246,.12));
+      border:1px solid var(--line)}
+    .cta::before,.cta::after{content:"";position:absolute;filter:blur(70px);border-radius:999px}
     .cta::before{width:260px;height:260px;background:rgba(249,115,22,.25);right:-80px;top:-80px}
     .cta::after{width:260px;height:260px;background:rgba(251,113,133,.22);left:-80px;bottom:-80px}
-    /* FOOTER */
+
+    /* ===== FOOTER ===== */
     footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.95rem}
-    /* RESPONSIVE */
+
+    /* ===== RESPONSIVE BREAKPOINTS ===== */
     @media (min-width:720px){
       .menu{display:flex}
+      .actions{display:flex}
       .burger{display:none}
       .hero-grid{grid-template-columns:1.2fr 1fr;align-items:center}
       .grid-3{grid-template-columns:repeat(3,1fr)}
       .steps{grid-template-columns:repeat(5,1fr)}
       .quotes{grid-template-columns:repeat(3,1fr)}
     }
+    @media (min-width:1024px){
+      .nav{height:72px}
+    }
   </style>
 </head>
 <body>
-  <!-- NAV -->
+  <!-- ===== HEADER ===== -->
   <header>
     <div class="container nav">
-      <a class="brand" href="#top">
+      <a class="brand" href="#top" aria-label="Go to top">
         <span class="logo">GD</span>
         <span>Gratitude Developers</span>
       </a>
-      <nav class="menu">
+
+      <nav class="menu" aria-label="Primary">
         <a href="#services">Services</a>
         <a href="#work">Work</a>
         <a href="#process">Process</a>
         <a href="#pricing">Pricing</a>
         <a href="#contact">Contact</a>
       </nav>
-      <div class="actions" style="display:flex;gap:.6rem">
+
+      <div class="actions">
         <a class="btn btn-ghost" href="#quote">Get Quote</a>
         <a class="btn btn-primary" href="#start">Start a Project</a>
       </div>
-      <button id="openNav" class="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+
+      <button id="navToggle" class="burger" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
-  <!-- MOBILE NAV (tiny JS toggled) -->
-  <div id="mobileNav" class="container" style="display:none">
-    <div class="card" style="margin:10px 0">
-      <a href="#services">Services</a> ·
-      <a href="#work">Work</a> ·
-      <a href="#process">Process</a> ·
-      <a href="#pricing">Pricing</a> ·
-      <a href="#contact">Contact</a>
-    </div>
+  <!-- ===== MOBILE DRAWER ===== -->
+  <div id="mobileDrawer" class="drawer" data-open="false" hidden>
+    <div class="backdrop" data-close></div>
+    <aside class="panel" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+      <a href="#services" data-close>Services</a>
+      <a href="#work" data-close>Work</a>
+      <a href="#process" data-close>Process</a>
+      <a href="#pricing" data-close>Pricing</a>
+      <a href="#contact" data-close>Contact</a>
+      <div style="display:flex;gap:.6rem;margin-top:6px">
+        <a class="btn btn-ghost" href="#quote" data-close>Get Quote</a>
+        <a class="btn btn-primary" href="#start" data-close>Start a Project</a>
+      </div>
+      <button class="btn btn-ghost" data-close style="margin-top:10px">Close ✕</button>
+    </aside>
   </div>
 
-  <!-- HERO -->
+  <!-- ===== HERO ===== -->
   <section class="hero" id="top" aria-label="Hero">
     <div class="blur-a"></div><div class="blur-b"></div>
     <div class="container hero-grid">
       <div>
         <span class="chip"><span style="display:inline-block;width:6px;height:6px;border-radius:999px;background:#f59e0b"></span> We build Websites & Mobile Apps</span>
-        <h1>Ship polished <span style="background:linear-gradient(90deg,#f59e0b,#fb7185,#fde047);-webkit-background-clip:text;background-clip:text;color:transparent">digital products</span> that grow your business.</h1>
+        <h1>Ship polished
+          <span style="background:linear-gradient(90deg,#f59e0b,#fb7185,#fde047);-webkit-background-clip:text;background-clip:text;color:transparent">
+            digital products
+          </span>
+          that grow your business.</h1>
         <p class="muted" style="max-width:640px;margin-top:.6rem">
           Build quality first. We craft modern, fast websites and cross-platform apps — supported by analytics and light ads to spark traction.
         </p>
@@ -138,54 +189,29 @@
     </div>
   </section>
 
-  <!-- SERVICES -->
+  <!-- ===== SERVICES ===== -->
   <section class="section" id="services" aria-label="Services">
     <div class="container">
-      <div style="display:flex;align-items:end;justify-content:space-between;gap:12px">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap">
         <h2>What we build</h2>
         <a href="#" class="muted" style="font-size:.92rem">All services →</a>
       </div>
       <div class="grid-3" style="margin-top:18px">
-        <!-- Service Card -->
-        <div class="card">
-          <div class="badge">1</div>
-          <h3 style="margin:.6rem 0 0">Websites</h3>
-          <p class="muted">Fast, accessible, SEO-ready sites with modern stacks.</p>
-        </div>
-        <div class="card">
-          <div class="badge">2</div>
-          <h3 style="margin:.6rem 0 0">Mobile Apps</h3>
-          <p class="muted">Cross-platform apps from one clean codebase.</p>
-        </div>
-        <div class="card">
-          <div class="badge">3</div>
-          <h3 style="margin:.6rem 0 0">E-commerce</h3>
-          <p class="muted">Stores that convert — product, checkout, analytics.</p>
-        </div>
-        <div class="card">
-          <div class="badge">4</div>
-          <h3 style="margin:.6rem 0 0">School Portals</h3>
-          <p class="muted">Admissions, ID cards, results, Smart Practice.</p>
-        </div>
-        <div class="card">
-          <div class="badge">5</div>
-          <h3 style="margin:.6rem 0 0">UI/UX Design</h3>
-          <p class="muted">Wireframes, design systems, prototypes.</p>
-        </div>
-        <div class="card">
-          <div class="badge">6</div>
-          <h3 style="margin:.6rem 0 0">Care & Maintenance</h3>
-          <p class="muted">Updates, backups, uptime, small changes.</p>
-        </div>
+        <div class="card"><div class="badge">1</div><h3 style="margin:.6rem 0 0">Websites</h3><p class="muted">Fast, accessible, SEO-ready sites with modern stacks.</p></div>
+        <div class="card"><div class="badge">2</div><h3 style="margin:.6rem 0 0">Mobile Apps</h3><p class="muted">Cross-platform apps from one clean codebase.</p></div>
+        <div class="card"><div class="badge">3</div><h3 style="margin:.6rem 0 0">E-commerce</h3><p class="muted">Stores that convert — product, checkout, analytics.</p></div>
+        <div class="card"><div class="badge">4</div><h3 style="margin:.6rem 0 0">School Portals</h3><p class="muted">Admissions, ID cards, results, Smart Practice.</p></div>
+        <div class="card"><div class="badge">5</div><h3 style="margin:.6rem 0 0">UI/UX Design</h3><p class="muted">Wireframes, design systems, prototypes.</p></div>
+        <div class="card"><div class="badge">6</div><h3 style="margin:.6rem 0 0">Care & Maintenance</h3><p class="muted">Updates, backups, uptime, small changes.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- WORK -->
+  <!-- ===== WORK ===== -->
   <section class="section" id="work" aria-label="Work">
     <div class="container">
-      <div style="display:flex;align-items:end;justify-content:space-between;gap:12px">
-        <h2>Recent work</h2>
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <h2>Recent & upcoming work</h2>
         <a href="#" class="muted" style="font-size:.92rem">See all →</a>
       </div>
       <div class="grid-3" style="margin-top:18px">
@@ -201,11 +227,30 @@
           <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1400&auto=format&fit=crop" alt="JSHub Study Portal" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover">
           <div style="margin-top:10px"><div class="muted" style="font-size:.8rem">Student community</div><h3 style="margin:.2rem 0">JSHub Study Portal</h3></div>
         </a>
+        <!-- New: Jabu Market -->
+        <a class="card" href="https://jabumarket.com.ng" target="_blank" rel="noopener">
+          <img src="https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=1400&auto=format&fit=crop"
+               alt="Jabu Market — Student marketplace & study hub" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover">
+          <div style="margin-top:10px">
+            <div class="muted" style="font-size:.8rem">Student marketplace & study hub</div>
+            <h3 style="margin:.2rem 0">Jabu Market</h3>
+          </div>
+        </a>
+        <!-- New: AI Study Hub (Coming soon) -->
+        <div class="card">
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <h3 style="margin:0">AI Study Hub</h3>
+            <span class="chip">Coming soon</span>
+          </div>
+          <p class="muted" style="margin:.5rem 0 0">
+            AI-powered practice and explanations for students. Launching soon.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- PROCESS -->
+  <!-- ===== PROCESS ===== -->
   <section class="section" id="process" aria-label="Process">
     <div class="container">
       <h2>How we work</h2>
@@ -219,20 +264,32 @@
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="section" aria-label="Testimonials">
+  <!-- ===== PRICING (anchor target so header link isn’t dead) ===== -->
+  <section class="section" id="pricing" aria-label="Pricing">
     <div class="container">
-      <h2>Happy clients</h2>
-      <div class="quotes" style="margin-top:18px">
-        <figure class="card"><blockquote>“The ID system and portal are clean and reliable. Parents love it.”</blockquote><figcaption>— Joy, School Director</figcaption></figure>
-        <figure class="card"><blockquote>“They shipped a fast site that started bringing leads in week one.”</blockquote><figcaption>— Kunle, SME Owner</figcaption></figure>
-        <figure class="card"><blockquote>“Great communication, clear milestones, and a polished app.”</blockquote><figcaption>— Tobi, Product Lead</figcaption></figure>
+      <h2>Pricing</h2>
+      <div class="grid-3" style="margin-top:18px">
+        <div class="card">
+          <h3 style="margin:0 0 .2rem">Starter Website</h3>
+          <p class="muted">1–3 pages, contact, basic SEO.</p>
+          <div style="margin-top:.6rem;font-weight:800">From ₦ —</div>
+        </div>
+        <div class="card">
+          <h3 style="margin:0 0 .2rem">Business Website</h3>
+          <p class="muted">5–10 pages, CMS, analytics.</p>
+          <div style="margin-top:.6rem;font-weight:800">From ₦ —</div>
+        </div>
+        <div class="card">
+          <h3 style="margin:0 0 .2rem">E-commerce / Portal</h3>
+          <p class="muted">Checkout or student portal.</p>
+          <div style="margin-top:.6rem;font-weight:800">Custom</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="section" id="start">
+  <!-- ===== CTA ===== -->
+  <section class="section" id="start" aria-label="Get started">
     <div class="container">
       <div class="cta card" style="padding:22px">
         <h3 style="margin:0 0 .4rem">Ready to build something great?</h3>
@@ -245,7 +302,7 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ===== FOOTER ===== -->
   <footer id="contact">
     <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
       <div>© <span id="year"></span> Gratitude Developers. All rights reserved.</div>
@@ -253,16 +310,69 @@
     </div>
   </footer>
 
+  <!-- ===== OPTIONAL: QUOTE ANCHOR (simple placeholder form) ===== -->
+  <section class="section" id="quote" aria-label="Quote" style="padding-top:0">
+    <div class="container">
+      <div class="card">
+        <h3 style="margin-top:0">Quick Project Brief</h3>
+        <form onsubmit="event.preventDefault(); alert('Thanks! We will reach out.');">
+          <div style="display:grid;gap:10px;grid-template-columns:1fr;max-width:720px">
+            <input required placeholder="Your Name" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+            <input required type="email" placeholder="Email or WhatsApp" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+            <select style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+              <option value="">Project Type</option>
+              <option>Website</option>
+              <option>Mobile App</option>
+              <option>E-commerce</option>
+              <option>School Portal</option>
+            </select>
+            <textarea rows="4" placeholder="Tell us about your project…" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)"></textarea>
+            <button class="btn btn-primary" type="submit">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <script>
-    // Year
+    // Year stamp
     document.getElementById('year').textContent = new Date().getFullYear();
-    // Mobile nav toggle
-    const btn = document.getElementById('openNav');
-    const m = document.getElementById('mobileNav');
-    btn?.addEventListener('click', ()=> {
-      m.style.display = m.style.display === 'none' || m.style.display === '' ? 'block' : 'none';
+
+    // Mobile drawer logic (accessible)
+    const toggle = document.getElementById('navToggle');
+    const drawer = document.getElementById('mobileDrawer');
+    const closeEls = () => drawer.querySelectorAll('[data-close]');
+
+    function openDrawer(){
+      drawer.hidden = false;
+      drawer.setAttribute('data-open','true');
+      toggle.setAttribute('aria-expanded','true');
+      document.body.classList.add('no-scroll');
+      // focus first link
+      const firstLink = drawer.querySelector('a,button');
+      firstLink && firstLink.focus();
+    }
+    function closeDrawer(){
+      drawer.setAttribute('data-open','false');
+      toggle.setAttribute('aria-expanded','false');
+      document.body.classList.remove('no-scroll');
+      // wait for slide animation then hide for a11y / perf
+      setTimeout(()=>{ drawer.hidden = true; }, 250);
+      toggle.focus();
+    }
+
+    toggle.addEventListener('click', () => {
+      drawer.getAttribute('data-open') === 'true' ? closeDrawer() : openDrawer();
     });
+
+    // Close on backdrop, ESC, or link click
+    drawer.addEventListener('click', (e) => {
+      if (e.target.hasAttribute('data-close')) closeDrawer();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && drawer.getAttribute('data-open') === 'true') closeDrawer();
+    });
+    closeEls().forEach(el => el.addEventListener('click', closeDrawer));
   </script>
 </body>
 </html>
-
