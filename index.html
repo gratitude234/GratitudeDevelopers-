@@ -1,1 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Gratitude Developers — We build Websites & Mobile Apps</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Gratitude Developers crafts fast, modern websites and cross-platform apps. Build quality first, supported by analytics and light ads." />
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <style>
+    :root{
+      --bg:#0b0f14; --panel:#0f1720; --ink:#e6e7eb; --muted:#a9b0bb;
+      --line:rgba(255,255,255,.08); --accent:#f97316; --accent-2:#fb7185; --accent-3:#8b5cf6;
+      --radius:16px; --shadow:0 8px 30px rgba(0,0,0,.25);
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 16px}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 1.1rem;border-radius:12px;font-weight:600}
+    .btn-primary{background:var(--accent);color:#0b0f14}
+    .btn-primary:hover{filter:brightness(1.05)}
+    .btn-ghost{border:1px solid var(--line);background:transparent}
+    .btn-ghost:hover{background:rgba(255,255,255,.05)}
+    .chip{display:inline-flex;align-items:center;gap:.45rem;border:1px solid var(--line);background:rgba(255,255,255,.05);padding:.35rem .6rem;border-radius:999px;color:#ffd7bf;font-size:.78rem}
+    .badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:999px;background:#f97316; color:#0b0f14;font-weight:700}
+    .card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px;padding:18px}
+    .section{padding:64px 0}
+    .section h2{font-size:clamp(1.4rem,2.5vw,2rem);margin:0}
+    .muted{color:var(--muted)}
+    /* NAV */
+    header{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);backdrop-filter:blur(10px);background:rgba(11,15,20,.6)}
+    .nav{height:64px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:700}
+    .logo{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:12px;
+      background:conic-gradient(from 180deg at 50% 50%, var(--accent), var(--accent-2), var(--accent-3));box-shadow:0 10px 30px rgba(249,115,22,.3)}
+    .menu{display:none;gap:1.2rem;font-size:.95rem}
+    .menu a{opacity:.9} .menu a:hover{opacity:1}
+    .burger{display:inline-flex;flex-direction:column;gap:4px}
+    .burger span{width:22px;height:2px;background:var(--ink);opacity:.8}
+    /* HERO */
+    .hero{position:relative;overflow:hidden;padding:72px 0}
+    .blur-a,.blur-b{position:absolute;inset:auto;filter:blur(80px);z-index:-1;opacity:.8}
+    .blur-a{top:-140px;right:10%;width:520px;height:520px;background:radial-gradient(closest-side, rgba(249,115,22,.25), transparent)}
+    .blur-b{bottom:-160px;left:15%;width:560px;height:560px;background:radial-gradient(closest-side, rgba(139,92,246,.18), transparent)}
+    .hero-grid{display:grid;gap:28px}
+    .hero h1{font-size:clamp(1.8rem,4.8vw,3.2rem);line-height:1.1;margin:.4rem 0}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px;max-width:540px}
+    .kpis .card{text-align:center}
+    .kpis dt{font-size:1.5rem;font-weight:800}
+    .kpis dd{margin:4px 0 0;font-size:.78rem;color:var(--muted)}
+    /* GRIDS */
+    .grid-3{display:grid;gap:16px}
+    /* PROCESS */
+    .steps{display:grid;gap:14px}
+    .steps .card{display:flex;gap:12px}
+    /* TESTIMONIALS */
+    .quotes{display:grid;gap:16px}
+    blockquote{margin:0;font-size:.98rem}
+    figcaption{margin-top:8px;color:var(--muted);font-size:.9rem}
+    /* CTA band */
+    .cta{position:relative;overflow:hidden;border-radius:20px;background:linear-gradient(90deg, rgba(249,115,22,.15), rgba(251,113,133,.12), rgba(139,92,246,.12));border:1px solid var(--line)}
+    .cta::before,.cta::after{content:\"\";position:absolute;filter:blur(70px);border-radius:999px}
+    .cta::before{width:260px;height:260px;background:rgba(249,115,22,.25);right:-80px;top:-80px}
+    .cta::after{width:260px;height:260px;background:rgba(251,113,133,.22);left:-80px;bottom:-80px}
+    /* FOOTER */
+    footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.95rem}
+    /* RESPONSIVE */
+    @media (min-width:720px){
+      .menu{display:flex}
+      .burger{display:none}
+      .hero-grid{grid-template-columns:1.2fr 1fr;align-items:center}
+      .grid-3{grid-template-columns:repeat(3,1fr)}
+      .steps{grid-template-columns:repeat(5,1fr)}
+      .quotes{grid-template-columns:repeat(3,1fr)}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top">
+        <span class="logo">GD</span>
+        <span>Gratitude Developers</span>
+      </a>
+      <nav class="menu">
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#process">Process</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="actions" style="display:flex;gap:.6rem">
+        <a class="btn btn-ghost" href="#quote">Get Quote</a>
+        <a class="btn btn-primary" href="#start">Start a Project</a>
+      </div>
+      <button id="openNav" class="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV (tiny JS toggled) -->
+  <div id="mobileNav" class="container" style="display:none">
+    <div class="card" style="margin:10px 0">
+      <a href="#services">Services</a> ·
+      <a href="#work">Work</a> ·
+      <a href="#process">Process</a> ·
+      <a href="#pricing">Pricing</a> ·
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="top" aria-label="Hero">
+    <div class="blur-a"></div><div class="blur-b"></div>
+    <div class="container hero-grid">
+      <div>
+        <span class="chip"><span style="display:inline-block;width:6px;height:6px;border-radius:999px;background:#f59e0b"></span> We build Websites & Mobile Apps</span>
+        <h1>Ship polished <span style="background:linear-gradient(90deg,#f59e0b,#fb7185,#fde047);-webkit-background-clip:text;background-clip:text;color:transparent">digital products</span> that grow your business.</h1>
+        <p class="muted" style="max-width:640px;margin-top:.6rem">
+          Build quality first. We craft modern, fast websites and cross-platform apps — supported by analytics and light ads to spark traction.
+        </p>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:16px">
+          <a class="btn btn-primary" href="#start">Start a Project ▸</a>
+          <a class="btn btn-ghost" href="#work">See Work</a>
+        </div>
+        <dl class="kpis">
+          <div class="card"><dt>50+</dt><dd>projects shipped</dd></div>
+          <div class="card"><dt>Affordable</dt><dd>transparent pricing</dd></div>
+          <div class="card"><dt>5★</dt><dd>client satisfaction</dd></div>
+        </dl>
+      </div>
+      <div>
+        <div class="card" style="padding:10px;box-shadow:var(--shadow)">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop" alt="Product preview" style="border-radius:12px;aspect-ratio:4/3;object-fit:cover">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services" aria-label="Services">
+    <div class="container">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:12px">
+        <h2>What we build</h2>
+        <a href="#" class="muted" style="font-size:.92rem">All services →</a>
+      </div>
+      <div class="grid-3" style="margin-top:18px">
+        <!-- Service Card -->
+        <div class="card">
+          <div class="badge">1</div>
+          <h3 style="margin:.6rem 0 0">Websites</h3>
+          <p class="muted">Fast, accessible, SEO-ready sites with modern stacks.</p>
+        </div>
+        <div class="card">
+          <div class="badge">2</div>
+          <h3 style="margin:.6rem 0 0">Mobile Apps</h3>
+          <p class="muted">Cross-platform apps from one clean codebase.</p>
+        </div>
+        <div class="card">
+          <div class="badge">3</div>
+          <h3 style="margin:.6rem 0 0">E-commerce</h3>
+          <p class="muted">Stores that convert — product, checkout, analytics.</p>
+        </div>
+        <div class="card">
+          <div class="badge">4</div>
+          <h3 style="margin:.6rem 0 0">School Portals</h3>
+          <p class="muted">Admissions, ID cards, results, Smart Practice.</p>
+        </div>
+        <div class="card">
+          <div class="badge">5</div>
+          <h3 style="margin:.6rem 0 0">UI/UX Design</h3>
+          <p class="muted">Wireframes, design systems, prototypes.</p>
+        </div>
+        <div class="card">
+          <div class="badge">6</div>
+          <h3 style="margin:.6rem 0 0">Care & Maintenance</h3>
+          <p class="muted">Updates, backups, uptime, small changes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="section" id="work" aria-label="Work">
+    <div class="container">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:12px">
+        <h2>Recent work</h2>
+        <a href="#" class="muted" style="font-size:.92rem">See all →</a>
+      </div>
+      <div class="grid-3" style="margin-top:18px">
+        <a class="card" href="#">
+          <img src="https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=1400&auto=format&fit=crop" alt="Gabakssteel Construction" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover">
+          <div style="margin-top:10px"><div class="muted" style="font-size:.8rem">Corporate website</div><h3 style="margin:.2rem 0">Gabakssteel Construction</h3></div>
+        </a>
+        <a class="card" href="#">
+          <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1400&auto=format&fit=crop" alt="GLC ID Card Generator" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover">
+          <div style="margin-top:10px"><div class="muted" style="font-size:.8rem">EdTech tool</div><h3 style="margin:.2rem 0">GLC ID Card Generator</h3></div>
+        </a>
+        <a class="card" href="#">
+          <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1400&auto=format&fit=crop" alt="JSHub Study Portal" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover">
+          <div style="margin-top:10px"><div class="muted" style="font-size:.8rem">Student community</div><h3 style="margin:.2rem 0">JSHub Study Portal</h3></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section" id="process" aria-label="Process">
+    <div class="container">
+      <h2>How we work</h2>
+      <div class="steps" style="margin-top:18px">
+        <div class="card"><div class="badge">1</div><div><strong>Discover</strong><div class="muted">Goals, scope, budget, success metrics.</div></div></div>
+        <div class="card"><div class="badge">2</div><div><strong>Design</strong><div class="muted">UX flows, wireframes, UI polish.</div></div></div>
+        <div class="card"><div class="badge">3</div><div><strong>Build</strong><div class="muted">Modern stacks and secure APIs.</div></div></div>
+        <div class="card"><div class="badge">4</div><div><strong>Launch</strong><div class="muted">QA, performance, SEO, deploy.</div></div></div>
+        <div class="card"><div class="badge">5</div><div><strong>Care</strong><div class="muted">Monitoring, updates, small wins.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" aria-label="Testimonials">
+    <div class="container">
+      <h2>Happy clients</h2>
+      <div class="quotes" style="margin-top:18px">
+        <figure class="card"><blockquote>“The ID system and portal are clean and reliable. Parents love it.”</blockquote><figcaption>— Joy, School Director</figcaption></figure>
+        <figure class="card"><blockquote>“They shipped a fast site that started bringing leads in week one.”</blockquote><figcaption>— Kunle, SME Owner</figcaption></figure>
+        <figure class="card"><blockquote>“Great communication, clear milestones, and a polished app.”</blockquote><figcaption>— Tobi, Product Lead</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" id="start">
+    <div class="container">
+      <div class="cta card" style="padding:22px">
+        <h3 style="margin:0 0 .4rem">Ready to build something great?</h3>
+        <p class="muted" style="max-width:720px;margin:.2rem 0 1rem">Tell us about your idea — website, app, or portal — and we’ll propose the simplest path to a real launch.</p>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+          <a class="btn btn-primary" href="#quote">Request a Quote</a>
+          <a class="btn btn-ghost" href="https://wa.me/234XXXXXXXXXX">Chat on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+      <div>© <span id="year"></span> Gratitude Developers. All rights reserved.</div>
+      <div><a href="#privacy">Privacy</a> · <a href="#terms">Terms</a> · <a href="mailto:hello@gratitudedevelopers.com">hello@gratitudedevelopers.com</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Mobile nav toggle
+    const btn = document.getElementById('openNav');
+    const m = document.getElementById('mobileNav');
+    btn?.addEventListener('click', ()=> {
+      m.style.display = m.style.display === 'none' || m.style.display === '' ? 'block' : 'none';
+    });
+  </script>
+</body>
+</html>
 
