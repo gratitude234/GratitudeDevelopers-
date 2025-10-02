@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Jabu Market — Case Study • Gratitude Developers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="How Gratitude Developers designed and built Jabu Market — a student marketplace and study hub." />
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <style>
+    :root{ --bg:#0b0f14; --panel:#0f1720; --ink:#e6e7eb; --muted:#a9b0bb; --line:rgba(255,255,255,.08); --accent:#f97316; --accent-2:#fb7185; --accent-3:#8b5cf6; --radius:16px; --shadow:0 8px 30px rgba(0,0,0,.25); --space:clamp(16px,3vw,24px) }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)} a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 var(--space)} .muted{color:var(--muted)} .card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px}
+    .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1rem;border-radius:12px;font-weight:600;line-height:1}
+    .btn-primary{background:var(--accent);color:#0b0f14} .btn-primary:hover{filter:brightness(1.05)} .btn-ghost{border:1px solid var(--line);background:transparent} .btn-ghost:hover{background:rgba(255,255,255,.05)}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:60;border-bottom:1px solid var(--line);backdrop-filter:blur(10px);background:rgba(11,15,20,.65)}
+    .nav{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:700}
+    .logo{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:12px;background:conic-gradient(from 180deg,var(--accent),var(--accent-2),var(--accent-3));box-shadow:0 10px 30px rgba(249,115,22,.3)}
+    .menu{display:none;gap:1.2rem;font-size:.95rem;align-items:center}
+    .menu a{opacity:.92;position:relative} .menu a:hover{opacity:1}
+    .menu a[aria-current="true"]{opacity:1} .menu a[aria-current="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:2px;background:var(--accent)}
+    .actions{display:none;gap:.6rem}
+    .burger{display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;padding:6px}
+    .burger span{width:22px;height:2px;background:var(--ink);opacity:.9;border-radius:2px}
+
+    .drawer{position:fixed;inset:0;z-index:70;display:grid;grid-template-columns:1fr;transition:opacity .2s;opacity:0;pointer-events:none}
+    .drawer[data-open="true"]{opacity:1;pointer-events:auto}
+    .drawer .backdrop{background:rgba(0,0,0,.45);grid-column:1}
+    .drawer .panel{background:var(--panel);width:min(86%,320px);margin-left:auto;height:100%;border-left:1px solid var(--line);padding:18px var(--space);transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column;gap:14px}
+    .drawer[data-open="true"] .panel{transform:translateX(0)} .drawer .panel a{padding:.8rem 0;border-bottom:1px solid var(--line)} .drawer .panel a:last-child{border-bottom:0}
+    .no-scroll{overflow:hidden}
+
+    /* Hero */
+    .hero{padding:56px 0 26px}
+    .crumbs{font-size:.9rem} .crumbs a{color:#ffd7bf}
+    .title{display:grid;gap:10px}
+    .title h1{font-size:clamp(1.6rem,4vw,2.6rem);margin:.2rem 0}
+    .cover{display:grid;gap:14px;margin-top:16px}
+    .cover img{border-radius:14px;aspect-ratio:16/9;object-fit:cover}
+
+    /* Layout */
+    .layout{display:grid;gap:20px}
+    .sidebar{position:sticky;top:88px;align-self:start}
+
+    .pill{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--line);border-radius:999px;padding:.35rem .6rem;background:rgba(255,255,255,.05);color:#ffd7bf;font-size:.78rem}
+    .facts{display:grid;gap:10px}
+    .facts .row{display:flex;justify-content:space-between;gap:8px}
+    .facts .row strong{color:#fff}
+
+    .prose{display:grid;gap:16px}
+    .prose h2{font-size:clamp(1.2rem,2.4vw,1.6rem);margin:0}
+    .grid-2{display:grid;gap:16px}
+    .list{margin:0;padding-left:18px}
+
+    /* Gallery */
+    .gallery{display:grid;gap:12px}
+    .gallery img{border-radius:12px;aspect-ratio:4/3;object-fit:cover}
+
+    /* Testimonial */
+    blockquote{margin:0;font-size:1rem}
+    figcaption{margin-top:8px;color:var(--muted);font-size:.9rem}
+
+    /* Footer */
+    footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.95rem;margin-top:24px}
+
+    @media (min-width:720px){ .menu{display:flex} .actions{display:flex} .burger{display:none} .layout{grid-template-columns:300px 1fr} .grid-2{grid-template-columns:repeat(2,1fr)} .gallery{grid-template-columns:repeat(3,1fr)} }
+    @media (min-width:1024px){ .nav{height:72px} }
+    @media (prefers-reduced-motion: reduce){ .drawer,.drawer .panel{transition:none} }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="./index.html" aria-label="Go home"><span class="logo">GD</span><span>Gratitude Developers</span></a>
+      <nav class="menu" aria-label="Primary">
+        <a href="./index.html#services">Services</a>
+        <a href="./work.html">Work</a>
+        <a href="./index.html#process">Process</a>
+        <a href="./index.html#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="actions"><a class="btn btn-ghost" href="#quote">Get Quote</a><a class="btn btn-primary" href="#quote">Start a Project</a></div>
+      <button id="navToggle" class="burger" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div id="mobileDrawer" class="drawer" data-open="false" hidden>
+    <div class="backdrop" data-close></div>
+    <aside class="panel" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+      <a href="./index.html#services" data-close>Services</a>
+      <a href="./work.html" data-close>Work</a>
+      <a href="./index.html#process" data-close>Process</a>
+      <a href="./index.html#pricing" data-close>Pricing</a>
+      <a href="#contact" data-close>Contact</a>
+      <div style="display:flex;gap:.6rem;margin-top:6px"><a class="btn btn-ghost" href="#quote" data-close>Get Quote</a><a class="btn btn-primary" href="#quote" data-close>Start a Project</a></div>
+      <button class="btn btn-ghost" data-close style="margin-top:10px">Close ✕</button>
+    </aside>
+  </div>
+
+  <!-- Hero / Cover -->
+  <section class="hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumbs"><a href="./work.html">Work</a> · <span class="muted">Case Study</span></nav>
+      <div class="title">
+        <h1>Jabu Market — Student marketplace & study hub</h1>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+          <span class="pill">E‑commerce</span>
+          <span class="pill">EdTech</span>
+          <span class="pill">Portal</span>
+        </div>
+      </div>
+      <div class="cover">
+        <img src="https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=1400&auto=format&fit=crop" alt="Jabu Market storefront">
+        <div class="card" style="padding:14px;display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;align-items:center">
+          <div class="muted">Marketplace for students to buy/sell items and access study resources.</div>
+          <div style="display:flex;gap:.6rem">
+            <a class="btn btn-primary" href="https://jabumarket.com.ng" target="_blank" rel="noopener">Visit live site</a>
+            <a class="btn btn-ghost" href="#quote">Start a similar project</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Layout: Sidebar facts + Main narrative -->
+  <div class="container layout">
+    <!-- Facts -->
+    <aside class="sidebar">
+      <div class="card" style="padding:16px">
+        <strong style="display:block;margin-bottom:8px">Project facts</strong>
+        <div class="facts">
+          <div class="row"><span class="muted">Client</span><strong>Jabu Market</strong></div>
+          <div class="row"><span class="muted">Industry</span><strong>Student marketplace</strong></div>
+          <div class="row"><span class="muted">Timeline</span><strong>4–6 weeks</strong></div>
+          <div class="row"><span class="muted">Scope</span><strong>Design, Build, Launch</strong></div>
+          <div class="row"><span class="muted">Stack</span><strong>HTML/CSS/JS, PHP, MySQL</strong></div>
+          <div class="row"><span class="muted">Status</span><strong>Live</strong></div>
+        </div>
+        <hr style="border-color:var(--line);margin:12px 0">
+        <div class="facts">
+          <div class="row"><span class="muted">Core features</span><strong>Catalog, Cart, WhatsApp checkout, Study hub</strong></div>
+          <div class="row"><span class="muted">Integrations</span><strong>Email/WA alerts</strong></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Narrative -->
+    <main class="prose">
+      <!-- Problem / Goal -->
+      <section class="card" style="padding:18px">
+        <h2>The challenge</h2>
+        <p class="muted">Students needed a safe, simple way to trade items on campus and quickly find study materials. Existing options were scattered across social media and chat groups, with no central catalog, poor search, and no quality control.</p>
+      </section>
+
+      <!-- Solution -->
+      <section class="card" style="padding:18px">
+        <h2>Our approach</h2>
+        <div class="grid-2">
+          <div>
+            <ul class="list">
+              <li>Designed a clear browse → product → chat checkout flow.</li>
+              <li>Implemented product listing with images, tags, and search.</li>
+              <li>Added a lightweight checkout via WhatsApp for quick conversion.</li>
+              <li>Built a content area for study resources (notes, past questions).</li>
+              <li>Optimized for mobile first; many students are on low‑data plans.</li>
+            </ul>
+          </div>
+          <div>
+            <ul class="list">
+              <li>Performance budget: small images, lazy‑loading, caching.</li>
+              <li>Admin tools: approve listings, moderate content, analytics.</li>
+              <li>Clear governance rules and reporting for safety.</li>
+              <li>SEO basics: clean URLs, metadata, share images.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results -->
+      <section class="card" style="padding:18px">
+        <h2>Results</h2>
+        <div class="grid-2">
+          <div class="card" style="padding:14px"><strong>+60%</strong><div class="muted">Faster item discovery (search & tags)</div></div>
+          <div class="card" style="padding:14px"><strong>Under 1s</strong><div class="muted">Median page load on 4G</div></div>
+          <div class="card" style="padding:14px"><strong>2x</strong><div class="muted">More listings approved in week one</div></div>
+          <div class="card" style="padding:14px"><strong>≈0</strong><div class="muted">Spam posts after moderation tools</div></div>
+        </div>
+        <p class="muted" style="margin-top:8px">*Illustrative metrics for template; replace with your real numbers.</p>
+      </section>
+
+      <!-- Gallery -->
+      <section class="card" style="padding:18px">
+        <h2>Screens & flows</h2>
+        <div class="gallery" style="margin-top:12px">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="Listing grid">
+          <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop" alt="Product page">
+          <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1200&auto=format&fit=crop" alt="Study resources">
+        </div>
+      </section>
+
+      <!-- Features & Architecture -->
+      <section class="card" style="padding:18px">
+        <h2>Key features & architecture</h2>
+        <div class="grid-2">
+          <div>
+            <ul class="list">
+              <li>Browse by category, search, and tags</li>
+              <li>Seller profiles & WhatsApp handoff</li>
+              <li>Study hub: notes, past questions, resources</li>
+              <li>Moderation queue & approvals</li>
+            </ul>
+          </div>
+          <div>
+            <ul class="list">
+              <li>Frontend: HTML/CSS/JS (vanilla)</li>
+              <li>Backend: PHP (Truehost), MySQL</li>
+              <li>Images: compressed, lazy‑loaded</li>
+              <li>Analytics: basic events via JS</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonial -->
+      <section class="card" style="padding:18px">
+        <figure>
+          <blockquote>“They shipped fast, kept it simple, and students actually use it. The moderation tools saved us.”</blockquote>
+          <figcaption>— <span class="muted">Project sponsor, Jabu Market</span></figcaption>
+        </figure>
+      </section>
+
+      <!-- Next / Prev -->
+      <section style="display:flex;gap:12px;flex-wrap:wrap">
+        <a class="btn btn-ghost" href="./work.html">← Back to all work</a>
+        <a class="btn btn-primary" href="#quote">Start a similar project</a>
+      </section>
+    </main>
+  </div>
+
+  <!-- Quote form CTA -->
+  <section class="container" id="quote" style="margin:22px auto 0">
+    <div class="card" style="padding:18px">
+      <h2 style="margin-top:0">Kick off your project</h2>
+      <p class="muted" style="margin:.2rem 0 1rem">Tell us what you want to build and we’ll suggest the leanest path to launch.</p>
+      <form id="quoteForm" style="display:grid;gap:10px;grid-template-columns:1fr;max-width:720px">
+        <input name="name" required placeholder="Your Name" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+        <input name="contact" required placeholder="Email or WhatsApp" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+        <select name="type" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+          <option value="">Project Type</option>
+          <option>Website</option><option>Mobile App</option><option>E‑commerce</option><option>School Portal</option>
+        </select>
+        <textarea name="details" rows="4" placeholder="Project details…" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)"></textarea>
+        <button class="btn btn-primary" type="submit">Send</button>
+        <p id="formMsg" class="muted" role="status" aria-live="polite" style="min-height:1.2em"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+      <div>© <span id="year"></span> Gratitude Developers. All rights reserved.</div>
+      <div><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="mailto:hello@gratitudedevelopers.com">hello@gratitudedevelopers.com</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Drawer
+    const toggle = document.getElementById('navToggle');
+    const drawer = document.getElementById('mobileDrawer');
+    function openDrawer(){ drawer.hidden=false; drawer.setAttribute('data-open','true'); toggle.setAttribute('aria-expanded','true'); document.body.classList.add('no-scroll'); const firstLink = drawer.querySelector('a,button'); firstLink && firstLink.focus(); }
+    function closeDrawer(){ drawer.setAttribute('data-open','false'); toggle.setAttribute('aria-expanded','false'); document.body.classList.remove('no-scroll'); setTimeout(()=>{ drawer.hidden=true },250); toggle.focus(); }
+    toggle.addEventListener('click',()=>{ drawer.getAttribute('data-open')==='true'?closeDrawer():openDrawer(); });
+    drawer.addEventListener('click',(e)=>{ if(e.target.hasAttribute('data-close')) closeDrawer(); });
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && drawer.getAttribute('data-open')==='true') closeDrawer(); });
+
+    // Quote form (placeholder)
+    const form = document.getElementById('quoteForm');
+    const msg = document.getElementById('formMsg');
+    const API_URL = 'https://jabumarket.com.ng/api/quote'; // TODO: replace with your endpoint
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault(); msg.textContent='Sending…'; const data = Object.fromEntries(new FormData(form).entries());
+      try{ const res = await fetch(API_URL,{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)}); if(!res.ok) throw new Error('Request failed'); msg.textContent='Thanks! We will reach out soon.'; form.reset(); }
+      catch(err){ msg.textContent='Could not submit right now. Please WhatsApp us instead.'; }
+    });
+  </script>
+</body>
+</html>
