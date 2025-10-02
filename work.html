@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Work — Gratitude Developers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Selected projects by Gratitude Developers: websites, mobile apps, e‑commerce, and school portals in Nigeria." />
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <style>
+    :root{ --bg:#0b0f14; --panel:#0f1720; --ink:#e6e7eb; --muted:#a9b0bb; --line:rgba(255,255,255,.08); --accent:#f97316; --accent-2:#fb7185; --accent-3:#8b5cf6; --radius:16px; --shadow:0 8px 30px rgba(0,0,0,.25); --space:clamp(16px,3vw,24px) }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)} a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 var(--space)} .muted{color:var(--muted)} .card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px}
+    .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1rem;border-radius:12px;font-weight:600;line-height:1}
+    .btn-primary{background:var(--accent);color:#0b0f14} .btn-primary:hover{filter:brightness(1.05)} .btn-ghost{border:1px solid var(--line);background:transparent} .btn-ghost:hover{background:rgba(255,255,255,.05)}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:60;border-bottom:1px solid var(--line);backdrop-filter:blur(10px);background:rgba(11,15,20,.65)}
+    .nav{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:700}
+    .logo{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:12px;background:conic-gradient(from 180deg,var(--accent),var(--accent-2),var(--accent-3));box-shadow:0 10px 30px rgba(249,115,22,.3)}
+    .menu{display:none;gap:1.2rem;font-size:.95rem;align-items:center}
+    .menu a{opacity:.92;position:relative} .menu a:hover{opacity:1}
+    .menu a[aria-current="true"]{opacity:1} .menu a[aria-current="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:2px;background:var(--accent)}
+    .actions{display:none;gap:.6rem}
+    .burger{display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;padding:6px}
+    .burger span{width:22px;height:2px;background:var(--ink);opacity:.9;border-radius:2px}
+
+    .drawer{position:fixed;inset:0;z-index:70;display:grid;grid-template-columns:1fr;transition:opacity .2s;opacity:0;pointer-events:none}
+    .drawer[data-open="true"]{opacity:1;pointer-events:auto}
+    .drawer .backdrop{background:rgba(0,0,0,.45);grid-column:1}
+    .drawer .panel{background:var(--panel);width:min(86%,320px);margin-left:auto;height:100%;border-left:1px solid var(--line);padding:18px var(--space);transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column;gap:14px}
+    .drawer[data-open="true"] .panel{transform:translateX(0)} .drawer .panel a{padding:.8rem 0;border-bottom:1px solid var(--line)} .drawer .panel a:last-child{border-bottom:0}
+    .no-scroll{overflow:hidden}
+
+    /* Hero */
+    .hero{padding:56px 0 22px}
+    .crumbs{font-size:.9rem} .crumbs a{color:#ffd7bf}
+    .hero h1{font-size:clamp(1.6rem,4vw,2.6rem);margin:.4rem 0}
+
+    /* Controls */
+    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .chip{display:inline-flex;align-items:center;gap:.45rem;border:1px solid var(--line);background:rgba(255,255,255,.05);padding:.35rem .6rem;border-radius:999px;color:#ffd7bf;font-size:.78rem;cursor:pointer}
+    .chip[data-active="true"]{background:rgba(249,115,22,.18);color:#ffd7bf;border-color:rgba(249,115,22,.35)}
+    .search{flex:1 1 240px;display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:12px;padding:8px 10px;background:rgba(255,255,255,.04)}
+    .search input{flex:1;background:transparent;border:0;outline:none;color:var(--ink)}
+
+    /* Grid */
+    .grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px}
+    .card-project{display:flex;flex-direction:column;overflow:hidden}
+    .card-project img{border-radius:12px;aspect-ratio:16/9;object-fit:cover}
+    .meta{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px}
+    .tag{font-size:.8rem;color:var(--muted)}
+    .soon{font-size:.75rem;color:#ffd7bf;border:1px dashed var(--line);border-radius:999px;padding:.2rem .5rem}
+
+    /* Back to top */
+    .to-top{position:fixed;right:14px;bottom:14px;z-index:50;opacity:0;transform:translateY(10px);transition:opacity .2s, transform .2s}
+    .to-top[data-show="true"]{opacity:1;transform:none}
+
+    /* Footer */
+    footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.95rem;margin-top:24px}
+
+    @media (min-width:720px){ .menu{display:flex} .actions{display:flex} .burger{display:none} .grid{grid-template-columns:repeat(2,1fr)} }
+    @media (min-width:1024px){ .grid{grid-template-columns:repeat(3,1fr)} .nav{height:72px} }
+    @media (prefers-reduced-motion: reduce){ .drawer,.drawer .panel{transition:none} }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="./index.html" aria-label="Go home"><span class="logo">GD</span><span>Gratitude Developers</span></a>
+      <nav class="menu" aria-label="Primary">
+        <a href="./index.html#services">Services</a>
+        <a href="#" aria-current="true">Work</a>
+        <a href="./index.html#process">Process</a>
+        <a href="./index.html#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="actions"><a class="btn btn-ghost" href="#quote">Get Quote</a><a class="btn btn-primary" href="#quote">Start a Project</a></div>
+      <button id="navToggle" class="burger" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div id="mobileDrawer" class="drawer" data-open="false" hidden>
+    <div class="backdrop" data-close></div>
+    <aside class="panel" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+      <a href="./index.html#services" data-close>Services</a>
+      <a href="#" data-close aria-current="true">Work</a>
+      <a href="./index.html#process" data-close>Process</a>
+      <a href="./index.html#pricing" data-close>Pricing</a>
+      <a href="#contact" data-close>Contact</a>
+      <div style="display:flex;gap:.6rem;margin-top:6px"><a class="btn btn-ghost" href="#quote" data-close>Get Quote</a><a class="btn btn-primary" href="#quote" data-close>Start a Project</a></div>
+      <button class="btn btn-ghost" data-close style="margin-top:10px">Close ✕</button>
+    </aside>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumbs"><a href="./index.html">Home</a> · <span class="muted">Work</span></nav>
+      <h1>Selected work</h1>
+      <p class="muted" style="max-width:720px">A few projects we’ve designed and built. Filter by type or search by name/stack.</p>
+
+      <div class="controls" style="margin-top:12px">
+        <button class="chip" data-filter="all" data-active="true">All</button>
+        <button class="chip" data-filter="website">Websites</button>
+        <button class="chip" data-filter="app">Mobile Apps</button>
+        <button class="chip" data-filter="ecommerce">E‑commerce</button>
+        <button class="chip" data-filter="edtech">EdTech/Portals</button>
+        <label class="search" aria-label="Search projects">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.2-4.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.5"/></svg>
+          <input id="q" type="search" placeholder="Search projects… (e.g., portal, vue, ecommerce)">
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grid -->
+  <section>
+    <div class="container">
+      <div id="grid" class="grid" role="list">
+        <!-- Project: Gabakssteel Construction -->
+        <a class="card card-project" role="listitem" href="#" data-category="website" data-tags="website corporate construction html css js">
+          <img src="https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=1400&auto=format&fit=crop 1400w" sizes="(max-width: 720px) 100vw, 33vw" alt="Gabakssteel Construction website" loading="lazy" decoding="async">
+          <div class="meta">
+            <div><div class="tag">Corporate website</div><h3 style="margin:.2rem 0">Gabakssteel Construction</h3></div>
+            <span class="chip" style="cursor:default">Website</span>
+          </div>
+        </a>
+
+        <!-- Project: GLC ID Card Generator -->
+        <a class="card card-project" role="listitem" href="#" data-category="edtech" data-tags="edtech portal id card generator school vue html2canvas qr">
+          <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1400&auto=format&fit=crop 1400w" sizes="(max-width: 720px) 100vw, 33vw" alt="GLC ID Card Generator" loading="lazy" decoding="async">
+          <div class="meta">
+            <div><div class="tag">EdTech tool</div><h3 style="margin:.2rem 0">GLC ID Card Generator</h3></div>
+            <span class="chip" style="cursor:default">EdTech</span>
+          </div>
+        </a>
+
+        <!-- Project: JSHub Study Portal -->
+        <a class="card card-project" role="listitem" href="#" data-category="edtech" data-tags="student community study portal vue php api">
+          <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1400&auto=format&fit=crop 1400w" sizes="(max-width: 720px) 100vw, 33vw" alt="JSHub Study Portal" loading="lazy" decoding="async">
+          <div class="meta">
+            <div><div class="tag">Student community</div><h3 style="margin:.2rem 0">JSHub Study Portal</h3></div>
+            <span class="chip" style="cursor:default">Portal</span>
+          </div>
+        </a>
+
+        <!-- Project: Jabu Market (live link) -->
+        <a class="card card-project" role="listitem" href="https://jabumarket.com.ng" target="_blank" rel="noopener" data-category="ecommerce" data-tags="ecommerce marketplace students php mysql">
+          <img src="https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=1400&auto=format&fit=crop 1400w" sizes="(max-width: 720px) 100vw, 33vw" alt="Jabu Market — Student marketplace" loading="lazy" decoding="async">
+          <div class="meta">
+            <div><div class="tag">Student marketplace</div><h3 style="margin:.2rem 0">Jabu Market</h3></div>
+            <span class="chip" style="cursor:default">E‑commerce</span>
+          </div>
+        </a>
+
+        <!-- Project: AI Study Hub (soon) -->
+        <div class="card card-project" role="listitem" data-category="edtech" data-tags="ai study hub coming soon edtech">
+          <img src="https://images.unsplash.com/photo-1558486012-817176f84c6d?q=80&w=1200&auto=format&fit=crop" alt="AI Study Hub" loading="lazy" decoding="async" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover">
+          <div class="meta">
+            <div><div class="tag">AI‑powered learning</div><h3 style="margin:.2rem 0">AI Study Hub</h3></div>
+            <span class="soon">Coming soon</span>
+          </div>
+        </div>
+      </div>
+      <p id="emptyMsg" class="muted" style="display:none;margin-top:8px">No projects match your filters. Try clearing filters or a different search.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container" style="margin:26px auto 0">
+    <div class="card" style="padding:20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between">
+      <div>
+        <h3 style="margin:.2rem 0">Want results like these?</h3>
+        <p class="muted" style="margin:.2rem 0;max-width:720px">Tell us about your project and we’ll propose the simplest path to a real launch.</p>
+      </div>
+      <div style="display:flex;gap:.6rem">
+        <a class="btn btn-primary" href="#quote">Request a quote</a>
+        <a class="btn btn-ghost" href="https://wa.me/234XXXXXXXXXX" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote form (same pattern for consistency) -->
+  <section class="container" id="quote" style="margin:18px auto 0">
+    <div class="card" style="padding:18px">
+      <h3 style="margin-top:0">Quick Project Brief</h3>
+      <form id="quoteForm" style="display:grid;gap:10px;grid-template-columns:1fr;max-width:720px">
+        <input name="name" required placeholder="Your Name" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+        <input name="contact" required placeholder="Email or WhatsApp" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+        <select name="type" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+          <option value="">Project Type</option>
+          <option>Website</option><option>Mobile App</option><option>E‑commerce</option><option>School Portal</option>
+        </select>
+        <textarea name="details" rows="4" placeholder="Project details…" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)"></textarea>
+        <button class="btn btn-primary" type="submit">Send</button>
+        <p id="formMsg" class="muted" role="status" aria-live="polite" style="min-height:1.2em"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Back to top button -->
+  <a id="toTop" href="#top" class="to-top btn btn-primary" aria-label="Back to top">↑ Top</a>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+      <div>© <span id="year"></span> Gratitude Developers. All rights reserved.</div>
+      <div><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="mailto:hello@gratitudedevelopers.com">hello@gratitudedevelopers.com</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Drawer
+    const toggle = document.getElementById('navToggle');
+    const drawer = document.getElementById('mobileDrawer');
+    function openDrawer(){ drawer.hidden=false; drawer.setAttribute('data-open','true'); toggle.setAttribute('aria-expanded','true'); document.body.classList.add('no-scroll'); const firstLink = drawer.querySelector('a,button'); firstLink && firstLink.focus(); }
+    function closeDrawer(){ drawer.setAttribute('data-open','false'); toggle.setAttribute('aria-expanded','false'); document.body.classList.remove('no-scroll'); setTimeout(()=>{ drawer.hidden=true },250); toggle.focus(); }
+    toggle.addEventListener('click',()=>{ drawer.getAttribute('data-open')==='true'?closeDrawer():openDrawer(); });
+    drawer.addEventListener('click',(e)=>{ if(e.target.hasAttribute('data-close')) closeDrawer(); });
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && drawer.getAttribute('data-open')==='true') closeDrawer(); });
+
+    // Filters & search
+    const chips = Array.from(document.querySelectorAll('.chip[data-filter]'));
+    const grid = document.getElementById('grid');
+    const cards = Array.from(grid.children);
+    const q = document.getElementById('q');
+    const emptyMsg = document.getElementById('emptyMsg');
+    let current = 'all';
+
+    function apply(){
+      const term = (q.value || '').toLowerCase().trim();
+      let visible = 0;
+      cards.forEach(card => {
+        const c = card.getAttribute('data-category');
+        const tags = (card.getAttribute('data-tags')||'').toLowerCase();
+        const inCat = current === 'all' || c === current;
+        const inSearch = !term || tags.includes(term);
+        const show = inCat && inSearch;
+        card.style.display = show ? '' : 'none';
+        if(show) visible++;
+      });
+      emptyMsg.style.display = visible ? 'none' : '';
+    }
+
+    chips.forEach(ch => ch.addEventListener('click', () => {
+      chips.forEach(x => x.setAttribute('data-active','false'));
+      ch.setAttribute('data-active','true');
+      current = ch.getAttribute('data-filter');
+      apply();
+    }));
+    q.addEventListener('input', apply);
+
+    // Back to top visibility
+    const toTop = document.getElementById('toTop');
+    const io = new IntersectionObserver(entries => {
+      const show = !entries[0].isIntersecting; // when hero leaves viewport
+      toTop.setAttribute('data-show', show);
+    }, {threshold: 0});
+    io.observe(document.querySelector('.hero'));
+
+    // Submit quote (placeholder)
+    const form = document.getElementById('quoteForm');
+    const msg = document.getElementById('formMsg');
+    const API_URL = 'https://jabumarket.com.ng/api/quote'; // TODO: replace with your endpoint
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault(); msg.textContent='Sending…'; const data = Object.fromEntries(new FormData(form).entries());
+      try{ const res = await fetch(API_URL,{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)}); if(!res.ok) throw new Error('Request failed'); msg.textContent='Thanks! We will reach out soon.'; form.reset(); }
+      catch(err){ msg.textContent='Could not submit right now. Please WhatsApp us instead.'; }
+    });
+  </script>
+</body>
+</html>
