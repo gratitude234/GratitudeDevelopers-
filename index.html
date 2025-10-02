@@ -1,10 +1,15 @@
+
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <title>Gratitude Developers — We build Websites & Mobile Apps</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Gratitude Developers crafts fast, modern websites and cross-platform apps. Build quality first, supported by analytics and light ads." />
+  <meta name="description" content="Gratitude Developers crafts fast, modern websites and cross‑platform apps. Build quality first, supported by analytics and light ads." />
+  <meta property="og:title" content="Gratitude Developers — We build Websites & Mobile Apps">
+  <meta property="og:description" content="Fast, modern websites and cross‑platform apps for Nigerian SMEs, schools, and startups.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://images.unsplash.com">
   <style>
     :root{
@@ -28,7 +33,7 @@
     .chip{display:inline-flex;align-items:center;gap:.45rem;border:1px solid var(--line);background:rgba(255,255,255,.05);padding:.35rem .6rem;border-radius:999px;color:#ffd7bf;font-size:.78rem}
     .badge{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:999px;background:#f97316;color:#0b0f14;font-weight:700}
     .card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px;padding:18px}
-    .section{padding:64px 0}
+    .section{padding:64px 0; scroll-margin-top:86px}
     .section h2{font-size:clamp(1.35rem,2.5vw,2rem);margin:0}
     .muted{color:var(--muted)}
     .grid-3{display:grid;gap:16px}
@@ -36,6 +41,10 @@
     .kpis .card{text-align:center}
     .kpis dt{font-size:1.4rem;font-weight:800}
     .kpis dd{margin:4px 0 0;font-size:.78rem;color:var(--muted)}
+
+    /* ===== Skip link ===== */
+    .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip:focus{left:10px;top:10px;width:auto;height:auto;background:#fff;color:#000;padding:.5rem .75rem;border-radius:10px;z-index:100}
 
     /* ===== Sticky, responsive header ===== */
     header{
@@ -50,7 +59,10 @@
       background:conic-gradient(from 180deg at 50% 50%, var(--accent), var(--accent-2), var(--accent-3));
       box-shadow:0 10px 30px rgba(249,115,22,.3)}
     .menu{display:none;gap:1.2rem;font-size:.95rem;align-items:center}
-    .menu a{opacity:.92} .menu a:hover{opacity:1}
+    .menu a{opacity:.92;position:relative}
+    .menu a:hover{opacity:1}
+    .menu a[aria-current="true"]{opacity:1}
+    .menu a[aria-current="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:2px;background:var(--accent)}
     .actions{display:none;gap:.6rem}
     .burger{display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;padding:6px}
     .burger span{width:22px;height:2px;background:var(--ink);opacity:.9;border-radius:2px}
@@ -94,6 +106,10 @@
     .cta::before{width:260px;height:260px;background:rgba(249,115,22,.25);right:-80px;top:-80px}
     .cta::after{width:260px;height:260px;background:rgba(251,113,133,.22);left:-80px;bottom:-80px}
 
+    /* ===== Sticky mobile CTA ===== */
+    .sticky-cta{position:fixed;left:0;right:0;bottom:max(10px, env(safe-area-inset-bottom));z-index:65;display:flex;justify-content:center;padding:8px;pointer-events:none}
+    .sticky-cta .bar{display:flex;gap:.6rem;background:rgba(15,23,32,.9);border:1px solid var(--line);backdrop-filter:blur(10px);border-radius:16px;padding:8px;pointer-events:auto}
+
     /* ===== FOOTER ===== */
     footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.95rem}
 
@@ -106,13 +122,22 @@
       .grid-3{grid-template-columns:repeat(3,1fr)}
       .steps{grid-template-columns:repeat(5,1fr)}
       .quotes{grid-template-columns:repeat(3,1fr)}
+      .sticky-cta{display:none}
     }
     @media (min-width:1024px){
       .nav{height:72px}
     }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .blur-a,.blur-b{display:none}
+      .drawer, .drawer .panel{transition:none}
+    }
   </style>
 </head>
 <body>
+  <a href="#main" class="skip">Skip to content</a>
+
   <!-- ===== HEADER ===== -->
   <header>
     <div class="container nav">
@@ -157,7 +182,16 @@
     </aside>
   </div>
 
+  <!-- ===== MOBILE QUICK ACTION BAR ===== -->
+  <div class="sticky-cta" role="region" aria-label="Quick actions">
+    <div class="bar">
+      <a class="btn btn-primary" href="#quote">Get Quote</a>
+      <a class="btn btn-ghost" href="https://wa.me/234XXXXXXXXXX" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+
   <!-- ===== HERO ===== -->
+  <main id="main">
   <section class="hero" id="top" aria-label="Hero">
     <div class="blur-a"></div><div class="blur-b"></div>
     <div class="container hero-grid">
@@ -169,7 +203,7 @@
           </span>
           that grow your business.</h1>
         <p class="muted" style="max-width:640px;margin-top:.6rem">
-          Build quality first. We craft modern, fast websites and cross-platform apps — supported by analytics and light ads to spark traction.
+          Build quality first. We craft modern, fast websites and cross‑platform apps — supported by analytics and light ads to spark traction.
         </p>
         <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:16px">
           <a class="btn btn-primary" href="#start">Start a Project ▸</a>
@@ -183,7 +217,11 @@
       </div>
       <div>
         <div class="card" style="padding:10px;box-shadow:var(--shadow)">
-          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop" alt="Product preview" style="border-radius:12px;aspect-ratio:4/3;object-fit:cover">
+          <img
+            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop"
+            srcset="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop 1400w"
+            sizes="(max-width: 720px) 100vw, 50vw"
+            alt="Product preview" style="border-radius:12px;aspect-ratio:4/3;object-fit:cover" fetchpriority="high" decoding="async">
         </div>
       </div>
     </div>
@@ -197,9 +235,9 @@
         <a href="#" class="muted" style="font-size:.92rem">All services →</a>
       </div>
       <div class="grid-3" style="margin-top:18px">
-        <div class="card"><div class="badge">1</div><h3 style="margin:.6rem 0 0">Websites</h3><p class="muted">Fast, accessible, SEO-ready sites with modern stacks.</p></div>
-        <div class="card"><div class="badge">2</div><h3 style="margin:.6rem 0 0">Mobile Apps</h3><p class="muted">Cross-platform apps from one clean codebase.</p></div>
-        <div class="card"><div class="badge">3</div><h3 style="margin:.6rem 0 0">E-commerce</h3><p class="muted">Stores that convert — product, checkout, analytics.</p></div>
+        <div class="card"><div class="badge">1</div><h3 style="margin:.6rem 0 0">Websites</h3><p class="muted">Fast, accessible, SEO‑ready sites with modern stacks.</p></div>
+        <div class="card"><div class="badge">2</div><h3 style="margin:.6rem 0 0">Mobile Apps</h3><p class="muted">Cross‑platform apps from one clean codebase.</p></div>
+        <div class="card"><div class="badge">3</div><h3 style="margin:.6rem 0 0">E‑commerce</h3><p class="muted">Stores that convert — product, checkout, analytics.</p></div>
         <div class="card"><div class="badge">4</div><h3 style="margin:.6rem 0 0">School Portals</h3><p class="muted">Admissions, ID cards, results, Smart Practice.</p></div>
         <div class="card"><div class="badge">5</div><h3 style="margin:.6rem 0 0">UI/UX Design</h3><p class="muted">Wireframes, design systems, prototypes.</p></div>
         <div class="card"><div class="badge">6</div><h3 style="margin:.6rem 0 0">Care & Maintenance</h3><p class="muted">Updates, backups, uptime, small changes.</p></div>
@@ -216,21 +254,36 @@
       </div>
       <div class="grid-3" style="margin-top:18px">
         <a class="card" href="#">
-          <img src="https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=1400&auto=format&fit=crop" alt="Gabakssteel Construction" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover">
+          <img
+            src="https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=1200&auto=format&fit=crop"
+            srcset="https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=1400&auto=format&fit=crop 1400w"
+            sizes="(max-width: 720px) 100vw, 33vw"
+            alt="Gabakssteel Construction" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
           <div style="margin-top:10px"><div class="muted" style="font-size:.8rem">Corporate website</div><h3 style="margin:.2rem 0">Gabakssteel Construction</h3></div>
         </a>
         <a class="card" href="#">
-          <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1400&auto=format&fit=crop" alt="GLC ID Card Generator" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover">
+          <img
+            src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop"
+            srcset="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1400&auto=format&fit=crop 1400w"
+            sizes="(max-width: 720px) 100vw, 33vw"
+            alt="GLC ID Card Generator" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
           <div style="margin-top:10px"><div class="muted" style="font-size:.8rem">EdTech tool</div><h3 style="margin:.2rem 0">GLC ID Card Generator</h3></div>
         </a>
         <a class="card" href="#">
-          <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1400&auto=format&fit=crop" alt="JSHub Study Portal" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover">
+          <img
+            src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1200&auto=format&fit=crop"
+            srcset="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1400&auto=format&fit=crop 1400w"
+            sizes="(max-width: 720px) 100vw, 33vw"
+            alt="JSHub Study Portal" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
           <div style="margin-top:10px"><div class="muted" style="font-size:.8rem">Student community</div><h3 style="margin:.2rem 0">JSHub Study Portal</h3></div>
         </a>
         <!-- New: Jabu Market -->
         <a class="card" href="https://jabumarket.com.ng" target="_blank" rel="noopener">
-          <img src="https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=1400&auto=format&fit=crop"
-               alt="Jabu Market — Student marketplace & study hub" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover">
+          <img
+            src="https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=1200&auto=format&fit=crop"
+            srcset="https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=1400&auto=format&fit=crop 1400w"
+            sizes="(max-width: 720px) 100vw, 33vw"
+            alt="Jabu Market — Student marketplace & study hub" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
           <div style="margin-top:10px">
             <div class="muted" style="font-size:.8rem">Student marketplace & study hub</div>
             <h3 style="margin:.2rem 0">Jabu Market</h3>
@@ -243,7 +296,7 @@
             <span class="chip">Coming soon</span>
           </div>
           <p class="muted" style="margin:.5rem 0 0">
-            AI-powered practice and explanations for students. Launching soon.
+            AI‑powered practice and explanations for students. Launching soon.
           </p>
         </div>
       </div>
@@ -264,7 +317,7 @@
     </div>
   </section>
 
-  <!-- ===== PRICING (anchor target so header link isn’t dead) ===== -->
+  <!-- ===== PRICING ===== -->
   <section class="section" id="pricing" aria-label="Pricing">
     <div class="container">
       <h2>Pricing</h2>
@@ -280,7 +333,7 @@
           <div style="margin-top:.6rem;font-weight:800">From ₦ —</div>
         </div>
         <div class="card">
-          <h3 style="margin:0 0 .2rem">E-commerce / Portal</h3>
+          <h3 style="margin:0 0 .2rem">E‑commerce / Portal</h3>
           <p class="muted">Checkout or student portal.</p>
           <div style="margin-top:.6rem;font-weight:800">Custom</div>
         </div>
@@ -296,11 +349,12 @@
         <p class="muted" style="max-width:720px;margin:.2rem 0 1rem">Tell us about your idea — website, app, or portal — and we’ll propose the simplest path to a real launch.</p>
         <div style="display:flex;gap:.6rem;flex-wrap:wrap">
           <a class="btn btn-primary" href="#quote">Request a Quote</a>
-          <a class="btn btn-ghost" href="https://wa.me/234XXXXXXXXXX">Chat on WhatsApp</a>
+          <a class="btn btn-ghost" href="https://wa.me/234XXXXXXXXXX" target="_blank" rel="noopener">Chat on WhatsApp</a>
         </div>
       </div>
     </div>
   </section>
+  </main>
 
   <!-- ===== FOOTER ===== -->
   <footer id="contact">
@@ -310,29 +364,47 @@
     </div>
   </footer>
 
-  <!-- ===== OPTIONAL: QUOTE ANCHOR (simple placeholder form) ===== -->
+  <!-- ===== QUOTE (with accessible labels & fetch placeholder) ===== -->
   <section class="section" id="quote" aria-label="Quote" style="padding-top:0">
     <div class="container">
       <div class="card">
         <h3 style="margin-top:0">Quick Project Brief</h3>
-        <form onsubmit="event.preventDefault(); alert('Thanks! We will reach out.');">
+        <form id="quoteForm">
           <div style="display:grid;gap:10px;grid-template-columns:1fr;max-width:720px">
-            <input required placeholder="Your Name" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
-            <input required type="email" placeholder="Email or WhatsApp" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
-            <select style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
-              <option value="">Project Type</option>
-              <option>Website</option>
-              <option>Mobile App</option>
-              <option>E-commerce</option>
-              <option>School Portal</option>
-            </select>
-            <textarea rows="4" placeholder="Tell us about your project…" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)"></textarea>
+            <label>
+              <span class="sr">Your Name</span>
+              <input name="name" required placeholder="Your Name" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)" aria-label="Your Name">
+            </label>
+            <label>
+              <span class="sr">Email or WhatsApp</span>
+              <input name="contact" required type="text" placeholder="Email or WhatsApp" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)" aria-label="Email or WhatsApp">
+            </label>
+            <label>
+              <span class="sr">Project Type</span>
+              <select name="type" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)" aria-label="Project Type">
+                <option value="">Project Type</option>
+                <option>Website</option>
+                <option>Mobile App</option>
+                <option>E‑commerce</option>
+                <option>School Portal</option>
+              </select>
+            </label>
+            <label>
+              <span class="sr">Project details</span>
+              <textarea name="details" rows="4" placeholder="Tell us about your project…" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)" aria-label="Project details"></textarea>
+            </label>
             <button class="btn btn-primary" type="submit">Send</button>
+            <p id="formMsg" class="muted" role="status" aria-live="polite" style="min-height:1.2em"></p>
           </div>
         </form>
       </div>
     </div>
   </section>
+
+  <style>
+    /* Visually hidden (for accessible labels) */
+    .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  </style>
 
   <script>
     // Year stamp
@@ -341,14 +413,12 @@
     // Mobile drawer logic (accessible)
     const toggle = document.getElementById('navToggle');
     const drawer = document.getElementById('mobileDrawer');
-    const closeEls = () => drawer.querySelectorAll('[data-close]');
 
     function openDrawer(){
       drawer.hidden = false;
       drawer.setAttribute('data-open','true');
       toggle.setAttribute('aria-expanded','true');
       document.body.classList.add('no-scroll');
-      // focus first link
       const firstLink = drawer.querySelector('a,button');
       firstLink && firstLink.focus();
     }
@@ -356,7 +426,6 @@
       drawer.setAttribute('data-open','false');
       toggle.setAttribute('aria-expanded','false');
       document.body.classList.remove('no-scroll');
-      // wait for slide animation then hide for a11y / perf
       setTimeout(()=>{ drawer.hidden = true; }, 250);
       toggle.focus();
     }
@@ -372,7 +441,58 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && drawer.getAttribute('data-open') === 'true') closeDrawer();
     });
-    closeEls().forEach(el => el.addEventListener('click', closeDrawer));
+
+    // ===== Active nav highlight as you scroll =====
+    const sectionIds = ['services','work','process','pricing','contact'];
+    const links = new Map(sectionIds.map(id => [id, document.querySelector(`.menu a[href="#${id}"]`)]));
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          links.forEach(a => a && a.setAttribute('aria-current','false'));
+          const a = links.get(entry.target.id);
+          a && a.setAttribute('aria-current','true');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+
+    // ===== Quote form submission (placeholder) =====
+    const form = document.getElementById('quoteForm');
+    const msg = document.getElementById('formMsg');
+    const API_URL = 'https://jabumarket.com.ng/api/quote'; // TODO: replace with your actual endpoint (e.g., /api/lead.php)
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = 'Sending…';
+      const data = Object.fromEntries(new FormData(form).entries());
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (!res.ok) throw new Error('Request failed');
+        msg.textContent = 'Thanks! We will reach out soon.';
+        form.reset();
+      } catch (err) {
+        msg.textContent = 'Could not submit right now. Please WhatsApp us instead.';
+      }
+    });
+  </script>
+
+  <!-- Schema.org (basic). Update the url/logo when you have them. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Gratitude Developers",
+    "url": "",
+    "sameAs": ["https://jabumarket.com.ng"],
+    "areaServed": "NG"
+  }
   </script>
 </body>
 </html>
