@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,29 +17,33 @@
       --accent:#f97316; --accent-2:#fb7185; --accent-3:#8b5cf6;
       --radius:16px; --shadow:0 8px 30px rgba(0,0,0,.25);
       --space:clamp(16px, 3vw, 24px);
+      --transition:0.2s ease;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none;transition:var(--transition)}
+    a:hover{opacity:0.85}
+    img{max-width:100%;display:block;transition:var(--transition)}
     .container{max-width:1200px;margin:0 auto;padding:0 var(--space)}
-    .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1rem;border-radius:12px;font-weight:600;line-height:1}
+    .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.2rem;border-radius:12px;font-weight:600;line-height:1;transition:var(--transition);cursor:pointer}
     .btn-primary{background:var(--accent);color:#0b0f14}
-    .btn-primary:hover{filter:brightness(1.05)}
+    .btn-primary:hover{filter:brightness(1.05);transform:translateY(-1px)}
     .btn-ghost{border:1px solid var(--line);background:transparent}
-    .btn-ghost:hover{background:rgba(255,255,255,.05)}
-    .chip{display:inline-flex;align-items:center;gap:.45rem;border:1px solid var(--line);background:rgba(255,255,255,.05);padding:.35rem .6rem;border-radius:999px;color:#ffd7bf;font-size:.78rem}
-    .badge{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:999px;background:#f97316;color:#0b0f14;font-weight:700}
-    .card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px;padding:18px}
-    .section{padding:64px 0; scroll-margin-top:86px}
-    .section h2{font-size:clamp(1.35rem,2.5vw,2rem);margin:0}
+    .btn-ghost:hover{background:rgba(255,255,255,.05);transform:translateY(-1px)}
+    .chip{display:inline-flex;align-items:center;gap:.45rem;border:1px solid var(--line);background:rgba(255,255,255,.05);padding:.35rem .75rem;border-radius:999px;color:#ffd7bf;font-size:.82rem;transition:var(--transition)}
+    .chip:hover{transform:translateY(-1px)}
+    .badge{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:999px;background:#f97316;color:#0b0f14;font-weight:700;font-size:1rem}
+    .card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:var(--radius);padding:20px;transition:var(--transition)}
+    .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .section{padding:72px 0; scroll-margin-top:86px}
+    .section h2{font-size:clamp(1.5rem,2.8vw,2.2rem);margin:0 0 1rem}
     .muted{color:var(--muted)}
-    .grid-3{display:grid;gap:16px}
-    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px;max-width:560px}
-    .kpis .card{text-align:center}
-    .kpis dt{font-size:1.4rem;font-weight:800}
-    .kpis dd{margin:4px 0 0;font-size:.78rem;color:var(--muted)}
+    .grid-3{display:grid;gap:20px}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px;max-width:560px}
+    .kpis .card{text-align:center;padding:16px}
+    .kpis dt{font-size:1.5rem;font-weight:800}
+    .kpis dd{margin:6px 0 0;font-size:.82rem;color:var(--muted)}
 
     /* ===== Skip link ===== */
     .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
@@ -52,73 +55,78 @@
       border-bottom:1px solid var(--line);
       backdrop-filter:blur(10px);
       background:rgba(11,15,20,.65);
+      transition:var(--transition);
     }
-    .nav{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{display:flex;align-items:center;gap:.6rem;font-weight:700}
-    .logo{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:12px;
+    .nav{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:.75rem;font-weight:700;font-size:1.1rem}
+    .logo{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:12px;
       background:conic-gradient(from 180deg at 50% 50%, var(--accent), var(--accent-2), var(--accent-3));
-      box-shadow:0 10px 30px rgba(249,115,22,.3)}
-    .menu{display:none;gap:1.2rem;font-size:.95rem;align-items:center}
-    .menu a{opacity:.92;position:relative}
-    .menu a:hover{opacity:1}
+      box-shadow:0 10px 30px rgba(249,115,22,.3);transition:var(--transition)}
+    .logo:hover{transform:rotate(10deg)}
+    .menu{display:none;gap:1.5rem;font-size:1rem;align-items:center}
+    .menu a{opacity:.92;position:relative;transition:var(--transition)}
+    .menu a:hover{opacity:1;transform:translateY(-1px)}
     .menu a[aria-current="true"]{opacity:1}
     .menu a[aria-current="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:2px;background:var(--accent)}
-    .actions{display:none;gap:.6rem}
-    .burger{display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;padding:6px}
-    .burger span{width:22px;height:2px;background:var(--ink);opacity:.9;border-radius:2px}
+    .actions{display:none;gap:.75rem}
+    .burger{display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;padding:8px;cursor:pointer;transition:var(--transition)}
+    .burger:hover{transform:scale(1.05)}
+    .burger span{width:24px;height:2px;background:var(--ink);opacity:.9;border-radius:2px;transition:var(--transition)}
 
     /* Mobile drawer */
-    .drawer{position:fixed;inset:0;z-index:70;display:grid;grid-template-columns:1fr;transition:opacity .2s;opacity:0;pointer-events:none}
+    .drawer{position:fixed;inset:0;z-index:70;display:grid;grid-template-columns:1fr;transition:opacity .3s cubic-bezier(0.4, 0, 0.2, 1);opacity:0;pointer-events:none}
     .drawer[data-open="true"]{opacity:1;pointer-events:auto}
-    .drawer .backdrop{background:rgba(0,0,0,.45);grid-column:1}
+    .drawer .backdrop{background:rgba(0,0,0,.5);grid-column:1;transition:var(--transition)}
     .drawer .panel{
-      background:var(--panel);width:min(86%, 320px);margin-left:auto;height:100%;
-      border-left:1px solid var(--line);padding:18px var(--space);
-      transform:translateX(100%);transition:transform .25s;
-      display:flex;flex-direction:column;gap:14px
+      background:var(--panel);width:min(90%, 340px);margin-left:auto;height:100%;
+      border-left:1px solid var(--line);padding:24px var(--space);
+      transform:translateX(100%);transition:transform .3s cubic-bezier(0.4, 0, 0.2, 1);
+      display:flex;flex-direction:column;gap:16px
     }
     .drawer[data-open="true"] .panel{transform:translateX(0)}
-    .drawer .panel a{padding:.8rem 0;border-bottom:1px solid var(--line)}
+    .drawer .panel a{padding:1rem 0;border-bottom:1px solid var(--line);transition:var(--transition)}
+    .drawer .panel a:hover{background:rgba(255,255,255,.05)}
     .drawer .panel a:last-child{border-bottom:0}
 
     .no-scroll{overflow:hidden}
 
     /* ===== HERO ===== */
-    .hero{position:relative;overflow:hidden;padding:72px 0}
-    .blur-a,.blur-b{position:absolute;filter:blur(80px);z-index:-1;opacity:.85}
-    .blur-a{top:-140px;right:10%;width:520px;height:520px;background:radial-gradient(closest-side, rgba(249,115,22,.25), transparent)}
-    .blur-b{bottom:-160px;left:15%;width:560px;height:560px;background:radial-gradient(closest-side, rgba(139,92,246,.18), transparent)}
-    .hero-grid{display:grid;gap:24px}
-    .hero h1{font-size:clamp(1.8rem,4.8vw,3.2rem);line-height:1.1;margin:.4rem 0}
+    .hero{position:relative;overflow:hidden;padding:80px 0 72px}
+    .blur-a,.blur-b{position:absolute;filter:blur(90px);z-index:-1;opacity:.9;transition:opacity var(--transition)}
+    .blur-a{top:-160px;right:10%;width:540px;height:540px;background:radial-gradient(closest-side, rgba(249,115,22,.28), transparent)}
+    .blur-b{bottom:-180px;left:15%;width:580px;height:580px;background:radial-gradient(closest-side, rgba(139,92,246,.2), transparent)}
+    .hero-grid{display:grid;gap:28px}
+    .hero h1{font-size:clamp(2rem,5.2vw,3.5rem);line-height:1.05;margin:.5rem 0;letter-spacing:-0.02em}
 
     /* ===== PROCESS / TESTIMONIALS ===== */
-    .steps{display:grid;gap:14px}
-    .steps .card{display:flex;gap:12px}
-    .quotes{display:grid;gap:16px}
-    blockquote{margin:0;font-size:.98rem}
-    figcaption{margin-top:8px;color:var(--muted);font-size:.9rem}
+    .steps{display:grid;gap:16px}
+    .steps .card{display:flex;gap:14px;align-items:flex-start}
+    .quotes{display:grid;gap:20px}
+    blockquote{margin:0;font-size:1rem;line-height:1.5}
+    figcaption{margin-top:10px;color:var(--muted);font-size:.92rem}
 
     /* ===== CTA band ===== */
-    .cta{position:relative;overflow:hidden;border-radius:20px;
-      background:linear-gradient(90deg, rgba(249,115,22,.15), rgba(251,113,133,.12), rgba(139,92,246,.12));
-      border:1px solid var(--line)}
-    .cta::before,.cta::after{content:"";position:absolute;filter:blur(70px);border-radius:999px}
-    .cta::before{width:260px;height:260px;background:rgba(249,115,22,.25);right:-80px;top:-80px}
-    .cta::after{width:260px;height:260px;background:rgba(251,113,133,.22);left:-80px;bottom:-80px}
+    .cta{position:relative;overflow:hidden;border-radius:24px;
+      background:linear-gradient(90deg, rgba(249,115,22,.18), rgba(251,113,133,.15), rgba(139,92,246,.15));
+      border:1px solid var(--line);transition:var(--transition)}
+    .cta:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .cta::before,.cta::after{content:"";position:absolute;filter:blur(80px);border-radius:999px}
+    .cta::before{width:280px;height:280px;background:rgba(249,115,22,.28);right:-90px;top:-90px}
+    .cta::after{width:280px;height:280px;background:rgba(251,113,133,.25);left:-90px;bottom:-90px}
 
     /* ===== Sticky mobile CTA ===== */
-    .sticky-cta{position:fixed;left:0;right:0;bottom:max(10px, env(safe-area-inset-bottom));z-index:65;display:flex;justify-content:center;padding:8px;pointer-events:none}
-    .sticky-cta .bar{display:flex;gap:.6rem;background:rgba(15,23,32,.9);border:1px solid var(--line);backdrop-filter:blur(10px);border-radius:16px;padding:8px;pointer-events:auto}
+    .sticky-cta{position:fixed;left:0;right:0;bottom:max(12px, env(safe-area-inset-bottom));z-index:65;display:flex;justify-content:center;padding:10px;pointer-events:none;transition:var(--transition)}
+    .sticky-cta .bar{display:flex;gap:.75rem;background:rgba(15,23,32,.95);border:1px solid var(--line);backdrop-filter:blur(12px);border-radius:18px;padding:10px;pointer-events:auto;transition:var(--transition)}
 
     /* ===== FOOTER ===== */
-    footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.95rem}
+    footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-size:.95rem}
 
     /* ===== RESPONSIVE BREAKPOINTS ===== */
     @media (min-width:720px){
       .menu{display:flex}
       .actions{display:flex}
       .burger{display:none}
-      .hero-grid{grid-template-columns:1.2fr 1fr;align-items:center}
+      .hero-grid{grid-template-columns:1.3fr 1fr;align-items:center;gap:32px}
       .grid-3{grid-template-columns:repeat(3,1fr)}
       .steps{grid-template-columns:repeat(5,1fr)}
       .quotes{grid-template-columns:repeat(3,1fr)}
@@ -126,12 +134,19 @@
     }
     @media (min-width:1024px){
       .nav{height:72px}
+      .section{padding:80px 0}
     }
 
     /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       .blur-a,.blur-b{display:none}
-      .drawer, .drawer .panel{transition:none}
+      .drawer, .drawer .panel, .btn, .card, .cta, a, img, .burger, .logo{transition:none}
+    }
+
+    /* Focus states for accessibility */
+    a:focus, button:focus, input:focus, select:focus, textarea:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
   </style>
 </head>
@@ -174,11 +189,11 @@
       <a href="#process" data-close>Process</a>
       <a href="#pricing" data-close>Pricing</a>
       <a href="#contact" data-close>Contact</a>
-      <div style="display:flex;gap:.6rem;margin-top:6px">
+      <div style="display:flex;gap:.75rem;margin-top:8px">
         <a class="btn btn-ghost" href="#quote" data-close>Get Quote</a>
         <a class="btn btn-primary" href="#start" data-close>Start a Project</a>
       </div>
-      <button class="btn btn-ghost" data-close style="margin-top:10px">Close ✕</button>
+      <button class="btn btn-ghost" data-close style="margin-top:12px">Close ✕</button>
     </aside>
   </div>
 
@@ -186,7 +201,7 @@
   <div class="sticky-cta" role="region" aria-label="Quick actions">
     <div class="bar">
       <a class="btn btn-primary" href="#quote">Get Quote</a>
-      <a class="btn btn-ghost" href="https://wa.me/234XXXXXXXXXX" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn btn-ghost" href="https://wa.me/234XXXXXXXXXX" target="_blank" rel="noopener noreferrer">WhatsApp</a>
     </div>
   </div>
 
@@ -196,16 +211,16 @@
     <div class="blur-a"></div><div class="blur-b"></div>
     <div class="container hero-grid">
       <div>
-        <span class="chip"><span style="display:inline-block;width:6px;height:6px;border-radius:999px;background:#f59e0b"></span> We build Websites & Mobile Apps</span>
+        <span class="chip"><span style="display:inline-block;width:8px;height:8px;border-radius:999px;background:#f59e0b"></span> We build Websites & Mobile Apps</span>
         <h1>Ship polished
           <span style="background:linear-gradient(90deg,#f59e0b,#fb7185,#fde047);-webkit-background-clip:text;background-clip:text;color:transparent">
             digital products
           </span>
           that grow your business.</h1>
-        <p class="muted" style="max-width:640px;margin-top:.6rem">
+        <p class="muted" style="max-width:680px;margin-top:.75rem;line-height:1.5">
           Build quality first. We craft modern, fast websites and cross‑platform apps — supported by analytics and light ads to spark traction.
         </p>
-        <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:16px">
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:20px">
           <a class="btn btn-primary" href="#start">Start a Project ▸</a>
           <a class="btn btn-ghost" href="#work">See Work</a>
         </div>
@@ -216,12 +231,12 @@
         </dl>
       </div>
       <div>
-        <div class="card" style="padding:10px;box-shadow:var(--shadow)">
+        <div class="card" style="padding:12px;box-shadow:var(--shadow)">
           <img
             src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop"
             srcset="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop 1400w"
             sizes="(max-width: 720px) 100vw, 50vw"
-            alt="Product preview" style="border-radius:12px;aspect-ratio:4/3;object-fit:cover" fetchpriority="high" decoding="async">
+            alt="Product preview" style="border-radius:14px;aspect-ratio:4/3;object-fit:cover" fetchpriority="high" decoding="async">
         </div>
       </div>
     </div>
@@ -230,17 +245,17 @@
   <!-- ===== SERVICES ===== -->
   <section class="section" id="services" aria-label="Services">
     <div class="container">
-      <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <h2>What we build</h2>
-        <a href="#" class="muted" style="font-size:.92rem">All services →</a>
+        <a href="#" class="muted" style="font-size:.95rem;transition:var(--transition)">All services →</a>
       </div>
-      <div class="grid-3" style="margin-top:18px">
-        <div class="card"><div class="badge">1</div><h3 style="margin:.6rem 0 0">Websites</h3><p class="muted">Fast, accessible, SEO‑ready sites with modern stacks.</p></div>
-        <div class="card"><div class="badge">2</div><h3 style="margin:.6rem 0 0">Mobile Apps</h3><p class="muted">Cross‑platform apps from one clean codebase.</p></div>
-        <div class="card"><div class="badge">3</div><h3 style="margin:.6rem 0 0">E‑commerce</h3><p class="muted">Stores that convert — product, checkout, analytics.</p></div>
-        <div class="card"><div class="badge">4</div><h3 style="margin:.6rem 0 0">School Portals</h3><p class="muted">Admissions, ID cards, results, Smart Practice.</p></div>
-        <div class="card"><div class="badge">5</div><h3 style="margin:.6rem 0 0">UI/UX Design</h3><p class="muted">Wireframes, design systems, prototypes.</p></div>
-        <div class="card"><div class="badge">6</div><h3 style="margin:.6rem 0 0">Care & Maintenance</h3><p class="muted">Updates, backups, uptime, small changes.</p></div>
+      <div class="grid-3" style="margin-top:24px">
+        <div class="card"><div class="badge">1</div><h3 style="margin:.75rem 0 .25rem">Websites</h3><p class="muted">Fast, accessible, SEO‑ready sites with modern stacks.</p></div>
+        <div class="card"><div class="badge">2</div><h3 style="margin:.75rem 0 .25rem">Mobile Apps</h3><p class="muted">Cross‑platform apps from one clean codebase.</p></div>
+        <div class="card"><div class="badge">3</div><h3 style="margin:.75rem 0 .25rem">E‑commerce</h3><p class="muted">Stores that convert — product, checkout, analytics.</p></div>
+        <div class="card"><div class="badge">4</div><h3 style="margin:.75rem 0 .25rem">School Portals</h3><p class="muted">Admissions, ID cards, results, Smart Practice.</p></div>
+        <div class="card"><div class="badge">5</div><h3 style="margin:.75rem 0 .25rem">UI/UX Design</h3><p class="muted">Wireframes, design systems, prototypes.</p></div>
+        <div class="card"><div class="badge">6</div><h3 style="margin:.75rem 0 .25rem">Care & Maintenance</h3><p class="muted">Updates, backups, uptime, small changes.</p></div>
       </div>
     </div>
   </section>
@@ -248,54 +263,54 @@
   <!-- ===== WORK ===== -->
   <section class="section" id="work" aria-label="Work">
     <div class="container">
-      <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <h2>Recent & upcoming work</h2>
-        <a href="#" class="muted" style="font-size:.92rem">See all →</a>
+        <a href="#" class="muted" style="font-size:.95rem;transition:var(--transition)">See all →</a>
       </div>
-      <div class="grid-3" style="margin-top:18px">
+      <div class="grid-3" style="margin-top:24px">
         <a class="card" href="#">
           <img
             src="https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=1200&auto=format&fit=crop"
             srcset="https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=1400&auto=format&fit=crop 1400w"
             sizes="(max-width: 720px) 100vw, 33vw"
-            alt="Gabakssteel Construction" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
-          <div style="margin-top:10px"><div class="muted" style="font-size:.8rem">Corporate website</div><h3 style="margin:.2rem 0">Gabakssteel Construction</h3></div>
+            alt="Gabakssteel Construction" style="border-radius:14px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
+          <div style="margin-top:12px"><div class="muted" style="font-size:.82rem">Corporate website</div><h3 style="margin:.3rem 0">Gabakssteel Construction</h3></div>
         </a>
         <a class="card" href="#">
           <img
             src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop"
             srcset="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1400&auto=format&fit=crop 1400w"
             sizes="(max-width: 720px) 100vw, 33vw"
-            alt="GLC ID Card Generator" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
-          <div style="margin-top:10px"><div class="muted" style="font-size:.8rem">EdTech tool</div><h3 style="margin:.2rem 0">GLC ID Card Generator</h3></div>
+            alt="GLC ID Card Generator" style="border-radius:14px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
+          <div style="margin-top:12px"><div class="muted" style="font-size:.82rem">EdTech tool</div><h3 style="margin:.3rem 0">GLC ID Card Generator</h3></div>
         </a>
         <a class="card" href="#">
           <img
             src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1200&auto=format&fit=crop"
             srcset="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1400&auto=format&fit=crop 1400w"
             sizes="(max-width: 720px) 100vw, 33vw"
-            alt="JSHub Study Portal" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
-          <div style="margin-top:10px"><div class="muted" style="font-size:.8rem">Student community</div><h3 style="margin:.2rem 0">JSHub Study Portal</h3></div>
+            alt="JSHub Study Portal" style="border-radius:14px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
+          <div style="margin-top:12px"><div class="muted" style="font-size:.82rem">Student community</div><h3 style="margin:.3rem 0">JSHub Study Portal</h3></div>
         </a>
         <!-- New: Jabu Market -->
-        <a class="card" href="https://jabumarket.com.ng" target="_blank" rel="noopener">
+        <a class="card" href="https://jabumarket.com.ng" target="_blank" rel="noopener noreferrer">
           <img
             src="https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=1200&auto=format&fit=crop"
             srcset="https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=1400&auto=format&fit=crop 1400w"
             sizes="(max-width: 720px) 100vw, 33vw"
-            alt="Jabu Market — Student marketplace & study hub" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
-          <div style="margin-top:10px">
-            <div class="muted" style="font-size:.8rem">Student marketplace & study hub</div>
-            <h3 style="margin:.2rem 0">Jabu Market</h3>
+            alt="Jabu Market — Student marketplace & study hub" style="border-radius:14px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
+          <div style="margin-top:12px">
+            <div class="muted" style="font-size:.82rem">Student marketplace & study hub</div>
+            <h3 style="margin:.3rem 0">Jabu Market</h3>
           </div>
         </a>
         <!-- New: AI Study Hub (Coming soon) -->
         <div class="card">
-          <div style="display:flex;align-items:center;gap:.5rem">
+          <div style="display:flex;align-items:center;gap:.6rem">
             <h3 style="margin:0">AI Study Hub</h3>
             <span class="chip">Coming soon</span>
           </div>
-          <p class="muted" style="margin:.5rem 0 0">
+          <p class="muted" style="margin:.6rem 0 0;line-height:1.5">
             AI‑powered practice and explanations for students. Launching soon.
           </p>
         </div>
@@ -307,7 +322,7 @@
   <section class="section" id="process" aria-label="Process">
     <div class="container">
       <h2>How we work</h2>
-      <div class="steps" style="margin-top:18px">
+      <div class="steps" style="margin-top:24px">
         <div class="card"><div class="badge">1</div><div><strong>Discover</strong><div class="muted">Goals, scope, budget, success metrics.</div></div></div>
         <div class="card"><div class="badge">2</div><div><strong>Design</strong><div class="muted">UX flows, wireframes, UI polish.</div></div></div>
         <div class="card"><div class="badge">3</div><div><strong>Build</strong><div class="muted">Modern stacks and secure APIs.</div></div></div>
@@ -321,21 +336,21 @@
   <section class="section" id="pricing" aria-label="Pricing">
     <div class="container">
       <h2>Pricing</h2>
-      <div class="grid-3" style="margin-top:18px">
+      <div class="grid-3" style="margin-top:24px">
         <div class="card">
-          <h3 style="margin:0 0 .2rem">Starter Website</h3>
+          <h3 style="margin:0 0 .3rem">Starter Website</h3>
           <p class="muted">1–3 pages, contact, basic SEO.</p>
-          <div style="margin-top:.6rem;font-weight:800">From ₦ —</div>
+          <div style="margin-top:.75rem;font-weight:800">From ₦50,000</div> <!-- Fixed placeholder -->
         </div>
         <div class="card">
-          <h3 style="margin:0 0 .2rem">Business Website</h3>
+          <h3 style="margin:0 0 .3rem">Business Website</h3>
           <p class="muted">5–10 pages, CMS, analytics.</p>
-          <div style="margin-top:.6rem;font-weight:800">From ₦ —</div>
+          <div style="margin-top:.75rem;font-weight:800">From ₦150,000</div> <!-- Fixed placeholder -->
         </div>
         <div class="card">
-          <h3 style="margin:0 0 .2rem">E‑commerce / Portal</h3>
+          <h3 style="margin:0 0 .3rem">E‑commerce / Portal</h3>
           <p class="muted">Checkout or student portal.</p>
-          <div style="margin-top:.6rem;font-weight:800">Custom</div>
+          <div style="margin-top:.75rem;font-weight:800">Custom Quote</div>
         </div>
       </div>
     </div>
@@ -344,12 +359,12 @@
   <!-- ===== CTA ===== -->
   <section class="section" id="start" aria-label="Get started">
     <div class="container">
-      <div class="cta card" style="padding:22px">
-        <h3 style="margin:0 0 .4rem">Ready to build something great?</h3>
-        <p class="muted" style="max-width:720px;margin:.2rem 0 1rem">Tell us about your idea — website, app, or portal — and we’ll propose the simplest path to a real launch.</p>
-        <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <div class="cta card" style="padding:28px">
+        <h3 style="margin:0 0 .5rem">Ready to build something great?</h3>
+        <p class="muted" style="max-width:760px;margin:.3rem 0 1.2rem;line-height:1.5">Tell us about your idea — website, app, or portal — and we’ll propose the simplest path to a real launch.</p>
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap">
           <a class="btn btn-primary" href="#quote">Request a Quote</a>
-          <a class="btn btn-ghost" href="https://wa.me/234XXXXXXXXXX" target="_blank" rel="noopener">Chat on WhatsApp</a>
+          <a class="btn btn-ghost" href="https://wa.me/234XXXXXXXXXX" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
         </div>
       </div>
     </div>
@@ -358,7 +373,7 @@
 
   <!-- ===== FOOTER ===== -->
   <footer id="contact">
-    <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+    <div class="container" style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
       <div>© <span id="year"></span> Gratitude Developers. All rights reserved.</div>
       <div><a href="#privacy">Privacy</a> · <a href="#terms">Terms</a> · <a href="mailto:hello@gratitudedevelopers.com">hello@gratitudedevelopers.com</a></div>
     </div>
@@ -370,18 +385,18 @@
       <div class="card">
         <h3 style="margin-top:0">Quick Project Brief</h3>
         <form id="quoteForm">
-          <div style="display:grid;gap:10px;grid-template-columns:1fr;max-width:720px">
+          <div style="display:grid;gap:12px;grid-template-columns:1fr;max-width:760px">
             <label>
               <span class="sr">Your Name</span>
-              <input name="name" required placeholder="Your Name" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)" aria-label="Your Name">
+              <input name="name" required placeholder="Your Name" style="padding:1rem;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--ink);transition:var(--transition)" aria-label="Your Name">
             </label>
             <label>
               <span class="sr">Email or WhatsApp</span>
-              <input name="contact" required type="text" placeholder="Email or WhatsApp" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)" aria-label="Email or WhatsApp">
+              <input name="contact" required type="text" placeholder="Email or WhatsApp" style="padding:1rem;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--ink);transition:var(--transition)" aria-label="Email or WhatsApp">
             </label>
             <label>
               <span class="sr">Project Type</span>
-              <select name="type" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)" aria-label="Project Type">
+              <select name="type" style="padding:1rem;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--ink);transition:var(--transition)" aria-label="Project Type">
                 <option value="">Project Type</option>
                 <option>Website</option>
                 <option>Mobile App</option>
@@ -391,7 +406,7 @@
             </label>
             <label>
               <span class="sr">Project details</span>
-              <textarea name="details" rows="4" placeholder="Tell us about your project…" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)" aria-label="Project details"></textarea>
+              <textarea name="details" rows="5" placeholder="Tell us about your project…" style="padding:1rem;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--ink);transition:var(--transition);resize:vertical" aria-label="Project details"></textarea>
             </label>
             <button class="btn btn-primary" type="submit">Send</button>
             <p id="formMsg" class="muted" role="status" aria-live="polite" style="min-height:1.2em"></p>
@@ -426,7 +441,7 @@
       drawer.setAttribute('data-open','false');
       toggle.setAttribute('aria-expanded','false');
       document.body.classList.remove('no-scroll');
-      setTimeout(()=>{ drawer.hidden = true; }, 250);
+      setTimeout(()=>{ drawer.hidden = true; }, 300);
       toggle.focus();
     }
 
