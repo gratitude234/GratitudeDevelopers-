@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>About — Gratitude Developers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="We’re a small, focused team building fast, modern websites and apps for Nigerian SMEs, schools, and startups." />
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <style>
+    :root{ --bg:#0b0f14; --panel:#0f1720; --ink:#e6e7eb; --muted:#a9b0bb; --line:rgba(255,255,255,.08); --accent:#f97316; --accent-2:#fb7185; --accent-3:#8b5cf6; --radius:16px; --shadow:0 8px 30px rgba(0,0,0,.25); --space:clamp(16px,3vw,24px) }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)} a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 var(--space)} .muted{color:var(--muted)} .card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px}
+    .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1rem;border-radius:12px;font-weight:600;line-height:1}
+    .btn-primary{background:var(--accent);color:#0b0f14} .btn-primary:hover{filter:brightness(1.05)} .btn-ghost{border:1px solid var(--line);background:transparent} .btn-ghost:hover{background:rgba(255,255,255,.05)}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:60;border-bottom:1px solid var(--line);backdrop-filter:blur(10px);background:rgba(11,15,20,.65)}
+    .nav{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:700}
+    .logo{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:12px;background:conic-gradient(from 180deg,var(--accent),var(--accent-2),var(--accent-3));box-shadow:0 10px 30px rgba(249,115,22,.3)}
+    .menu{display:none;gap:1.2rem;font-size:.95rem;align-items:center}
+    .menu a{opacity:.92;position:relative} .menu a:hover{opacity:1}
+    .menu a[aria-current="true"]{opacity:1} .menu a[aria-current="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:2px;background:var(--accent)}
+    .actions{display:none;gap:.6rem}
+    .burger{display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;padding:6px}
+    .burger span{width:22px;height:2px;background:var(--ink);opacity:.9;border-radius:2px}
+
+    .drawer{position:fixed;inset:0;z-index:70;display:grid;grid-template-columns:1fr;transition:opacity .2s;opacity:0;pointer-events:none}
+    .drawer[data-open="true"]{opacity:1;pointer-events:auto}
+    .drawer .backdrop{background:rgba(0,0,0,.45);grid-column:1}
+    .drawer .panel{background:var(--panel);width:min(86%,320px);margin-left:auto;height:100%;border-left:1px solid var(--line);padding:18px var(--space);transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column;gap:14px}
+    .drawer[data-open="true"] .panel{transform:translateX(0)} .drawer .panel a{padding:.8rem 0;border-bottom:1px solid var(--line)} .drawer .panel a:last-child{border-bottom:0}
+    .no-scroll{overflow:hidden}
+
+    /* Hero */
+    .hero{padding:56px 0 24px}
+    .crumbs{font-size:.9rem} .crumbs a{color:#ffd7bf}
+    .hero h1{font-size:clamp(1.6rem,4vw,2.6rem);margin:.4rem 0}
+
+    /* Mission */
+    .mission{display:grid;gap:16px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .stats .card{padding:16px;text-align:center}
+    .stats dt{font-weight:800;font-size:1.6rem}
+    .stats dd{margin:4px 0 0;color:var(--muted)}
+
+    /* Values */
+    .grid-3{display:grid;gap:16px}
+
+    /* Timeline */
+    .timeline{display:grid;gap:14px}
+    .step{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start}
+    .dot{width:32px;height:32px;border-radius:999px;display:grid;place-items:center;background:rgba(249,115,22,.2);border:1px solid var(--line)}
+
+    /* Team */
+    .team{display:grid;gap:16px}
+    .member{display:flex;gap:12px}
+    .avatar{width:56px;height:56px;border-radius:12px;background:linear-gradient(90deg, rgba(249,115,22,.25), rgba(251,113,133,.22));border:1px solid var(--line)}
+
+    /* Contact strip */
+    .strip{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+
+    /* Footer */
+    footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.95rem;margin-top:24px}
+
+    @media (min-width:720px){ .menu{display:flex} .actions{display:flex} .burger{display:none} .grid-3{grid-template-columns:repeat(3,1fr)} .team{grid-template-columns:repeat(3,1fr)} }
+    @media (min-width:1024px){ .nav{height:72px} }
+    @media (prefers-reduced-motion: reduce){ .drawer,.drawer .panel{transition:none} }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="./index.html" aria-label="Go home"><span class="logo">GD</span><span>Gratitude Developers</span></a>
+      <nav class="menu" aria-label="Primary">
+        <a href="./index.html#services">Services</a>
+        <a href="./work.html">Work</a>
+        <a href="./index.html#process">Process</a>
+        <a href="./pricing.html">Pricing</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="actions"><a class="btn btn-ghost" href="#quote">Get Quote</a><a class="btn btn-primary" href="#quote">Start a Project</a></div>
+      <button id="navToggle" class="burger" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div id="mobileDrawer" class="drawer" data-open="false" hidden>
+    <div class="backdrop" data-close></div>
+    <aside class="panel" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+      <a href="./index.html#services" data-close>Services</a>
+      <a href="./work.html" data-close>Work</a>
+      <a href="./index.html#process" data-close>Process</a>
+      <a href="./pricing.html" data-close>Pricing</a>
+      <a href="#quote" data-close>Contact</a>
+      <div style="display:flex;gap:.6rem;margin-top:6px"><a class="btn btn-ghost" href="#quote" data-close>Get Quote</a><a class="btn btn-primary" href="#quote" data-close>Start a Project</a></div>
+      <button class="btn btn-ghost" data-close style="margin-top:10px">Close ✕</button>
+    </aside>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumbs"><a href="./index.html">Home</a> · <span class="muted">About</span></nav>
+      <h1>We ship lean, useful products</h1>
+      <p class="muted" style="max-width:720px">Gratitude Developers is a small team focused on helping Nigerian SMEs, schools and startups launch fast and grow steadily. We prefer clear scopes, quick wins, and long‑term care.</p>
+    </div>
+  </section>
+
+  <!-- Mission & Stats -->
+  <section>
+    <div class="container mission">
+      <div class="card" style="padding:18px">
+        <h2 style="margin:0 0 .3rem">Our mission</h2>
+        <p class="muted" style="margin:0;max-width:900px">Make the web more useful for local businesses and students. We keep things simple: ship a small, high‑quality product, learn from real users, then improve it.</p>
+      </div>
+      <dl class="stats">
+        <div class="card"><dt>50+</dt><dd>Projects shipped</dd></div>
+        <div class="card"><dt>1–6 wks</dt><dd>Typical timeline</dd></div>
+        <div class="card"><dt>5★</dt><dd>Client satisfaction</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section style="margin-top:8px">
+    <div class="container">
+      <h2>Values</h2>
+      <div class="grid-3" style="margin-top:12px">
+        <div class="card" style="padding:16px"><h3 style="margin:0 0 .2rem">Clarity over complexity</h3><p class="muted">We cut scope until it’s shippable and valuable.</p></div>
+        <div class="card" style="padding:16px"><h3 style="margin:0 0 .2rem">Quality first</h3><p class="muted">Fast, accessible, and maintainable by default.</p></div>
+        <div class="card" style="padding:16px"><h3 style="margin:0 0 .2rem">Care after launch</h3><p class="muted">Small, steady improvements beat big rewrites.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline / Roadmap -->
+  <section style="margin-top:8px">
+    <div class="container">
+      <h2>Roadmap</h2>
+      <div class="timeline" style="margin-top:12px">
+        <div class="step"><div class="dot">1</div><div class="card" style="padding:14px"><strong>Q1</strong> — Launch core website & case studies</div></div>
+        <div class="step"><div class="dot">2</div><div class="card" style="padding:14px"><strong>Q2</strong> — Ship 3 SME websites & a campus portal</div></div>
+        <div class="step"><div class="dot">3</div><div class="card" style="padding:14px"><strong>Q3</strong> — Release AI Study Hub beta</div></div>
+        <div class="step"><div class="dot">4</div><div class="card" style="padding:14px"><strong>Q4</strong> — Grow Jabu Market categories & logistics</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section style="margin-top:8px">
+    <div class="container">
+      <h2>Team</h2>
+      <div class="team" style="margin-top:12px">
+        <div class="card member" style="padding:12px"><div class="avatar"></div><div><strong>Lead Developer</strong><div class="muted">Full‑stack, product lead</div></div></div>
+        <div class="card member" style="padding:12px"><div class="avatar"></div><div><strong>UI/UX Designer</strong><div class="muted">Design systems & research</div></div></div>
+        <div class="card member" style="padding:12px"><div class="avatar"></div><div><strong>Project Ops</strong><div class="muted">Comms, QA, and analytics</div></div></div>
+      </div>
+      <p class="muted" style="margin-top:8px">Hiring soon? Add a short note here for interns/freelancers.</p>
+    </div>
+  </section>
+
+  <!-- Logos strip / initiatives -->
+  <section style="margin-top:8px">
+    <div class="container">
+      <h2>Initiatives</h2>
+      <div class="grid-3" style="margin-top:12px">
+        <a class="card" href="https://jabumarket.com.ng" target="_blank" rel="noopener" style="padding:14px"><strong>Jabu Market</strong><p class="muted" style="margin:.3rem 0 0">Student marketplace & study hub</p></a>
+        <div class="card" style="padding:14px"><strong>AI Study Hub</strong> <span class="muted">(Coming soon)</span><p class="muted" style="margin:.3rem 0 0">AI‑powered practice and explanations</p></div>
+        <a class="card" href="./work.html" style="padding:14px"><strong>Client Work</strong><p class="muted" style="margin:.3rem 0 0">Selected projects & case studies</p></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact strip -->
+  <section style="margin-top:10px">
+    <div class="container">
+      <div class="card strip" style="padding:16px">
+        <div>
+          <h3 style="margin:.2rem 0">Let’s build something great</h3>
+          <p class="muted" style="margin:.2rem 0">Quick brief → clear scope → fast delivery. Prefer WhatsApp? We’ve got you.</p>
+        </div>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap"><a class="btn btn-primary" href="#quote">Request a Quote</a><a class="btn btn-ghost" href="https://wa.me/234XXXXXXXXXX" target="_blank" rel="noopener">WhatsApp</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / Quote form -->
+  <section class="container" id="quote" style="margin:18px auto 0">
+    <div class="card" style="padding:18px">
+      <h3 style="margin-top:0">Quick Project Brief</h3>
+      <form id="quoteForm" style="display:grid;gap:10px;grid-template-columns:1fr;max-width:720px">
+        <input name="name" required placeholder="Your Name" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+        <input name="contact" required placeholder="Email or WhatsApp" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+        <select name="type" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+          <option value="">Project Type</option>
+          <option>Website</option><option>Mobile App</option><option>E‑commerce</option><option>School Portal</option>
+        </select>
+        <textarea name="details" rows="4" placeholder="Project details…" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)"></textarea>
+        <button class="btn btn-primary" type="submit">Send</button>
+        <p id="formMsg" class="muted" role="status" aria-live="polite" style="min-height:1.2em"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+      <div>© <span id="year"></span> Gratitude Developers. All rights reserved.</div>
+      <div><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="mailto:hello@gratitudedevelopers.com">hello@gratitudedevelopers.com</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Drawer
+    const toggle = document.getElementById('navToggle');
+    const drawer = document.getElementById('mobileDrawer');
+    function openDrawer(){ drawer.hidden=false; drawer.setAttribute('data-open','true'); toggle.setAttribute('aria-expanded','true'); document.body.classList.add('no-scroll'); const firstLink = drawer.querySelector('a,button'); firstLink && firstLink.focus(); }
+    function closeDrawer(){ drawer.setAttribute('data-open','false'); toggle.setAttribute('aria-expanded','false'); document.body.classList.remove('no-scroll'); setTimeout(()=>{ drawer.hidden=true },250); toggle.focus(); }
+    toggle.addEventListener('click',()=>{ drawer.getAttribute('data-open')==='true'?closeDrawer():openDrawer(); });
+    drawer.addEventListener('click',(e)=>{ if(e.target.hasAttribute('data-close')) closeDrawer(); });
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && drawer.getAttribute('data-open')==='true') closeDrawer(); });
+
+    // Quote (placeholder)
+    const form = document.getElementById('quoteForm');
+    const msg = document.getElementById('formMsg');
+    const API_URL = 'https://jabumarket.com.ng/api/quote'; // TODO: replace with your endpoint
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault(); msg.textContent='Sending…'; const data = Object.fromEntries(new FormData(form).entries());
+      try{ const res = await fetch(API_URL,{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)}); if(!res.ok) throw new Error('Request failed'); msg.textContent='Thanks! We will reach out soon.'; form.reset(); }
+      catch(err){ msg.textContent='Could not submit right now. Please WhatsApp us instead.'; }
+    });
+  </script>
+</body>
+</html>
