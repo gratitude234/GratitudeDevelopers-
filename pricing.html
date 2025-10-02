@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Pricing — Gratitude Developers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Transparent pricing for websites, apps, e‑commerce, and school portals. Pick a package or use the estimator to price your project." />
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <style>
+    :root{ --bg:#0b0f14; --panel:#0f1720; --ink:#e6e7eb; --muted:#a9b0bb; --line:rgba(255,255,255,.08); --accent:#f97316; --accent-2:#fb7185; --accent-3:#8b5cf6; --radius:16px; --shadow:0 8px 30px rgba(0,0,0,.25); --space:clamp(16px,3vw,24px) }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)} a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 var(--space)} .muted{color:var(--muted)} .card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px}
+    .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1rem;border-radius:12px;font-weight:600;line-height:1}
+    .btn-primary{background:var(--accent);color:#0b0f14} .btn-primary:hover{filter:brightness(1.05)} .btn-ghost{border:1px solid var(--line);background:transparent} .btn-ghost:hover{background:rgba(255,255,255,.05)}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:60;border-bottom:1px solid var(--line);backdrop-filter:blur(10px);background:rgba(11,15,20,.65)}
+    .nav{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:700}
+    .logo{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:12px;background:conic-gradient(from 180deg,var(--accent),var(--accent-2),var(--accent-3));box-shadow:0 10px 30px rgba(249,115,22,.3)}
+    .menu{display:none;gap:1.2rem;font-size:.95rem;align-items:center}
+    .menu a{opacity:.92;position:relative} .menu a:hover{opacity:1}
+    .menu a[aria-current="true"]{opacity:1} .menu a[aria-current="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:2px;background:var(--accent)}
+    .actions{display:none;gap:.6rem}
+    .burger{display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;padding:6px}
+    .burger span{width:22px;height:2px;background:var(--ink);opacity:.9;border-radius:2px}
+
+    .drawer{position:fixed;inset:0;z-index:70;display:grid;grid-template-columns:1fr;transition:opacity .2s;opacity:0;pointer-events:none}
+    .drawer[data-open="true"]{opacity:1;pointer-events:auto}
+    .drawer .backdrop{background:rgba(0,0,0,.45);grid-column:1}
+    .drawer .panel{background:var(--panel);width:min(86%,320px);margin-left:auto;height:100%;border-left:1px solid var(--line);padding:18px var(--space);transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column;gap:14px}
+    .drawer[data-open="true"] .panel{transform:translateX(0)} .drawer .panel a{padding:.8rem 0;border-bottom:1px solid var(--line)} .drawer .panel a:last-child{border-bottom:0}
+    .no-scroll{overflow:hidden}
+
+    /* Hero */
+    .hero{padding:56px 0 24px}
+    .crumbs{font-size:.9rem} .crumbs a{color:#ffd7bf}
+    .hero h1{font-size:clamp(1.6rem,4vw,2.6rem);margin:.4rem 0}
+
+    /* Plans */
+    .plans{display:grid;gap:16px;margin-top:12px}
+    .plan{padding:18px}
+    .plan h3{margin:.2rem 0}
+    .price{font-weight:800;font-size:1.4rem}
+    .ul{margin:0;padding-left:18px}
+    .tag{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--line);border-radius:999px;padding:.25rem .55rem;font-size:.75rem;color:#ffd7bf}
+
+    /* Comparison table */
+    .table{overflow:auto;border:1px solid var(--line);border-radius:16px}
+    table{width:100%;border-collapse:collapse;min-width:720px}
+    th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left}
+    th{font-weight:700}
+
+    /* Estimator */
+    .est{display:grid;gap:14px}
+    .row{display:grid;gap:8px}
+    .row label{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .row input[type="range"]{width:100%}
+    .est .total{font-size:1.6rem;font-weight:800}
+
+    /* FAQ */
+    details{border:1px solid var(--line);border-radius:12px;padding:12px;background:rgba(255,255,255,.04)} summary{cursor:pointer;font-weight:600}
+
+    /* Footer */
+    footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.95rem;margin-top:24px}
+
+    @media (min-width:720px){ .menu{display:flex} .actions{display:flex} .burger{display:none} .plans{grid-template-columns:repeat(3,1fr)} .est{grid-template-columns:1fr 1fr} .nav{height:72px} }
+    @media (prefers-reduced-motion: reduce){ .drawer,.drawer .panel{transition:none} }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="./index.html" aria-label="Go home"><span class="logo">GD</span><span>Gratitude Developers</span></a>
+      <nav class="menu" aria-label="Primary">
+        <a href="./index.html#services">Services</a>
+        <a href="./work.html">Work</a>
+        <a href="./index.html#process">Process</a>
+        <a href="#" aria-current="true">Pricing</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="actions"><a class="btn btn-ghost" href="#quote">Get Quote</a><a class="btn btn-primary" href="#quote">Start a Project</a></div>
+      <button id="navToggle" class="burger" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div id="mobileDrawer" class="drawer" data-open="false" hidden>
+    <div class="backdrop" data-close></div>
+    <aside class="panel" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+      <a href="./index.html#services" data-close>Services</a>
+      <a href="./work.html" data-close>Work</a>
+      <a href="./index.html#process" data-close>Process</a>
+      <a href="#" data-close aria-current="true">Pricing</a>
+      <a href="#contact" data-close>Contact</a>
+      <div style="display:flex;gap:.6rem;margin-top:6px"><a class="btn btn-ghost" href="#quote" data-close>Get Quote</a><a class="btn btn-primary" href="#quote" data-close>Start a Project</a></div>
+      <button class="btn btn-ghost" data-close style="margin-top:10px">Close ✕</button>
+    </aside>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumbs"><a href="./index.html">Home</a> · <span class="muted">Pricing</span></nav>
+      <h1>Simple, transparent pricing</h1>
+      <p class="muted" style="max-width:720px">Pick a package or use the estimator to size your project. Every build includes performance basics, accessibility, and analytics setup.</p>
+    </div>
+  </section>
+
+  <!-- Plans -->
+  <section class="container plans">
+    <div class="card plan">
+      <div class="tag">Best for getting online</div>
+      <h3>Starter Website</h3>
+      <div class="price">From ₦ 250k</div>
+      <ul class="ul muted">
+        <li>1–5 pages, responsive design</li>
+        <li>Contact form, basic SEO</li>
+        <li>Analytics setup</li>
+      </ul>
+      <div style="margin-top:10px;display:flex;gap:.6rem"><a class="btn btn-primary" href="#quote">Get started</a><a class="btn btn-ghost" href="./services.html#websites">See details</a></div>
+    </div>
+    <div class="card plan">
+      <div class="tag">Most popular</div>
+      <h3>Business Website</h3>
+      <div class="price">From ₦ 600k</div>
+      <ul class="ul muted">
+        <li>5–10 pages, CMS</li>
+        <li>Blog/news, lead forms</li>
+        <li>On‑page SEO, analytics</li>
+      </ul>
+      <div style="margin-top:10px;display:flex;gap:.6rem"><a class="btn btn-primary" href="#quote">Start scope</a><a class="btn btn-ghost" href="./services.html#websites">See details</a></div>
+    </div>
+    <div class="card plan">
+      <div class="tag">Custom build</div>
+      <h3>E‑commerce / Portal</h3>
+      <div class="price">Custom</div>
+      <ul class="ul muted">
+        <li>Catalog, checkout or student portal</li>
+        <li>Auth, roles, dashboards</li>
+        <li>Reports + growth analytics</li>
+      </ul>
+      <div style="margin-top:10px;display:flex;gap:.6rem"><a class="btn btn-primary" href="#quote">Request quote</a><a class="btn btn-ghost" href="./services.html#ecommerce">See details</a></div>
+    </div>
+  </section>
+
+  <!-- Comparison -->
+  <section class="container" style="margin-top:18px">
+    <div class="card" style="padding:18px">
+      <h2 style="margin:0 0 8px">What’s included</h2>
+      <div class="table">
+        <table aria-label="Plan comparison">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Starter</th>
+              <th>Business</th>
+              <th>E‑commerce/Portal</th>
+            </tr>
+          </thead>
+          <tbody class="muted">
+            <tr><td>Responsive design</td><td>✔︎</td><td>✔︎</td><td>✔︎</td></tr>
+            <tr><td>Pages</td><td>1–5</td><td>5–10</td><td>Unlimited</td></tr>
+            <tr><td>CMS</td><td>—</td><td>✔︎</td><td>✔︎</td></tr>
+            <tr><td>Contact/Lead forms</td><td>✔︎</td><td>✔︎ + workflows</td><td>✔︎ + roles</td></tr>
+            <tr><td>Checkout / Portal modules</td><td>—</td><td>—</td><td>✔︎</td></tr>
+            <tr><td>Analytics + on‑page SEO</td><td>✔︎</td><td>✔︎</td><td>✔︎</td></tr>
+            <tr><td>Performance budget</td><td>✔︎</td><td>✔︎</td><td>✔︎</td></tr>
+            <tr><td>Post‑launch Care plan</td><td>Optional</td><td>Optional</td><td>Recommended</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Estimator -->
+  <section class="container" style="margin-top:18px">
+    <div class="card" style="padding:18px">
+      <h2 style="margin:0 0 8px">Project estimator (rough)</h2>
+      <p class="muted" style="margin:0 0 8px">Use the sliders and toggles to get a ballpark. We’ll confirm exact scope on a quick call.</p>
+      <div class="est">
+        <div class="row">
+          <label>Pages <span id="pagesVal">5</span></label>
+          <input id="pages" type="range" min="1" max="20" value="5">
+        </div>
+        <div class="row">
+          <label>CMS <input id="cms" type="checkbox"></label>
+        </div>
+        <div class="row">
+          <label>E‑commerce / Portal <input id="portal" type="checkbox"></label>
+        </div>
+        <div class="row">
+          <label>Custom design (UI kit) <input id="design" type="checkbox"></label>
+        </div>
+        <div class="row">
+          <label>Admin dashboard <input id="admin" type="checkbox"></label>
+        </div>
+        <div class="row">
+          <label>Care plan (monthly) <input id="care" type="checkbox"></label>
+        </div>
+        <div class="row">
+          <div class="total">Estimated: <span id="total">₦ 600,000</span></div>
+          <div class="muted">This is a rough estimate. Share your brief and we’ll send a fixed quote.</div>
+          <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:8px">
+            <a class="btn btn-primary" href="#quote">Send my brief</a>
+            <a class="btn btn-ghost" href="https://wa.me/234XXXXXXXXXX" target="_blank" rel="noopener">Chat on WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="container" style="margin-top:18px">
+    <h2 style="margin:0 0 10px">FAQs</h2>
+    <div style="display:grid;gap:12px">
+      <details><summary>What’s the payment structure?</summary><p class="muted">Typically 60% to start, 40% at launch for fixed‑scope projects. Larger portals may use milestones.</p></details>
+      <details><summary>Can you work with my host (Truehost, etc.)?</summary><p class="muted">Yes. We can deploy to your preferred host and connect your domain and email.</p></details>
+      <details><summary>How long does a website take?</summary><p class="muted">Starter sites are ~2 weeks. Business sites 3–5 weeks. Portals depend on scope.</p></details>
+      <details><summary>Do you provide ongoing maintenance?</summary><p class="muted">Yes — optional Care plans for updates, backups, monitoring, and small monthly improvements.</p></details>
+    </div>
+  </section>
+
+  <!-- Quote form -->
+  <section class="container" id="quote" style="margin:18px auto 0">
+    <div class="card" style="padding:18px">
+      <h3 style="margin-top:0">Quick Project Brief</h3>
+      <form id="quoteForm" style="display:grid;gap:10px;grid-template-columns:1fr;max-width:720px">
+        <input name="name" required placeholder="Your Name" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+        <input name="contact" required placeholder="Email or WhatsApp" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+        <select name="type" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+          <option value="">Project Type</option>
+          <option>Website</option><option>Mobile App</option><option>E‑commerce</option><option>School Portal</option>
+        </select>
+        <textarea name="details" rows="4" placeholder="Project details…" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)"></textarea>
+        <input type="hidden" name="estimate" id="estimateField" value="">
+        <button class="btn btn-primary" type="submit">Send</button>
+        <p id="formMsg" class="muted" role="status" aria-live="polite" style="min-height:1.2em"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+      <div>© <span id="year"></span> Gratitude Developers. All rights reserved.</div>
+      <div><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="mailto:hello@gratitudedevelopers.com">hello@gratitudedevelopers.com</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Drawer
+    const toggle = document.getElementById('navToggle');
+    const drawer = document.getElementById('mobileDrawer');
+    function openDrawer(){ drawer.hidden=false; drawer.setAttribute('data-open','true'); toggle.setAttribute('aria-expanded','true'); document.body.classList.add('no-scroll'); const firstLink = drawer.querySelector('a,button'); firstLink && firstLink.focus(); }
+    function closeDrawer(){ drawer.setAttribute('data-open','false'); toggle.setAttribute('aria-expanded','false'); document.body.classList.remove('no-scroll'); setTimeout(()=>{ drawer.hidden=true },250); toggle.focus(); }
+    toggle.addEventListener('click',()=>{ drawer.getAttribute('data-open')==='true'?closeDrawer():openDrawer(); });
+    drawer.addEventListener('click',(e)=>{ if(e.target.hasAttribute('data-close')) closeDrawer(); });
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && drawer.getAttribute('data-open')==='true') closeDrawer(); });
+
+    // ==== Estimator logic (very rough model; adjust multipliers to taste) ====
+    const pages = document.getElementById('pages');
+    const pagesVal = document.getElementById('pagesVal');
+    const cms = document.getElementById('cms');
+    const portal = document.getElementById('portal');
+    const design = document.getElementById('design');
+    const admin = document.getElementById('admin');
+    const care = document.getElementById('care');
+    const total = document.getElementById('total');
+    const estimateField = document.getElementById('estimateField');
+
+    function fmt(n){ return new Intl.NumberFormat('en-NG',{ style:'currency', currency:'NGN', maximumFractionDigits:0 }).format(n); }
+
+    function calc(){
+      const basePerPage = 80000; // ₦80k per page baseline
+      const base = Math.max(1, +pages.value) * basePerPage;
+      const cmsCost = cms.checked ? 250000 : 0;
+      const portalCost = portal.checked ? 600000 : 0; // ecommerce/portal module
+      const designCost = design.checked ? 200000 : 0;
+      const adminCost = admin.checked ? 250000 : 0;
+      const careCost = care.checked ? 50000 : 0; // monthly, shown for info
+      const subtotal = base + cmsCost + portalCost + designCost + adminCost;
+      const contingency = Math.ceil(subtotal * 0.1); // 10% buffer
+      const estimate = subtotal + contingency;
+      pagesVal.textContent = pages.value;
+      total.textContent = fmt(estimate) + (care.checked ? ` + ₦${(careCost).toLocaleString()} / mo` : '');
+      estimateField.value = `Pages:${pages.value}, CMS:${cms.checked}, Portal:${portal.checked}, DesignKit:${design.checked}, Admin:${admin.checked}, CareMonthly:${care.checked ? careCost : 0}, Estimate:${estimate}`;
+    }
+
+    [pages,cms,portal,design,admin,care].forEach(el=> el.addEventListener('input', calc));
+    calc();
+
+    // Quote form (placeholder POST)
+    const form = document.getElementById('quoteForm');
+    const msg = document.getElementById('formMsg');
+    const API_URL = 'https://jabumarket.com.ng/api/quote'; // TODO: replace with your endpoint
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault(); msg.textContent='Sending…'; const data = Object.fromEntries(new FormData(form).entries());
+      try{ const res = await fetch(API_URL,{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)}); if(!res.ok) throw new Error('Request failed'); msg.textContent='Thanks! We will reach out soon.'; form.reset(); calc(); }
+      catch(err){ msg.textContent='Could not submit right now. Please WhatsApp us instead.'; }
+    });
+  </script>
+</body>
+  </html>
