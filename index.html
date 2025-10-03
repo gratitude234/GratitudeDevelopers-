@@ -78,21 +78,20 @@
     .burger.is-open span:nth-child(2){opacity:0}
     .burger.is-open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 
-    /* ===== Mobile drawer (left sheet) ===== */
+    /* ===== Full-screen mobile drawer ===== */
     .drawer{position:fixed;inset:0;height:100dvh;z-index:90;display:block;opacity:0;pointer-events:none;transition:opacity .2s}
     .drawer[data-open="true"]{opacity:1;pointer-events:auto}
-    .drawer .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.5)}
+    .drawer .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.55)}
     .drawer .panel{
-      position:absolute;left:0;top:0;height:100dvh;
-      width:min(92vw, 360px);
+      position:absolute;inset:0;height:100dvh;width:100vw;
       background:var(--panel);
-      border-right:1px solid var(--line);
-      transform:translateX(-100%);
+      border-right:0;border-bottom:1px solid var(--line);
+      transform:translateY(-100%); /* slide down */
       transition:transform .25s ease;
       display:flex;flex-direction:column;gap:0;
       padding-bottom:env(safe-area-inset-bottom);
     }
-    .drawer[data-open="true"] .panel{transform:translateX(0)}
+    .drawer[data-open="true"] .panel{transform:translateY(0)}
 
     .panel .topbar{
       padding:14px var(--space);
@@ -102,7 +101,7 @@
     }
     .panel .topbar .brand-mini{display:flex;align-items:center;gap:.6rem;font-weight:700}
     .panel .topbar .brand-mini .logo{width:30px;height:30px;border-radius:10px;box-shadow:none}
-    .close-btn{background:transparent;border:0;width:40px;height:40px;border-radius:10px;display:grid;place-items:center;color:var(--ink);font-size:20px;opacity:.9}
+    .close-btn{background:transparent;border:0;width:44px;height:44px;border-radius:10px;display:grid;place-items:center;color:var(--ink);font-size:20px;opacity:.9}
     .close-btn:hover{background:rgba(255,255,255,.06)}
 
     .panel nav a{
@@ -189,7 +188,7 @@
         <a href="#process">Process</a>
         <a href="./pricing.html">Pricing</a>
         <a href="./about.html">About</a>
-        <a href="./contact.html">Contact</a>
+        <a href="#contact">Contact</a>
       </nav>
 
       <div class="actions">
@@ -216,15 +215,14 @@
       </div>
 
       <nav>
-  <a href="./index.html" data-close aria-current="page">Home</a>
-  <a href="./services.html" data-close>Services</a>
-  <a href="./work.html" data-close>Work</a>
-  <a href="./services.html#process" data-close>Process</a>
-  <a href="./pricing.html" data-close>Pricing</a>
-  <a href="./about.html" data-close>About</a>
-  <a href="#contact" data-close>Contact</a>
-</nav>
-
+        <a href="./index.html" data-close aria-current="page">Home</a>
+        <a href="./services.html" data-close>Services</a>
+        <a href="./work.html" data-close>Work</a>
+        <a href="./services.html#process" data-close>Process</a>
+        <a href="./pricing.html" data-close>Pricing</a>
+        <a href="./about.html" data-close>About</a>
+        <a href="#contact" data-close>Contact</a>
+      </nav>
 
       <div class="cta-row">
         <a class="btn btn-ghost" href="#quote" data-close>Get Quote</a>
@@ -237,7 +235,7 @@
   <div class="sticky-cta" role="region" aria-label="Quick actions">
     <div class="bar">
       <a class="btn btn-primary" href="#quote">Get Quote</a>
-      <a class="btn btn-ghost" href="https://wa.me/234XXXXXXXXXX" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn btn-ghost" href="https://wa.me/2347041022336" target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </div>
 
@@ -328,7 +326,7 @@
             alt="JSHub Study Portal" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
           <div style="margin-top:10px"><div class="muted" style="font-size:.8rem">Student community</div><h3 style="margin:.2rem 0">JSHub Study Portal</h3></div>
         </a>
-        <!-- Jabu Market: links to case study + live site -->
+        <!-- Example case study card -->
         <a class="card" href="./case-study.html" title="Read case study: Jabu Market">
           <img
             src="https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=1200&auto=format&fit=crop"
@@ -406,7 +404,7 @@
         <p class="muted" style="max-width:720px;margin:.2rem 0 1rem">Tell us about your idea — website, app, or portal — and we’ll propose the simplest path to a real launch.</p>
         <div style="display:flex;gap:.6rem;flex-wrap:wrap">
           <a class="btn btn-primary" href="#quote">Request a Quote</a>
-          <a class="btn btn-ghost" href="https://wa.me/234XXXXXXXXXX" target="_blank" rel="noopener">Chat on WhatsApp</a>
+          <a class="btn btn-ghost" href="https://wa.me/2347041022336" target="_blank" rel="noopener">Chat on WhatsApp</a>
         </div>
       </div>
     </div>
@@ -414,7 +412,7 @@
   </main>
 
   <!-- ===== FOOTER ===== -->
-  <footer>
+  <footer id="contact">
     <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
       <div>© <span id="year"></span> Gratitude Developers. All rights reserved.</div>
       <div>
@@ -487,7 +485,7 @@
       toggle.setAttribute('aria-label','Close menu');
       toggle.classList.add('is-open');
       lockScroll();
-      const firstLink = drawer.querySelector('a, button');
+      const firstLink = drawer.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
       firstLink && firstLink.focus();
     }
     function closeDrawer(focusToggle = true){
@@ -528,7 +526,7 @@
       }
     });
 
-    // ===== "Process" on-page highlight =====
+    // ===== "Process" on-page highlight (desktop menu) =====
     const processLink = document.querySelector('.menu a[href="#process"]');
     const processEl = document.getElementById('process');
     if (processLink && processEl){
