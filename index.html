@@ -68,14 +68,15 @@
     .burger span{width:22px;height:2px;background:var(--ink);opacity:.9;border-radius:2px}
 
     /* Mobile drawer */
-    .drawer{position:fixed;inset:0;z-index:70;display:grid;grid-template-columns:1fr;transition:opacity .2s;opacity:0;pointer-events:none}
+    .drawer{position:fixed;inset:0;z-index:70;display:grid;grid-template-columns:1fr auto;transition:opacity .2s;opacity:0;pointer-events:none}
     .drawer[data-open="true"]{opacity:1;pointer-events:auto}
-    .drawer .backdrop{background:rgba(0,0,0,.45);grid-column:1}
+    .drawer .backdrop{background:rgba(0,0,0,.45);grid-column:1 / -1}
     .drawer .panel{
-      background:var(--panel);width:min(86%, 320px);margin-left:auto;height:100%;
+      background:var(--panel);width:min(86%, 320px);height:100%;
       border-left:1px solid var(--line);padding:18px var(--space);
       transform:translateX(100%);transition:transform .25s;
-      display:flex;flex-direction:column;gap:14px
+      display:flex;flex-direction:column;gap:14px;
+      grid-column:2;
     }
     .drawer[data-open="true"] .panel{transform:translateX(0)}
     .drawer .panel a{padding:.8rem 0;border-bottom:1px solid var(--line)}
