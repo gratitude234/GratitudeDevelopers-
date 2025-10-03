@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <title>Gratitude Developers — We build Websites & Mobile Apps</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Gratitude Developers crafts fast, modern websites and cross‑platform apps. Build quality first, supported by analytics and light ads." />
+  <meta name="description" content="Gratitude Developers crafts fast, modern websites and cross-platform apps. Build quality first, supported by analytics and light ads." />
   <link rel="canonical" href="/">
   <meta property="og:title" content="Gratitude Developers — We build Websites & Mobile Apps">
-  <meta property="og:description" content="Fast, modern websites and cross‑platform apps for Nigerian SMEs, schools, and startups.">
+  <meta property="og:description" content="Fast, modern websites and cross-platform apps for Nigerian SMEs, schools, and startups.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://images.unsplash.com">
@@ -20,7 +20,7 @@
       --space:clamp(16px, 3vw, 24px);
     }
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    html{scroll-behavior:smooth; overscroll-behavior:contain;}
     body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
@@ -64,25 +64,37 @@
     .menu a:hover{opacity:1}
     .menu a[aria-current="page"]{opacity:1}
     .actions{display:none;gap:.6rem}
-    .burger{display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;padding:6px}
-    .burger span{width:22px;height:2px;background:var(--ink);opacity:.9;border-radius:2px}
+
+    /* Burger + X animation (kept above drawer so it’s always tappable) */
+    .burger{
+      display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;padding:8px;
+      position:relative; z-index:80;
+    }
+    .burger span{
+      width:22px;height:2px;background:var(--ink);opacity:.95;border-radius:2px;
+      transition:transform .22s ease, opacity .18s ease;
+    }
+    .burger.is-open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+    .burger.is-open span:nth-child(2){opacity:0}
+    .burger.is-open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 
     /* Mobile drawer */
-    .drawer{position:fixed;inset:0;z-index:70;display:grid;grid-template-columns:1fr auto;transition:opacity .2s;opacity:0;pointer-events:none}
+    .drawer{position:fixed;inset:0;z-index:75;display:grid;grid-template-columns:1fr;transition:opacity .2s;opacity:0;pointer-events:none}
     .drawer[data-open="true"]{opacity:1;pointer-events:auto}
-    .drawer .backdrop{background:rgba(0,0,0,.45);grid-column:1 / -1}
+    .drawer .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.45)}
     .drawer .panel{
-      background:var(--panel);width:min(86%, 320px);height:100%;
+      position:absolute;right:0;top:0;height:100%;
+      background:var(--panel);width:min(86%, 320px);
       border-left:1px solid var(--line);padding:18px var(--space);
       transform:translateX(100%);transition:transform .25s;
-      display:flex;flex-direction:column;gap:14px;
-      grid-column:2;
+      display:flex;flex-direction:column;gap:14px
     }
     .drawer[data-open="true"] .panel{transform:translateX(0)}
     .drawer .panel a{padding:.8rem 0;border-bottom:1px solid var(--line)}
     .drawer .panel a:last-child{border-bottom:0}
 
-    .no-scroll{overflow:hidden}
+    /* Strong scroll lock for mobile */
+    .no-scroll{position:fixed; width:100%; overflow:hidden;}
 
     /* ===== HERO ===== */
     .hero{position:relative;overflow:hidden;padding:72px 0}
@@ -202,11 +214,11 @@
         <span class="chip"><span style="display:inline-block;width:6px;height:6px;border-radius:999px;background:#f59e0b"></span> We build Websites & Mobile Apps</span>
         <h1>Ship polished
           <span style="background:linear-gradient(90deg,#f59e0b,#fb7185,#fde047);-webkit-background-clip:text;background-clip:text;color:transparent">
-            digital products
+              digital products
           </span>
           that grow your business.</h1>
         <p class="muted" style="max-width:640px;margin-top:.6rem">
-          Build quality first. We craft modern, fast websites and cross‑platform apps — supported by analytics and light ads to spark traction.
+          Build quality first. We craft modern, fast websites and cross-platform apps — supported by analytics and light ads to spark traction.
         </p>
         <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:16px">
           <a class="btn btn-primary" href="#start">Start a Project ▸</a>
@@ -238,9 +250,9 @@
         <a href="./services.html" class="muted" style="font-size:.92rem">All services →</a>
       </div>
       <div class="grid-3" style="margin-top:18px">
-        <div class="card"><div class="badge">1</div><h3 style="margin:.6rem 0 0">Websites</h3><p class="muted">Fast, accessible, SEO‑ready sites with modern stacks.</p></div>
-        <div class="card"><div class="badge">2</div><h3 style="margin:.6rem 0 0">Mobile Apps</h3><p class="muted">Cross‑platform apps from one clean codebase.</p></div>
-        <div class="card"><div class="badge">3</div><h3 style="margin:.6rem 0 0">E‑commerce</h3><p class="muted">Stores that convert — product, checkout, analytics.</p></div>
+        <div class="card"><div class="badge">1</div><h3 style="margin:.6rem 0 0">Websites</h3><p class="muted">Fast, accessible, SEO-ready sites with modern stacks.</p></div>
+        <div class="card"><div class="badge">2</div><h3 style="margin:.6rem 0 0">Mobile Apps</h3><p class="muted">Cross-platform apps from one clean codebase.</p></div>
+        <div class="card"><div class="badge">3</div><h3 style="margin:.6rem 0 0">E-commerce</h3><p class="muted">Stores that convert — product, checkout, analytics.</p></div>
         <div class="card"><div class="badge">4</div><h3 style="margin:.6rem 0 0">School Portals</h3><p class="muted">Admissions, ID cards, results, Smart Practice.</p></div>
         <div class="card"><div class="badge">5</div><h3 style="margin:.6rem 0 0">UI/UX Design</h3><p class="muted">Wireframes, design systems, prototypes.</p></div>
         <div class="card"><div class="badge">6</div><h3 style="margin:.6rem 0 0">Care & Maintenance</h3><p class="muted">Updates, backups, uptime, small changes.</p></div>
@@ -299,7 +311,7 @@
             <span class="chip">Coming soon</span>
           </div>
           <p class="muted" style="margin:.5rem 0 0">
-            AI‑powered practice and explanations for students. Launching soon.
+            AI-powered practice and explanations for students. Launching soon.
           </p>
         </div>
       </div>
@@ -342,7 +354,7 @@
           <div style="margin-top:.6rem;font-weight:800">From ₦ —</div>
         </div>
         <div class="card">
-          <h3 style="margin:0 0 .2rem">E‑commerce / Portal</h3>
+          <h3 style="margin:0 0 .2rem">E-commerce / Portal</h3>
           <p class="muted">Checkout or student portal.</p>
           <div style="margin-top:.6rem;font-weight:800">Custom</div>
         </div>
@@ -396,7 +408,7 @@
                 <option value="">Project Type</option>
                 <option>Website</option>
                 <option>Mobile App</option>
-                <option>E‑commerce</option>
+                <option>E-commerce</option>
                 <option>School Portal</option>
               </select>
             </label>
@@ -416,39 +428,69 @@
     // Year stamp
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Mobile drawer logic (accessible)
-    const toggle = document.getElementById('navToggle');
-    const drawer = document.getElementById('mobileDrawer');
+    // Mobile drawer logic (accessible, robust)
+    const toggle  = document.getElementById('navToggle');
+    const drawer  = document.getElementById('mobileDrawer');
+    let   scrollY = 0;
+
+    function lockScroll(){
+      scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+      document.body.classList.add('no-scroll');
+      document.body.style.top = `-${scrollY}px`;
+    }
+    function unlockScroll(){
+      document.body.classList.remove('no-scroll');
+      document.body.style.top = '';
+      window.scrollTo(0, scrollY);
+    }
 
     function openDrawer(){
       drawer.hidden = false;
       drawer.setAttribute('data-open','true');
       toggle.setAttribute('aria-expanded','true');
-      document.body.classList.add('no-scroll');
-      const firstLink = drawer.querySelector('a,button');
+      toggle.setAttribute('aria-label','Close menu');
+      toggle.classList.add('is-open');
+      lockScroll();
+      const firstLink = drawer.querySelector('a, button');
       firstLink && firstLink.focus();
     }
-    function closeDrawer(){
+    function closeDrawer(focusToggle = true){
       drawer.setAttribute('data-open','false');
       toggle.setAttribute('aria-expanded','false');
-      document.body.classList.remove('no-scroll');
+      toggle.setAttribute('aria-label','Open menu');
+      toggle.classList.remove('is-open');
+      unlockScroll();
       setTimeout(()=>{ drawer.hidden = true; }, 250);
-      toggle.focus();
+      if (focusToggle) toggle.focus();
     }
 
     toggle.addEventListener('click', () => {
       drawer.getAttribute('data-open') === 'true' ? closeDrawer() : openDrawer();
     });
 
-    // Close on backdrop, ESC, or link click
+    // Close on backdrop / "data-close" elements
     drawer.addEventListener('click', (e) => {
-      if (e.target.hasAttribute('data-close')) closeDrawer();
+      if (e.target.hasAttribute('data-close')) closeDrawer(false);
     });
+
+    // Close on ESC
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && drawer.getAttribute('data-open') === 'true') closeDrawer();
     });
 
-    // ===== Active nav highlight for on‑page "Process" only =====
+    // Close if hash navigation occurs (e.g., tapping "Process")
+    window.addEventListener('hashchange', () => {
+      if (drawer.getAttribute('data-open') === 'true') closeDrawer(false);
+    });
+
+    // Auto-reset when growing past mobile breakpoint
+    window.addEventListener('resize', () => {
+      if (window.matchMedia('(min-width: 720px)').matches && drawer.getAttribute('data-open') === 'true') {
+        closeDrawer(false);
+      }
+    });
+
+    // ===== Active nav highlight for on-page "Process" only =====
     const processLink = document.querySelector('.menu a[href="#process"]');
     const processEl = document.getElementById('process');
     if (processLink && processEl){
@@ -460,7 +502,7 @@
 
     // ===== Quote form submission (placeholder) =====
     const form = document.getElementById('quoteForm');
-    const msg = document.getElementById('formMsg');
+    const msg  = document.getElementById('formMsg');
     const API_URL = 'https://jabumarket.com.ng/api/quote'; // TODO: replace with your actual endpoint
 
     form.addEventListener('submit', async (e) => {
