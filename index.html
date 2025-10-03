@@ -65,10 +65,10 @@
     .menu a[aria-current="page"]{opacity:1}
     .actions{display:none;gap:.6rem}
 
-    /* Burger + X animation (kept above drawer so it’s always tappable) */
+    /* ===== Burger + X animation (above drawer) ===== */
     .burger{
       display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;padding:8px;
-      position:relative; z-index:80;
+      position:relative; z-index:100;
     }
     .burger span{
       width:22px;height:2px;background:var(--ink);opacity:.95;border-radius:2px;
@@ -78,22 +78,46 @@
     .burger.is-open span:nth-child(2){opacity:0}
     .burger.is-open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 
-    /* Mobile drawer */
-    .drawer{position:fixed;inset:0;z-index:75;display:grid;grid-template-columns:1fr;transition:opacity .2s;opacity:0;pointer-events:none}
+    /* ===== Mobile drawer (left sheet) ===== */
+    .drawer{position:fixed;inset:0;height:100dvh;z-index:90;display:block;opacity:0;pointer-events:none;transition:opacity .2s}
     .drawer[data-open="true"]{opacity:1;pointer-events:auto}
-    .drawer .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.45)}
+    .drawer .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.5)}
     .drawer .panel{
-      position:absolute;right:0;top:0;height:100%;
-      background:var(--panel);width:min(86%, 320px);
-      border-left:1px solid var(--line);padding:18px var(--space);
-      transform:translateX(100%);transition:transform .25s;
-      display:flex;flex-direction:column;gap:14px
+      position:absolute;left:0;top:0;height:100dvh;
+      width:min(92vw, 360px);
+      background:var(--panel);
+      border-right:1px solid var(--line);
+      transform:translateX(-100%);
+      transition:transform .25s ease;
+      display:flex;flex-direction:column;gap:0;
+      padding-bottom:env(safe-area-inset-bottom);
     }
     .drawer[data-open="true"] .panel{transform:translateX(0)}
-    .drawer .panel a{padding:.8rem 0;border-bottom:1px solid var(--line)}
-    .drawer .panel a:last-child{border-bottom:0}
 
-    /* Strong scroll lock for mobile */
+    .panel .topbar{
+      padding:14px var(--space);
+      display:flex;align-items:center;justify-content:space-between;
+      border-bottom:1px solid var(--line);
+      padding-top:calc(14px + env(safe-area-inset-top));
+    }
+    .panel .topbar .brand-mini{display:flex;align-items:center;gap:.6rem;font-weight:700}
+    .panel .topbar .brand-mini .logo{width:30px;height:30px;border-radius:10px;box-shadow:none}
+    .close-btn{background:transparent;border:0;width:40px;height:40px;border-radius:10px;display:grid;place-items:center;color:var(--ink);font-size:20px;opacity:.9}
+    .close-btn:hover{background:rgba(255,255,255,.06)}
+
+    .panel nav a{
+      display:block;padding:16px var(--space);
+      border-bottom:1px solid var(--line);
+      font-size:1.05rem;
+    }
+    .panel nav a:last-child{border-bottom:0}
+
+    .panel .cta-row{
+      margin-top:auto;border-top:1px solid var(--line);
+      padding:12px var(--space);display:flex;gap:.6rem;flex-wrap:wrap;
+    }
+
+    /* Strong scroll lock on body when drawer open */
     .no-scroll{position:fixed; width:100%; overflow:hidden;}
 
     /* ===== HERO ===== */
@@ -183,17 +207,27 @@
   <div id="mobileDrawer" class="drawer" data-open="false" hidden>
     <div class="backdrop" data-close></div>
     <aside class="panel" role="dialog" aria-modal="true" aria-label="Mobile navigation">
-      <a href="./services.html" data-close>Services</a>
-      <a href="./work.html" data-close>Work</a>
-      <a href="#process" data-close>Process</a>
-      <a href="./pricing.html" data-close>Pricing</a>
-      <a href="./about.html" data-close>About</a>
-      <a href="./contact.html" data-close>Contact</a>
-      <div style="display:flex;gap:.6rem;margin-top:6px">
+      <div class="topbar">
+        <div class="brand-mini">
+          <span class="logo">GD</span>
+          <span>Menu</span>
+        </div>
+        <button class="close-btn" data-close aria-label="Close menu">✕</button>
+      </div>
+
+      <nav>
+        <a href="./services.html" data-close>Services</a>
+        <a href="./work.html" data-close>Work</a>
+        <a href="#process" data-close>Process</a>
+        <a href="./pricing.html" data-close>Pricing</a>
+        <a href="./about.html" data-close>About</a>
+        <a href="./contact.html" data-close>Contact</a>
+      </nav>
+
+      <div class="cta-row">
         <a class="btn btn-ghost" href="#quote" data-close>Get Quote</a>
         <a class="btn btn-primary" href="#start" data-close>Start a Project</a>
       </div>
-      <button class="btn btn-ghost" data-close style="margin-top:10px">Close ✕</button>
     </aside>
   </div>
 
@@ -428,7 +462,7 @@
     // Year stamp
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Mobile drawer logic (accessible, robust)
+    // ===== Drawer logic (robust) =====
     const toggle  = document.getElementById('navToggle');
     const drawer  = document.getElementById('mobileDrawer');
     let   scrollY = 0;
@@ -468,9 +502,11 @@
       drawer.getAttribute('data-open') === 'true' ? closeDrawer() : openDrawer();
     });
 
-    // Close on backdrop / "data-close" elements
+    // Close on backdrop or any [data-close]
     drawer.addEventListener('click', (e) => {
-      if (e.target.hasAttribute('data-close')) closeDrawer(false);
+      if (e.target.classList.contains('backdrop') || e.target.hasAttribute('data-close')) {
+        closeDrawer(false);
+      }
     });
 
     // Close on ESC
@@ -478,19 +514,19 @@
       if (e.key === 'Escape' && drawer.getAttribute('data-open') === 'true') closeDrawer();
     });
 
-    // Close if hash navigation occurs (e.g., tapping "Process")
+    // Close if hash navigation happens (e.g., tapping "Process")
     window.addEventListener('hashchange', () => {
       if (drawer.getAttribute('data-open') === 'true') closeDrawer(false);
     });
 
-    // Auto-reset when growing past mobile breakpoint
+    // Auto-reset when growing beyond mobile breakpoint
     window.addEventListener('resize', () => {
       if (window.matchMedia('(min-width: 720px)').matches && drawer.getAttribute('data-open') === 'true') {
         closeDrawer(false);
       }
     });
 
-    // ===== Active nav highlight for on-page "Process" only =====
+    // ===== "Process" on-page highlight =====
     const processLink = document.querySelector('.menu a[href="#process"]');
     const processEl = document.getElementById('process');
     if (processLink && processEl){
@@ -503,7 +539,7 @@
     // ===== Quote form submission (placeholder) =====
     const form = document.getElementById('quoteForm');
     const msg  = document.getElementById('formMsg');
-    const API_URL = 'https://jabumarket.com.ng/api/quote'; // TODO: replace with your actual endpoint
+    const API_URL = 'https://jabumarket.com.ng/api/quote'; // replace with your actual endpoint
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
