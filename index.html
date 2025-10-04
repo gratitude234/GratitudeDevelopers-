@@ -2,15 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Gratitude Developers — We build Websites & Mobile Apps</title>
+  <title>Gratitude Developers — Websites & Mobile Apps for SMEs, Schools, Startups</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Gratitude Developers crafts fast, modern websites and cross-platform apps. Build quality first, supported by analytics and light ads." />
+  <meta name="description" content="Gratitude Developers crafts fast, modern websites and cross-platform apps—then helps you launch with analytics and light ads." />
   <link rel="canonical" href="/">
+  <meta name="theme-color" content="#0b0f14">
+  <meta name="color-scheme" content="dark light">
   <meta property="og:title" content="Gratitude Developers — We build Websites & Mobile Apps">
   <meta property="og:description" content="Fast, modern websites and cross-platform apps for Nigerian SMEs, schools, and startups.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://images.unsplash.com">
+  <!-- Preload hero image for faster LCP -->
+  <link rel="preload" as="image" imagesrcset="
+    https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=640&auto=format&fit=crop 640w,
+    https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=960&auto=format&fit=crop 960w,
+    https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop 1400w"
+    imagesizes="(max-width: 720px) 100vw, 50vw"
+    href="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop">
   <style>
     :root{
       --bg:#0b0f14; --panel:#0f1720; --ink:#e6e7eb; --muted:#a9b0bb;
@@ -42,17 +51,13 @@
     .kpis dt{font-size:1.4rem;font-weight:800}
     .kpis dd{margin:4px 0 0;font-size:.78rem;color:var(--muted)}
 
-    /* ===== Skip link ===== */
     .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
     .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
     .skip:focus{left:10px;top:10px;width:auto;height:auto;background:#fff;color:#000;padding:.5rem .75rem;border-radius:10px;z-index:100}
 
-    /* ===== Sticky, responsive header ===== */
     header{
-      position:sticky;top:0;z-index:60;
-      border-bottom:1px solid var(--line);
-      backdrop-filter:blur(10px);
-      background:rgba(11,15,20,.65);
+      position:sticky;top:0;z-index:60;border-bottom:1px solid var(--line);
+      backdrop-filter:blur(10px);background:rgba(11,15,20,.65);
     }
     .nav{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
     .brand{display:flex;align-items:center;gap:.6rem;font-weight:700}
@@ -65,61 +70,34 @@
     .menu a[aria-current="page"]{opacity:1}
     .actions{display:none;gap:.6rem}
 
-    /* ===== Burger + X animation (above drawer) ===== */
-    .burger{
-      display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;padding:8px;
-      position:relative; z-index:100;
-    }
-    .burger span{
-      width:22px;height:2px;background:var(--ink);opacity:.95;border-radius:2px;
-      transition:transform .22s ease, opacity .18s ease;
-    }
+    .burger{display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;padding:8px;position:relative;z-index:100}
+    .burger span{width:22px;height:2px;background:var(--ink);opacity:.95;border-radius:2px;transition:transform .22s ease, opacity .18s ease}
     .burger.is-open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
     .burger.is-open span:nth-child(2){opacity:0}
     .burger.is-open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 
-    /* ===== Full-screen mobile drawer ===== */
+    /* Full-screen drawer */
     .drawer{position:fixed;inset:0;height:100dvh;z-index:90;display:block;opacity:0;pointer-events:none;transition:opacity .2s}
     .drawer[data-open="true"]{opacity:1;pointer-events:auto}
     .drawer .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.55)}
     .drawer .panel{
-      position:absolute;inset:0;height:100dvh;width:100vw;
-      background:var(--panel);
+      position:absolute;inset:0;height:100dvh;width:100vw;background:var(--panel);
       border-right:0;border-bottom:1px solid var(--line);
-      transform:translateY(-100%); /* slide down */
-      transition:transform .25s ease;
-      display:flex;flex-direction:column;gap:0;
-      padding-bottom:env(safe-area-inset-bottom);
+      transform:translateY(-100%);transition:transform .25s ease;
+      display:flex;flex-direction:column;gap:0;padding-bottom:env(safe-area-inset-bottom)
     }
     .drawer[data-open="true"] .panel{transform:translateY(0)}
-
-    .panel .topbar{
-      padding:14px var(--space);
-      display:flex;align-items:center;justify-content:space-between;
-      border-bottom:1px solid var(--line);
-      padding-top:calc(14px + env(safe-area-inset-top));
-    }
+    .panel .topbar{padding:14px var(--space);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-top:calc(14px + env(safe-area-inset-top))}
     .panel .topbar .brand-mini{display:flex;align-items:center;gap:.6rem;font-weight:700}
     .panel .topbar .brand-mini .logo{width:30px;height:30px;border-radius:10px;box-shadow:none}
     .close-btn{background:transparent;border:0;width:44px;height:44px;border-radius:10px;display:grid;place-items:center;color:var(--ink);font-size:20px;opacity:.9}
     .close-btn:hover{background:rgba(255,255,255,.06)}
-
-    .panel nav a{
-      display:block;padding:16px var(--space);
-      border-bottom:1px solid var(--line);
-      font-size:1.05rem;
-    }
+    .panel nav a{display:block;padding:16px var(--space);border-bottom:1px solid var(--line);font-size:1.05rem}
     .panel nav a:last-child{border-bottom:0}
+    .panel .cta-row{margin-top:auto;border-top:1px solid var(--line);padding:12px var(--space);display:flex;gap:.6rem;flex-wrap:wrap}
 
-    .panel .cta-row{
-      margin-top:auto;border-top:1px solid var(--line);
-      padding:12px var(--space);display:flex;gap:.6rem;flex-wrap:wrap;
-    }
+    .no-scroll{position:fixed;width:100%;overflow:hidden}
 
-    /* Strong scroll lock on body when drawer open */
-    .no-scroll{position:fixed; width:100%; overflow:hidden;}
-
-    /* ===== HERO ===== */
     .hero{position:relative;overflow:hidden;padding:72px 0}
     .blur-a,.blur-b{position:absolute;filter:blur(80px);z-index:-1;opacity:.85}
     .blur-a{top:-140px;right:10%;width:520px;height:520px;background:radial-gradient(closest-side, rgba(249,115,22,.25), transparent)}
@@ -127,29 +105,22 @@
     .hero-grid{display:grid;gap:24px}
     .hero h1{font-size:clamp(1.8rem,4.8vw,3.2rem);line-height:1.1;margin:.4rem 0}
 
-    /* ===== PROCESS / TESTIMONIALS ===== */
     .steps{display:grid;gap:14px}
     .steps .card{display:flex;gap:12px}
     .quotes{display:grid;gap:16px}
     blockquote{margin:0;font-size:.98rem}
     figcaption{margin-top:8px;color:var(--muted);font-size:.9rem}
 
-    /* ===== CTA band ===== */
-    .cta{position:relative;overflow:hidden;border-radius:20px;
-      background:linear-gradient(90deg, rgba(249,115,22,.15), rgba(251,113,133,.12), rgba(139,92,246,.12));
-      border:1px solid var(--line)}
+    .cta{position:relative;overflow:hidden;border-radius:20px;background:linear-gradient(90deg, rgba(249,115,22,.15), rgba(251,113,133,.12), rgba(139,92,246,.12));border:1px solid var(--line)}
     .cta::before,.cta::after{content:"";position:absolute;filter:blur(70px);border-radius:999px}
     .cta::before{width:260px;height:260px;background:rgba(249,115,22,.25);right:-80px;top:-80px}
     .cta::after{width:260px;height:260px;background:rgba(251,113,133,.22);left:-80px;bottom:-80px}
 
-    /* ===== Sticky mobile CTA ===== */
     .sticky-cta{position:fixed;left:0;right:0;bottom:max(10px, env(safe-area-inset-bottom));z-index:65;display:flex;justify-content:center;padding:8px;pointer-events:none}
     .sticky-cta .bar{display:flex;gap:.6rem;background:rgba(15,23,32,.9);border:1px solid var(--line);backdrop-filter:blur(10px);border-radius:16px;padding:8px;pointer-events:auto}
 
-    /* ===== FOOTER ===== */
     footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.95rem}
 
-    /* ===== RESPONSIVE BREAKPOINTS ===== */
     @media (min-width:720px){
       .menu{display:flex}
       .actions{display:flex}
@@ -160,14 +131,23 @@
       .quotes{grid-template-columns:repeat(3,1fr)}
       .sticky-cta{display:none}
     }
-    @media (min-width:1024px){
-      .nav{height:72px}
-    }
+    @media (min-width:1024px){ .nav{height:72px} }
 
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       .blur-a,.blur-b{display:none}
       .drawer, .drawer .panel{transition:none}
+    }
+
+    /* Work feature styles */
+    .work-feature{position:relative;overflow:hidden;display:block;padding:0}
+    .work-video{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;display:block}
+    .work-overlay{
+      position:absolute;left:12px;bottom:12px;
+      background:rgba(15,23,32,.72);backdrop-filter:blur(6px);
+      border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px
+    }
+    @media (prefers-reduced-motion: reduce){
+      .work-video{animation:none}
     }
   </style>
 </head>
@@ -207,10 +187,7 @@
     <div class="backdrop" data-close></div>
     <aside class="panel" role="dialog" aria-modal="true" aria-label="Mobile navigation">
       <div class="topbar">
-        <div class="brand-mini">
-          <span class="logo">GD</span>
-          <span>Menu</span>
-        </div>
+        <div class="brand-mini"><span class="logo">GD</span><span>Menu</span></div>
         <button class="close-btn" data-close aria-label="Close menu">✕</button>
       </div>
 
@@ -239,25 +216,26 @@
     </div>
   </div>
 
-  <!-- ===== HERO ===== -->
+  <!-- ===== MAIN ===== -->
   <main id="main">
+
+  <!-- ===== HERO ===== -->
   <section class="hero" id="top" aria-label="Hero">
     <div class="blur-a"></div><div class="blur-b"></div>
     <div class="container hero-grid">
       <div>
         <span class="chip"><span style="display:inline-block;width:6px;height:6px;border-radius:999px;background:#f59e0b"></span> We build Websites & Mobile Apps</span>
         <h1>Ship polished
-          <span style="background:linear-gradient(90deg,#f59e0b,#fb7185,#fde047);-webkit-background-clip:text;background-clip:text;color:transparent">
-              digital products
-          </span>
+          <span style="background:linear-gradient(90deg,#f59e0b,#fb7185,#fde047);-webkit-background-clip:text;background-clip:text;color:transparent">digital products</span>
           that grow your business.</h1>
         <p class="muted" style="max-width:640px;margin-top:.6rem">
-          Build quality first. We craft modern, fast websites and cross-platform apps — supported by analytics and light ads to spark traction.
+          We craft fast, modern websites and cross-platform apps—then help you launch with analytics and light ads.
         </p>
         <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:16px">
           <a class="btn btn-primary" href="#start">Start a Project ▸</a>
-          <a class="btn btn-ghost" href="./work.html">See Work</a>
+          <a class="btn btn-ghost" href="https://wa.me/2347041022336?text=Hi%20Gratitude%20Developers%2C%20I%27d%20like%20to%20start%20a%20project." target="_blank" rel="noopener">WhatsApp</a>
         </div>
+        <p class="muted" style="margin-top:6px;font-size:.9rem">Expect a reply within 24h. We’ll propose the simplest path to launch.</p>
         <dl class="kpis">
           <div class="card"><dt>50+</dt><dd>projects shipped</dd></div>
           <div class="card"><dt>Affordable</dt><dd>transparent pricing</dd></div>
@@ -276,6 +254,17 @@
     </div>
   </section>
 
+  <!-- ===== TRUST BAR ===== -->
+  <section aria-label="Trust" style="padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.03)">
+    <div class="container" style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;justify-content:center">
+      <span class="muted" style="font-size:.9rem">Trusted by</span>
+      <img alt="Client 1" src="/assets/client1.svg" height="22" style="opacity:.8">
+      <img alt="Client 2" src="/assets/client2.svg" height="22" style="opacity:.8">
+      <span class="chip">50+ projects</span>
+      <span class="chip">5★ rating</span>
+    </div>
+  </section>
+
   <!-- ===== SERVICES ===== -->
   <section class="section" id="services" aria-label="Services">
     <div class="container">
@@ -284,70 +273,39 @@
         <a href="./services.html" class="muted" style="font-size:.92rem">All services →</a>
       </div>
       <div class="grid-3" style="margin-top:18px">
-        <div class="card"><div class="badge">1</div><h3 style="margin:.6rem 0 0">Websites</h3><p class="muted">Fast, accessible, SEO-ready sites with modern stacks.</p></div>
-        <div class="card"><div class="badge">2</div><h3 style="margin:.6rem 0 0">Mobile Apps</h3><p class="muted">Cross-platform apps from one clean codebase.</p></div>
-        <div class="card"><div class="badge">3</div><h3 style="margin:.6rem 0 0">E-commerce</h3><p class="muted">Stores that convert — product, checkout, analytics.</p></div>
-        <div class="card"><div class="badge">4</div><h3 style="margin:.6rem 0 0">School Portals</h3><p class="muted">Admissions, ID cards, results, Smart Practice.</p></div>
-        <div class="card"><div class="badge">5</div><h3 style="margin:.6rem 0 0">UI/UX Design</h3><p class="muted">Wireframes, design systems, prototypes.</p></div>
-        <div class="card"><div class="badge">6</div><h3 style="margin:.6rem 0 0">Care & Maintenance</h3><p class="muted">Updates, backups, uptime, small changes.</p></div>
+        <a class="card" href="./services.html#websites" style="display:block"><div class="badge">1</div><h3 style="margin:.6rem 0 0">Websites</h3><p class="muted">Fast, accessible, SEO-ready sites.</p><span class="muted" style="font-size:.9rem">See details →</span></a>
+        <a class="card" href="./services.html#mobile-apps" style="display:block"><div class="badge">2</div><h3 style="margin:.6rem 0 0">Mobile Apps</h3><p class="muted">Cross-platform apps from one codebase.</p><span class="muted" style="font-size:.9rem">See details →</span></a>
+        <a class="card" href="./services.html#ecommerce" style="display:block"><div class="badge">3</div><h3 style="margin:.6rem 0 0">E-commerce</h3><p class="muted">Stores that convert—catalog to checkout.</p><span class="muted" style="font-size:.9rem">See details →</span></a>
+        <a class="card" href="./services.html#school-portals" style="display:block"><div class="badge">4</div><h3 style="margin:.6rem 0 0">School Portals</h3><p class="muted">Admissions, results, Smart Practice.</p><span class="muted" style="font-size:.9rem">See details →</span></a>
+        <a class="card" href="./services.html#ui-ux" style="display:block"><div class="badge">5</div><h3 style="margin:.6rem 0 0">UI/UX Design</h3><p class="muted">Flows, prototypes, design systems.</p><span class="muted" style="font-size:.9rem">See details →</span></a>
+        <a class="card" href="./services.html#care" style="display:block"><div class="badge">6</div><h3 style="margin:.6rem 0 0">Care & Maintenance</h3><p class="muted">Updates, backups, uptime, small wins.</p><span class="muted" style="font-size:.9rem">See details →</span></a>
       </div>
     </div>
   </section>
 
-  <!-- ===== WORK ===== -->
+  <!-- ===== WORK (Featured preview) ===== -->
   <section class="section" id="work" aria-label="Work">
     <div class="container">
       <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap">
         <h2>Recent & upcoming work</h2>
         <a href="./work.html" class="muted" style="font-size:.92rem">See all →</a>
       </div>
-      <div class="grid-3" style="margin-top:18px">
-        <a class="card" href="#">
-          <img
-            src="https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=1200&auto=format&fit=crop"
-            srcset="https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1581093588401-16ec5fe644ce?q=80&w=1400&auto=format&fit=crop 1400w"
-            sizes="(max-width: 720px) 100vw, 33vw"
-            alt="Gabakssteel Construction" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
-          <div style="margin-top:10px"><div class="muted" style="font-size:.8rem">Corporate website</div><h3 style="margin:.2rem 0">Gabakssteel Construction</h3></div>
-        </a>
-        <a class="card" href="#">
-          <img
-            src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop"
-            srcset="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1400&auto=format&fit=crop 1400w"
-            sizes="(max-width: 720px) 100vw, 33vw"
-            alt="GLC ID Card Generator" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
-          <div style="margin-top:10px"><div class="muted" style="font-size:.8rem">EdTech tool</div><h3 style="margin:.2rem 0">GLC ID Card Generator</h3></div>
-        </a>
-        <a class="card" href="#">
-          <img
-            src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1200&auto=format&fit=crop"
-            srcset="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1400&auto=format&fit=crop 1400w"
-            sizes="(max-width: 720px) 100vw, 33vw"
-            alt="JSHub Study Portal" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
-          <div style="margin-top:10px"><div class="muted" style="font-size:.8rem">Student community</div><h3 style="margin:.2rem 0">JSHub Study Portal</h3></div>
-        </a>
-        <!-- Example case study card -->
-        <a class="card" href="./case-study.html" title="Read case study: Jabu Market">
-          <img
-            src="https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=1200&auto=format&fit=crop"
-            srcset="https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1515165562835-c3b8c8e0b1b0?q=80&w=1400&auto=format&fit=crop 1400w"
-            sizes="(max-width: 720px) 100vw, 33vw"
-            alt="Jabu Market — Student marketplace & study hub" style="border-radius:12px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
-          <div style="margin-top:10px">
-            <div class="muted" style="font-size:.8rem">Student marketplace & study hub</div>
-            <h3 style="margin:.2rem 0">Jabu Market</h3>
-          </div>
-        </a>
-        <!-- AI Study Hub (coming soon) -->
-        <div class="card">
-          <div style="display:flex;align-items:center;gap:.5rem">
-            <h3 style="margin:0">AI Study Hub</h3>
-            <span class="chip">Coming soon</span>
-          </div>
-          <p class="muted" style="margin:.5rem 0 0">
-            AI-powered practice and explanations for students. Launching soon.
-          </p>
+
+      <a class="card work-feature" href="./work.html" aria-label="See all projects" style="margin-top:18px">
+        <video class="work-video" autoplay loop muted playsinline preload="metadata"
+               poster="/assets/home-preview-poster.jpg">
+          <source src="/assets/home-preview-1080.mp4" type="video/mp4">
+        </video>
+        <div class="work-overlay">
+          <strong>See our projects</strong>
+          <span class="muted">Websites · Apps · Portals</span>
         </div>
+      </a>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+        <span class="chip">50+ projects</span>
+        <span class="chip">5★ clients</span>
+        <span class="chip">Fast & SEO-ready</span>
       </div>
     </div>
   </section>
@@ -356,7 +314,7 @@
   <section class="section" id="process" aria-label="Process">
     <div class="container">
       <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap">
-        <h2>How we work</h2>
+        <h2>A simple 5-step path to launch</h2>
         <a href="./about.html" class="muted" style="font-size:.92rem">About us →</a>
       </div>
       <div class="steps" style="margin-top:18px">
@@ -377,21 +335,9 @@
         <a href="./pricing.html" class="muted" style="font-size:.92rem">Full pricing →</a>
       </div>
       <div class="grid-3" style="margin-top:18px">
-        <div class="card">
-          <h3 style="margin:0 0 .2rem">Starter Website</h3>
-          <p class="muted">1–3 pages, contact, basic SEO.</p>
-          <div style="margin-top:.6rem;font-weight:800">From ₦ —</div>
-        </div>
-        <div class="card">
-          <h3 style="margin:0 0 .2rem">Business Website</h3>
-          <p class="muted">5–10 pages, CMS, analytics.</p>
-          <div style="margin-top:.6rem;font-weight:800">From ₦ —</div>
-        </div>
-        <div class="card">
-          <h3 style="margin:0 0 .2rem">E-commerce / Portal</h3>
-          <p class="muted">Checkout or student portal.</p>
-          <div style="margin-top:.6rem;font-weight:800">Custom</div>
-        </div>
+        <div class="card"><h3 style="margin:0 0 .2rem">Starter Website</h3><p class="muted">1–3 pages, contact, basic SEO.</p><div style="margin-top:.6rem;font-weight:800">From ₦ —</div></div>
+        <div class="card"><h3 style="margin:0 0 .2rem">Business Website</h3><p class="muted">5–10 pages, CMS, analytics.</p><div style="margin-top:.6rem;font-weight:800">From ₦ —</div></div>
+        <div class="card"><h3 style="margin:0 0 .2rem">E-commerce / Portal</h3><p class="muted">Checkout or student portal.</p><div style="margin-top:.6rem;font-weight:800">Custom</div></div>
       </div>
     </div>
   </section>
@@ -421,33 +367,26 @@
     </div>
   </footer>
 
-  <!-- ===== QUOTE (with accessible labels & fetch placeholder) ===== -->
+  <!-- ===== QUOTE ===== -->
   <section class="section" id="quote" aria-label="Quote" style="padding-top:0">
     <div class="container">
       <div class="card">
         <h3 style="margin-top:0">Quick Project Brief</h3>
         <form id="quoteForm">
           <div style="display:grid;gap:10px;grid-template-columns:1fr;max-width:720px">
-            <label>
-              <span class="sr">Your Name</span>
+            <label><span class="sr">Your Name</span>
               <input name="name" required placeholder="Your Name" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)" aria-label="Your Name">
             </label>
-            <label>
-              <span class="sr">Email or WhatsApp</span>
+            <label><span class="sr">Email or WhatsApp</span>
               <input name="contact" required type="text" placeholder="Email or WhatsApp" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)" aria-label="Email or WhatsApp">
             </label>
-            <label>
-              <span class="sr">Project Type</span>
+            <label><span class="sr">Project Type</span>
               <select name="type" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)" aria-label="Project Type">
                 <option value="">Project Type</option>
-                <option>Website</option>
-                <option>Mobile App</option>
-                <option>E-commerce</option>
-                <option>School Portal</option>
+                <option>Website</option><option>Mobile App</option><option>E-commerce</option><option>School Portal</option>
               </select>
             </label>
-            <label>
-              <span class="sr">Project details</span>
+            <label><span class="sr">Project details</span>
               <textarea name="details" rows="4" placeholder="Tell us about your project…" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)" aria-label="Project details"></textarea>
             </label>
             <button class="btn btn-primary" type="submit">Send</button>
@@ -459,116 +398,82 @@
   </section>
 
   <script>
-    // Year stamp
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ===== Drawer logic (robust) =====
+    // Drawer logic
     const toggle  = document.getElementById('navToggle');
     const drawer  = document.getElementById('mobileDrawer');
     let   scrollY = 0;
+    function lockScroll(){ scrollY = window.scrollY || document.documentElement.scrollTop || 0; document.body.classList.add('no-scroll'); document.body.style.top = `-${scrollY}px`; }
+    function unlockScroll(){ document.body.classList.remove('no-scroll'); document.body.style.top = ''; window.scrollTo(0, scrollY); }
+    function openDrawer(){ drawer.hidden=false; drawer.setAttribute('data-open','true'); toggle.setAttribute('aria-expanded','true'); toggle.setAttribute('aria-label','Close menu'); toggle.classList.add('is-open'); lockScroll(); const firstLink = drawer.querySelector('a,button,[tabindex]:not([tabindex="-1"])'); firstLink && firstLink.focus(); }
+    function closeDrawer(focusToggle=true){ drawer.setAttribute('data-open','false'); toggle.setAttribute('aria-expanded','false'); toggle.setAttribute('aria-label','Open menu'); toggle.classList.remove('is-open'); unlockScroll(); setTimeout(()=>{ drawer.hidden=true; },250); if (focusToggle) toggle.focus(); }
+    toggle.addEventListener('click', ()=> { drawer.getAttribute('data-open')==='true' ? closeDrawer() : openDrawer(); });
+    drawer.addEventListener('click', (e)=> { if (e.target.classList.contains('backdrop') || e.target.hasAttribute('data-close')) closeDrawer(false); });
+    document.addEventListener('keydown', (e)=> { if (e.key==='Escape' && drawer.getAttribute('data-open')==='true') closeDrawer(); });
+    window.addEventListener('hashchange', ()=> { if (drawer.getAttribute('data-open')==='true') closeDrawer(false); });
+    window.addEventListener('resize', ()=> { if (window.matchMedia('(min-width:720px)').matches && drawer.getAttribute('data-open')==='true') closeDrawer(false); });
 
-    function lockScroll(){
-      scrollY = window.scrollY || document.documentElement.scrollTop || 0;
-      document.body.classList.add('no-scroll');
-      document.body.style.top = `-${scrollY}px`;
-    }
-    function unlockScroll(){
-      document.body.classList.remove('no-scroll');
-      document.body.style.top = '';
-      window.scrollTo(0, scrollY);
-    }
-
-    function openDrawer(){
-      drawer.hidden = false;
-      drawer.setAttribute('data-open','true');
-      toggle.setAttribute('aria-expanded','true');
-      toggle.setAttribute('aria-label','Close menu');
-      toggle.classList.add('is-open');
-      lockScroll();
-      const firstLink = drawer.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
-      firstLink && firstLink.focus();
-    }
-    function closeDrawer(focusToggle = true){
-      drawer.setAttribute('data-open','false');
-      toggle.setAttribute('aria-expanded','false');
-      toggle.setAttribute('aria-label','Open menu');
-      toggle.classList.remove('is-open');
-      unlockScroll();
-      setTimeout(()=>{ drawer.hidden = true; }, 250);
-      if (focusToggle) toggle.focus();
-    }
-
-    toggle.addEventListener('click', () => {
-      drawer.getAttribute('data-open') === 'true' ? closeDrawer() : openDrawer();
-    });
-
-    // Close on backdrop or any [data-close]
-    drawer.addEventListener('click', (e) => {
-      if (e.target.classList.contains('backdrop') || e.target.hasAttribute('data-close')) {
-        closeDrawer(false);
-      }
-    });
-
-    // Close on ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && drawer.getAttribute('data-open') === 'true') closeDrawer();
-    });
-
-    // Close if hash navigation happens (e.g., tapping "Process")
-    window.addEventListener('hashchange', () => {
-      if (drawer.getAttribute('data-open') === 'true') closeDrawer(false);
-    });
-
-    // Auto-reset when growing beyond mobile breakpoint
-    window.addEventListener('resize', () => {
-      if (window.matchMedia('(min-width: 720px)').matches && drawer.getAttribute('data-open') === 'true') {
-        closeDrawer(false);
-      }
-    });
-
-    // ===== "Process" on-page highlight (desktop menu) =====
+    // Desktop menu: highlight Process when in view
     const processLink = document.querySelector('.menu a[href="#process"]');
     const processEl = document.getElementById('process');
     if (processLink && processEl){
-      const io = new IntersectionObserver((entries)=>{
+      const ioProcess = new IntersectionObserver((entries)=>{
         processLink.setAttribute('aria-current', entries[0].isIntersecting ? 'page' : 'false');
       }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
-      io.observe(processEl);
+      ioProcess.observe(processEl);
     }
 
-    // ===== Quote form submission (placeholder) =====
+    // Pause work video off-screen to save battery
+    (function(){
+      const vid = document.querySelector('.work-video');
+      if(!vid || !('IntersectionObserver' in window)) return;
+      const io = new IntersectionObserver(([entry])=>{
+        if(entry.isIntersecting) vid.play().catch(()=>{});
+        else vid.pause();
+      }, {threshold:0.2});
+      io.observe(vid);
+    })();
+
+    // Quote form (placeholder)
     const form = document.getElementById('quoteForm');
     const msg  = document.getElementById('formMsg');
-    const API_URL = 'https://jabumarket.com.ng/api/quote'; // replace with your actual endpoint
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      msg.textContent = 'Sending…';
+    const API_URL = 'https://jabumarket.com.ng/api/quote';
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault(); msg.textContent='Sending…';
       const data = Object.fromEntries(new FormData(form).entries());
-      try {
-        const res = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-        if (!res.ok) throw new Error('Request failed');
-        msg.textContent = 'Thanks! We will reach out soon.';
-        form.reset();
-      } catch (err) {
-        msg.textContent = 'Could not submit right now. Please WhatsApp us instead.';
+      try{
+        const res = await fetch(API_URL,{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)});
+        if(!res.ok) throw new Error('Request failed');
+        msg.textContent='Thanks! We will reach out soon.'; form.reset();
+      }catch(err){
+        msg.textContent='Could not submit right now. Please WhatsApp us instead.';
       }
     });
   </script>
 
-  <!-- Schema.org (basic). Update the url/logo when you have them. -->
+  <!-- Schema.org -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Gratitude Developers",
-    "url": "",
-    "sameAs": ["https://jabumarket.com.ng"],
-    "areaServed": "NG"
+    "@context":"https://schema.org",
+    "@type":"LocalBusiness",
+    "name":"Gratitude Developers",
+    "url":"",
+    "email":"hello@gratitudedevelopers.com",
+    "areaServed":"NG",
+    "sameAs":["https://jabumarket.com.ng"],
+    "offers":{
+      "@type":"OfferCatalog","name":"Services",
+      "itemListElement":[
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Website Development"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Mobile App Development"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"E-commerce Stores"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"School Portals"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"UI/UX Design"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Care & Maintenance"}}
+      ]
+    }
   }
   </script>
 </body>
