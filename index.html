@@ -5,22 +5,25 @@
   <title>Gratitude Developers — Websites & Mobile Apps for SMEs, Schools, Startups</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Gratitude Developers crafts fast, modern websites and cross-platform apps—then helps you launch with analytics and light ads." />
-  <link rel="canonical" href="/">
+  <link rel="canonical" href="/" />
   <meta name="theme-color" content="#0b0f14">
   <meta name="color-scheme" content="dark light">
+
   <meta property="og:title" content="Gratitude Developers — We build Websites & Mobile Apps">
   <meta property="og:description" content="Fast, modern websites and cross-platform apps for Nigerian SMEs, schools, and startups.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="preconnect" href="https://images.unsplash.com">
-  <!-- Preload hero image for faster LCP -->
-  <link rel="preload" as="image" imagesrcset="
-    https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=640&auto=format&fit=crop 640w,
-    https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=960&auto=format&fit=crop 960w,
-    https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop 1400w"
-    imagesizes="(max-width: 720px) 100vw, 50vw"
-    href="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop">
 
+  <!-- Preload hero image for faster LCP -->
+  <link rel="preload" as="image"
+        imagesrcset="
+          https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=640&auto=format&fit=crop 640w,
+          https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=960&auto=format&fit=crop 960w,
+          https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop 1400w"
+        imagesizes="(max-width: 720px) 100vw, 50vw"
+        href="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop">
+
+  <link rel="preconnect" href="https://images.unsplash.com">
   <style>
     :root{
       --bg:#0b0f14; --panel:#0f1720; --ink:#e6e7eb; --muted:#a9b0bb;
@@ -52,15 +55,17 @@
     .kpis dt{font-size:1.4rem;font-weight:800}
     .kpis dd{margin:4px 0 0;font-size:.78rem;color:var(--muted)}
 
-    /* Accessibility helpers */
+    /* ===== Skip link ===== */
     .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
     .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
     .skip:focus{left:10px;top:10px;width:auto;height:auto;background:#fff;color:#000;padding:.5rem .75rem;border-radius:10px;z-index:100}
 
-    /* Header */
+    /* ===== Sticky, responsive header ===== */
     header{
-      position:sticky;top:0;z-index:60;border-bottom:1px solid var(--line);
-      backdrop-filter:blur(10px);background:rgba(11,15,20,.65);
+      position:sticky;top:0;z-index:60;
+      border-bottom:1px solid var(--line);
+      backdrop-filter:blur(10px);
+      background:rgba(11,15,20,.65);
     }
     .nav{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
     .brand{display:flex;align-items:center;gap:.6rem;font-weight:700}
@@ -73,36 +78,53 @@
     .menu a[aria-current="page"]{opacity:1}
     .actions{display:none;gap:.6rem}
 
-    /* Burger */
-    .burger{display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;padding:8px;position:relative;z-index:100}
-    .burger span{width:22px;height:2px;background:var(--ink);opacity:.95;border-radius:2px;transition:transform .22s ease, opacity .18s ease}
+    /* ===== Burger + X animation (above drawer) ===== */
+    .burger{
+      display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;padding:8px;
+      position:relative; z-index:100;
+    }
+    .burger span{
+      width:22px;height:2px;background:var(--ink);opacity:.95;border-radius:2px;
+      transition:transform .22s ease, opacity .18s ease;
+    }
     .burger.is-open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
     .burger.is-open span:nth-child(2){opacity:0}
     .burger.is-open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 
-    /* Full-screen drawer */
+    /* ===== Full-screen mobile drawer ===== */
     .drawer{position:fixed;inset:0;height:100dvh;z-index:90;display:block;opacity:0;pointer-events:none;transition:opacity .2s}
     .drawer[data-open="true"]{opacity:1;pointer-events:auto}
     .drawer .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.55)}
     .drawer .panel{
-      position:absolute;inset:0;height:100dvh;width:100vw;background:var(--panel);
+      position:absolute;inset:0;height:100dvh;width:100vw;
+      background:var(--panel);
       border-right:0;border-bottom:1px solid var(--line);
-      transform:translateY(-100%);transition:transform .25s ease;
-      display:flex;flex-direction:column;gap:0;padding-bottom:env(safe-area-inset-bottom)
+      transform:translateY(-100%);
+      transition:transform .25s ease;
+      display:flex;flex-direction:column;gap:0;
+      padding-bottom:env(safe-area-inset-bottom);
     }
     .drawer[data-open="true"] .panel{transform:translateY(0)}
-    .panel .topbar{padding:14px var(--space);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-top:calc(14px + env(safe-area-inset-top))}
+
+    .panel .topbar{
+      padding:14px var(--space);
+      display:flex;align-items:center;justify-content:space-between;
+      border-bottom:1px solid var(--line);
+      padding-top:calc(14px + env(safe-area-inset-top));
+    }
     .panel .topbar .brand-mini{display:flex;align-items:center;gap:.6rem;font-weight:700}
     .panel .topbar .brand-mini .logo{width:30px;height:30px;border-radius:10px;box-shadow:none}
     .close-btn{background:transparent;border:0;width:44px;height:44px;border-radius:10px;display:grid;place-items:center;color:var(--ink);font-size:20px;opacity:.9}
     .close-btn:hover{background:rgba(255,255,255,.06)}
+
     .panel nav a{display:block;padding:16px var(--space);border-bottom:1px solid var(--line);font-size:1.05rem}
     .panel nav a:last-child{border-bottom:0}
     .panel .cta-row{margin-top:auto;border-top:1px solid var(--line);padding:12px var(--space);display:flex;gap:.6rem;flex-wrap:wrap}
 
+    /* Strong scroll lock */
     .no-scroll{position:fixed;width:100%;overflow:hidden}
 
-    /* Hero */
+    /* ===== HERO ===== */
     .hero{position:relative;overflow:hidden;padding:72px 0}
     .blur-a,.blur-b{position:absolute;filter:blur(80px);z-index:-1;opacity:.85}
     .blur-a{top:-140px;right:10%;width:520px;height:520px;background:radial-gradient(closest-side, rgba(249,115,22,.25), transparent)}
@@ -110,37 +132,27 @@
     .hero-grid{display:grid;gap:24px}
     .hero h1{font-size:clamp(1.8rem,4.8vw,3.2rem);line-height:1.1;margin:.4rem 0}
 
-    /* Trust bar */
-    .trust-row{display:flex;gap:28px;flex-wrap:wrap;align-items:center;justify-content:center}
-    .trust-row .logo{height:22px;opacity:.8}
-    .trust-row .logo:hover{opacity:1}
-
-    /* Steps/Testimonial cards */
+    /* ===== PROCESS / TESTIMONIALS ===== */
     .steps{display:grid;gap:14px}
     .steps .card{display:flex;gap:12px}
+    .quotes{display:grid;gap:16px}
+    blockquote{margin:0;font-size:.98rem}
+    figcaption{margin-top:8px;color:var(--muted);font-size:.9rem}
 
+    /* ===== CTA band ===== */
     .cta{position:relative;overflow:hidden;border-radius:20px;background:linear-gradient(90deg, rgba(249,115,22,.15), rgba(251,113,133,.12), rgba(139,92,246,.12));border:1px solid var(--line)}
     .cta::before,.cta::after{content:"";position:absolute;filter:blur(70px);border-radius:999px}
     .cta::before{width:260px;height:260px;background:rgba(249,115,22,.25);right:-80px;top:-80px}
     .cta::after{width:260px;height:260px;background:rgba(251,113,133,.22);left:-80px;bottom:-80px}
 
-    /* Sticky mobile CTA */
+    /* ===== Sticky mobile CTA ===== */
     .sticky-cta{position:fixed;left:0;right:0;bottom:max(10px, env(safe-area-inset-bottom));z-index:65;display:flex;justify-content:center;padding:8px;pointer-events:none}
     .sticky-cta .bar{display:flex;gap:.6rem;background:rgba(15,23,32,.9);border:1px solid var(--line);backdrop-filter:blur(10px);border-radius:16px;padding:8px;pointer-events:auto}
 
-    /* Work feature */
-    .work-feature{position:relative;overflow:hidden;display:block;padding:0}
-    .work-video{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;display:block}
-    .work-overlay{
-      position:absolute;left:12px;bottom:12px;
-      background:rgba(15,23,32,.72);backdrop-filter:blur(6px);
-      border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px
-    }
-
-    /* Footer */
+    /* ===== FOOTER ===== */
     footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.95rem}
 
-    /* Breakpoints */
+    /* ===== RESPONSIVE ===== */
     @media (min-width:720px){
       .menu{display:flex}
       .actions{display:flex}
@@ -148,14 +160,14 @@
       .hero-grid{grid-template-columns:1.2fr 1fr;align-items:center}
       .grid-3{grid-template-columns:repeat(3,1fr)}
       .steps{grid-template-columns:repeat(5,1fr)}
+      .quotes{grid-template-columns:repeat(3,1fr)}
       .sticky-cta{display:none}
     }
     @media (min-width:1024px){ .nav{height:72px} }
 
     @media (prefers-reduced-motion: reduce){
       .blur-a,.blur-b{display:none}
-      .drawer, .drawer .panel{transition:none}
-      .work-video{animation:none}
+      .drawer,.drawer .panel{transition:none}
     }
   </style>
 </head>
@@ -224,154 +236,175 @@
     </div>
   </div>
 
-  <!-- ===== MAIN ===== -->
+  <!-- ===== HERO ===== -->
   <main id="main">
-
-    <!-- ===== HERO ===== -->
-    <section class="hero" id="top" aria-label="Hero">
-      <div class="blur-a"></div><div class="blur-b"></div>
-      <div class="container hero-grid">
-        <div>
-          <span class="chip"><span style="display:inline-block;width:6px;height:6px;border-radius:999px;background:#f59e0b"></span> We build Websites & Mobile Apps</span>
-          <h1>Ship polished
-            <span style="background:linear-gradient(90deg,#f59e0b,#fb7185,#fde047);-webkit-background-clip:text;background-clip:text;color:transparent">digital products</span>
-            that grow your business.</h1>
-          <p class="muted" style="max-width:640px;margin-top:.6rem">
-            We craft fast, modern websites and cross-platform apps—then help you launch with analytics and light ads.
-          </p>
-          <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:16px">
-            <a class="btn btn-primary" href="#start">Start a Project ▸</a>
-            <a class="btn btn-ghost" href="https://wa.me/2347041022336?text=Hi%20Gratitude%20Developers%2C%20I%27d%20like%20to%20start%20a%20project." target="_blank" rel="noopener">WhatsApp</a>
-          </div>
-          <p class="muted" style="margin-top:6px;font-size:.9rem">Expect a reply within 24h. We’ll propose the simplest path to launch.</p>
-          <dl class="kpis">
-            <div class="card"><dt>50+</dt><dd>projects shipped</dd></div>
-            <div class="card"><dt>Affordable</dt><dd>transparent pricing</dd></div>
-            <div class="card"><dt>5★</dt><dd>client satisfaction</dd></div>
-          </dl>
+  <section class="hero" id="top" aria-label="Hero">
+    <div class="blur-a"></div><div class="blur-b"></div>
+    <div class="container hero-grid">
+      <div>
+        <span class="chip"><span style="display:inline-block;width:6px;height:6px;border-radius:999px;background:#f59e0b"></span> We build Websites & Mobile Apps</span>
+        <h1>Ship polished
+          <span style="background:linear-gradient(90deg,#f59e0b,#fb7185,#fde047);-webkit-background-clip:text;background-clip:text;color:transparent">digital products</span>
+          that grow your business.</h1>
+        <p class="muted" style="max-width:640px;margin-top:.6rem">
+          We craft fast, modern websites and cross-platform apps—then help you launch with analytics and light ads.
+        </p>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:16px">
+          <a class="btn btn-primary" href="#start">Start a Project ▸</a>
+          <a class="btn btn-ghost" href="https://wa.me/2347041022336?text=Hi%20Gratitude%20Developers%2C%20I%27d%20like%20to%20start%20a%20project." target="_blank" rel="noopener">WhatsApp</a>
         </div>
-        <div>
-          <div class="card" style="padding:10px;box-shadow:var(--shadow)">
-            <img
-              src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop"
-              srcset="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop 1400w"
-              sizes="(max-width: 720px) 100vw, 50vw"
-              alt="Product preview" style="border-radius:12px;aspect-ratio:4/3;object-fit:cover" fetchpriority="high" decoding="async">
-          </div>
+        <p class="muted" style="margin-top:6px;font-size:.9rem">Expect a reply within 24h. We’ll propose the simplest path to launch.</p>
+        <dl class="kpis">
+          <div class="card"><dt>50+</dt><dd>projects shipped</dd></div>
+          <div class="card"><dt>Affordable</dt><dd>transparent pricing</dd></div>
+          <div class="card"><dt>5★</dt><dd>client satisfaction</dd></div>
+        </dl>
+      </div>
+      <div>
+        <div class="card" style="padding:10px;box-shadow:var(--shadow)">
+          <img
+            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop"
+            srcset="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop 1400w"
+            sizes="(max-width: 720px) 100vw, 50vw"
+            alt="Product preview" style="border-radius:12px;aspect-ratio:4/3;object-fit:cover" fetchpriority="high" decoding="async">
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ===== TRUST BAR ===== -->
-    <section aria-label="Trust" style="padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.03)">
-      <div class="container trust-row">
-        <span class="muted" style="font-size:.9rem">Trusted by</span>
-        <!-- Replace these src files with your actual SVG logos -->
-        <img src="/assets/gabakssteel.svg" alt="Gabakssteel Construction" class="logo">
-        <img src="/assets/glc.svg" alt="Great Landmark College" class="logo">
-        <img src="/assets/jabumarket.svg" alt="Jabu Market" class="logo">
+  <!-- ===== TRUST BAR ===== -->
+  <section aria-label="Trust" style="padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.03)">
+    <div class="container" style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;justify-content:center">
+      <span class="muted" style="font-size:.9rem">Trusted by</span>
+      <span class="chip">50+ projects</span>
+      <span class="chip">5★ rating</span>
+      <span class="chip">SMEs · Schools · Startups</span>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section class="section" id="services" aria-label="Services">
+    <div class="container">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <h2>Services built to launch quickly</h2>
+        <a href="./services.html" class="muted" style="font-size:.92rem">All services →</a>
       </div>
-    </section>
-
-    <!-- ===== SERVICES ===== -->
-    <section class="section" id="services" aria-label="Services">
-      <div class="container">
-        <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap">
-          <h2>What we build</h2>
-          <a href="./services.html" class="muted" style="font-size:.92rem">All services →</a>
-        </div>
-        <div class="grid-3" style="margin-top:18px">
-          <a class="card" href="./services.html#websites" style="display:block"><div class="badge">1</div><h3 style="margin:.6rem 0 0">Websites</h3><p class="muted">Fast, accessible, SEO-ready sites.</p><span class="muted" style="font-size:.9rem">See details →</span></a>
-          <a class="card" href="./services.html#mobile-apps" style="display:block"><div class="badge">2</div><h3 style="margin:.6rem 0 0">Mobile Apps</h3><p class="muted">Cross-platform apps from one codebase.</p><span class="muted" style="font-size:.9rem">See details →</span></a>
-          <a class="card" href="./services.html#ecommerce" style="display:block"><div class="badge">3</div><h3 style="margin:.6rem 0 0">E-commerce</h3><p class="muted">Stores that convert—catalog to checkout.</p><span class="muted" style="font-size:.9rem">See details →</span></a>
-          <a class="card" href="./services.html#school-portals" style="display:block"><div class="badge">4</div><h3 style="margin:.6rem 0 0">School Portals</h3><p class="muted">Admissions, results, Smart Practice.</p><span class="muted" style="font-size:.9rem">See details →</span></a>
-          <a class="card" href="./services.html#ui-ux" style="display:block"><div class="badge">5</div><h3 style="margin:.6rem 0 0">UI/UX Design</h3><p class="muted">Flows, prototypes, design systems.</p><span class="muted" style="font-size:.9rem">See details →</span></a>
-          <a class="card" href="./services.html#care" style="display:block"><div class="badge">6</div><h3 style="margin:.6rem 0 0">Care & Maintenance</h3><p class="muted">Updates, backups, uptime, small wins.</p><span class="muted" style="font-size:.9rem">See details →</span></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== WORK (Featured preview) ===== -->
-    <section class="section" id="work" aria-label="Work">
-      <div class="container">
-        <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap">
-          <h2>Recent & upcoming work</h2>
-          <a href="./work.html" class="muted" style="font-size:.92rem">See all →</a>
-        </div>
-
-        <a class="card work-feature" href="./work.html" aria-label="See all projects" style="margin-top:18px">
-          <video class="work-video" autoplay loop muted playsinline preload="metadata"
-                 poster="/assets/home-preview-poster.jpg">
-            <source src="/assets/home-preview-1080.mp4" type="video/mp4">
-          </video>
-          <div class="work-overlay">
-            <strong>See our projects</strong>
-            <span class="muted">Websites · Apps · Portals</span>
-          </div>
+      <div class="grid-3" style="margin-top:18px">
+        <a class="card" href="./services.html#websites" style="display:block">
+          <div class="badge">1</div><h3 style="margin:.6rem 0 0">Websites</h3>
+          <p class="muted">Fast, accessible, SEO-ready sites.</p><span class="muted" style="font-size:.9rem">See details →</span>
         </a>
-
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
-          <span class="chip">50+ projects</span>
-          <span class="chip">5★ clients</span>
-          <span class="chip">Fast & SEO-ready</span>
-        </div>
+        <a class="card" href="./services.html#mobile-apps" style="display:block">
+          <div class="badge">2</div><h3 style="margin:.6rem 0 0">Mobile Apps</h3>
+          <p class="muted">Cross-platform from one clean codebase.</p><span class="muted" style="font-size:.9rem">See details →</span>
+        </a>
+        <a class="card" href="./services.html#ecommerce" style="display:block">
+          <div class="badge">3</div><h3 style="margin:.6rem 0 0">E-commerce</h3>
+          <p class="muted">Stores that convert—product, checkout, analytics.</p><span class="muted" style="font-size:.9rem">See details →</span>
+        </a>
+        <a class="card" href="./services.html#school-portals" style="display:block">
+          <div class="badge">4</div><h3 style="margin:.6rem 0 0">School Portals</h3>
+          <p class="muted">Admissions, ID cards, results, Smart Practice.</p><span class="muted" style="font-size:.9rem">See details →</span>
+        </a>
+        <a class="card" href="./services.html#ui-ux" style="display:block">
+          <div class="badge">5</div><h3 style="margin:.6rem 0 0">UI/UX Design</h3>
+          <p class="muted">Wireframes, design systems, prototypes.</p><span class="muted" style="font-size:.9rem">See details →</span>
+        </a>
+        <a class="card" href="./services.html#care" style="display:block">
+          <div class="badge">6</div><h3 style="margin:.6rem 0 0">Care & Maintenance</h3>
+          <p class="muted">Updates, backups, uptime, small changes.</p><span class="muted" style="font-size:.9rem">See details →</span>
+        </a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ===== PROCESS ===== -->
-    <section class="section" id="process" aria-label="Process">
-      <div class="container">
-        <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap">
-          <h2>A simple 5-step path to launch</h2>
-          <a href="./about.html" class="muted" style="font-size:.92rem">About us →</a>
-        </div>
-        <div class="steps" style="margin-top:18px">
-          <div class="card"><div class="badge">1</div><div><strong>Discover</strong><div class="muted">Goals, scope, budget, success metrics.</div></div></div>
-          <div class="card"><div class="badge">2</div><div><strong>Design</strong><div class="muted">UX flows, wireframes, UI polish.</div></div></div>
-          <div class="card"><div class="badge">3</div><div><strong>Build</strong><div class="muted">Modern stacks and secure APIs.</div></div></div>
-          <div class="card"><div class="badge">4</div><div><strong>Launch</strong><div class="muted">QA, performance, SEO, deploy.</div></div></div>
-          <div class="card"><div class="badge">5</div><div><strong>Care</strong><div class="muted">Monitoring, updates, small wins.</div></div></div>
-        </div>
+  <!-- ===== FEATURED PROJECT (replaces grid) ===== -->
+  <section class="section" id="work" aria-label="Work">
+    <div class="container">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <h2>Recent & upcoming work</h2>
+        <a href="./work.html" class="muted" style="font-size:.92rem">See all →</a>
       </div>
-    </section>
 
-    <!-- ===== PRICING PREVIEW ===== -->
-    <section class="section" id="pricing" aria-label="Pricing">
-      <div class="container">
-        <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap">
-          <h2>Pricing</h2>
-          <a href="./pricing.html" class="muted" style="font-size:.92rem">Full pricing →</a>
-        </div>
-        <div class="grid-3" style="margin-top:18px">
-          <div class="card"><h3 style="margin:0 0 .2rem">Starter Website</h3><p class="muted">1–3 pages, contact, basic SEO.</p><div style="margin-top:.6rem;font-weight:800">From ₦ —</div></div>
-          <div class="card"><h3 style="margin:0 0 .2rem">Business Website</h3><p class="muted">5–10 pages, CMS, analytics.</p><div style="margin-top:.6rem;font-weight:800">From ₦ —</div></div>
-          <div class="card"><h3 style="margin:0 0 .2rem">E-commerce / Portal</h3><p class="muted">Checkout or student portal.</p><div style="margin-top:.6rem;font-weight:800">Custom</div></div>
-        </div>
-      </div>
-    </section>
+      <a class="card" href="./case-study.html" style="margin-top:18px;display:block;overflow:hidden;position:relative;background:#131922">
+        <img
+          src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop"
+          srcset="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=640&auto=format&fit=crop 640w,
+                  https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=960&auto=format&fit=crop 960w,
+                  https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1400&auto=format&fit=crop 1400w"
+          sizes="(max-width: 720px) 100vw, 1000px"
+          alt="Featured project preview"
+          style="border-radius:12px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
 
-    <!-- ===== CTA ===== -->
-    <section class="section" id="start" aria-label="Get started">
-      <div class="container">
-        <div class="cta card" style="padding:22px">
-          <h3 style="margin:0 0 .4rem">Ready to build something great?</h3>
-          <p class="muted" style="max-width:720px;margin:.2rem 0 1rem">Tell us about your idea — website, app, or portal — and we’ll propose the simplest path to a real launch.</p>
-          <div style="display:flex;gap:.6rem;flex-wrap:wrap">
-            <a class="btn btn-primary" href="#quote">Request a Quote</a>
-            <a class="btn btn-ghost" href="https://wa.me/2347041022336" target="_blank" rel="noopener">Chat on WhatsApp</a>
+        <!-- Overlay -->
+        <div style="position:absolute;inset:auto 12px 12px 12px; background:rgba(0,0,0,.45); backdrop-filter:blur(6px);
+                    border:1px solid var(--line); border-radius:12px; padding:12px; display:flex; gap:.6rem; align-items:center; flex-wrap:wrap">
+          <div style="flex:1 1 auto">
+            <div class="muted" style="font-size:.85rem">Student marketplace & study hub</div>
+            <strong style="display:block;margin-top:2px">Jabu Market</strong>
           </div>
+          <span class="btn btn-primary" style="white-space:nowrap">Read case study</span>
+        </div>
+      </a>
+
+      <p class="muted" style="margin-top:10px">
+        “They shipped fast and kept comms clear. Our site loads 4× faster.” — Ada, CampusHub
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== PROCESS ===== -->
+  <section class="section" id="process" aria-label="Process">
+    <div class="container">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <h2>A simple 5-step path to launch</h2>
+        <a href="./about.html" class="muted" style="font-size:.92rem">About us →</a>
+      </div>
+      <div class="steps" style="margin-top:18px">
+        <div class="card"><div class="badge">1</div><div><strong>Discover</strong><div class="muted">Goals, scope, budget, success metrics.</div></div></div>
+        <div class="card"><div class="badge">2</div><div><strong>Design</strong><div class="muted">UX flows, wireframes, UI polish.</div></div></div>
+        <div class="card"><div class="badge">3</div><div><strong>Build</strong><div class="muted">Modern stacks and secure APIs.</div></div></div>
+        <div class="card"><div class="badge">4</div><div><strong>Launch</strong><div class="muted">QA, performance, SEO, deploy.</div></div></div>
+        <div class="card"><div class="badge">5</div><div><strong>Care</strong><div class="muted">Monitoring, updates, small wins.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING PREVIEW ===== -->
+  <section class="section" id="pricing" aria-label="Pricing">
+    <div class="container">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <h2>Pricing</h2>
+        <a href="./pricing.html" class="muted" style="font-size:.92rem">Full pricing →</a>
+      </div>
+      <div class="grid-3" style="margin-top:18px">
+        <div class="card"><h3 style="margin:0 0 .2rem">Starter Website</h3><p class="muted">1–3 pages, contact, basic SEO.</p><div style="margin-top:.6rem;font-weight:800">From ₦ —</div></div>
+        <div class="card"><h3 style="margin:0 0 .2rem">Business Website</h3><p class="muted">5–10 pages, CMS, analytics.</p><div style="margin-top:.6rem;font-weight:800">From ₦ —</div></div>
+        <div class="card"><h3 style="margin:0 0 .2rem">E-commerce / Portal</h3><p class="muted">Checkout or student portal.</p><div style="margin-top:.6rem;font-weight:800">Custom</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="section" id="start" aria-label="Get started">
+    <div class="container">
+      <div class="cta card" style="padding:22px">
+        <h3 style="margin:0 0 .4rem">Ready to build something great?</h3>
+        <p class="muted" style="max-width:720px;margin:.2rem 0 1rem">Tell us about your idea—website, app, or portal—and we’ll propose the simplest path to a real launch.</p>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+          <a class="btn btn-primary" href="#quote">Request a Quote</a>
+          <a class="btn btn-ghost" href="https://wa.me/2347041022336" target="_blank" rel="noopener">Chat on WhatsApp</a>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
   </main>
 
   <!-- ===== FOOTER ===== -->
   <footer id="contact">
     <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
       <div>© <span id="year"></span> Gratitude Developers. All rights reserved.</div>
-      <div>
-        <a href="./privacy.html">Privacy</a> · <a href="./terms.html">Terms</a> · <a href="mailto:hello@gratitudedevelopers.com">hello@gratitudedevelopers.com</a>
-      </div>
+      <div><a href="./privacy.html">Privacy</a> · <a href="./terms.html">Terms</a> · <a href="mailto:hello@gratitudedevelopers.com">hello@gratitudedevelopers.com</a></div>
     </div>
   </footer>
 
@@ -390,8 +423,7 @@
             </label>
             <label><span class="sr">Project Type</span>
               <select name="type" style="padding:.9rem;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink)" aria-label="Project Type">
-                <option value="">Project Type</option>
-                <option>Website</option><option>Mobile App</option><option>E-commerce</option><option>School Portal</option>
+                <option value="">Project Type</option><option>Website</option><option>Mobile App</option><option>E-commerce</option><option>School Portal</option>
               </select>
             </label>
             <label><span class="sr">Project details</span>
@@ -409,42 +441,34 @@
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Drawer logic
-    const toggle  = document.getElementById('navToggle');
-    const drawer  = document.getElementById('mobileDrawer');
-    let   scrollY = 0;
+    // ===== Drawer logic =====
+    const toggle = document.getElementById('navToggle');
+    const drawer = document.getElementById('mobileDrawer');
+    let scrollY = 0;
+
     function lockScroll(){ scrollY = window.scrollY || document.documentElement.scrollTop || 0; document.body.classList.add('no-scroll'); document.body.style.top = `-${scrollY}px`; }
     function unlockScroll(){ document.body.classList.remove('no-scroll'); document.body.style.top = ''; window.scrollTo(0, scrollY); }
-    function openDrawer(){ drawer.hidden=false; drawer.setAttribute('data-open','true'); toggle.setAttribute('aria-expanded','true'); toggle.setAttribute('aria-label','Close menu'); toggle.classList.add('is-open'); lockScroll(); const firstLink = drawer.querySelector('a,button,[tabindex]:not([tabindex="-1"])'); firstLink && firstLink.focus(); }
-    function closeDrawer(focusToggle=true){ drawer.setAttribute('data-open','false'); toggle.setAttribute('aria-expanded','false'); toggle.setAttribute('aria-label','Open menu'); toggle.classList.remove('is-open'); unlockScroll(); setTimeout(()=>{ drawer.hidden=true; },250); if (focusToggle) toggle.focus(); }
-    toggle.addEventListener('click', ()=> { drawer.getAttribute('data-open')==='true' ? closeDrawer() : openDrawer(); });
+
+    function openDrawer(){ drawer.hidden=false; drawer.setAttribute('data-open','true'); toggle.setAttribute('aria-expanded','true'); toggle.setAttribute('aria-label','Close menu'); toggle.classList.add('is-open'); lockScroll(); (drawer.querySelector('a,button,[tabindex]:not([tabindex="-1"])')||{}).focus?.(); }
+    function closeDrawer(focusToggle=true){ drawer.setAttribute('data-open','false'); toggle.setAttribute('aria-expanded','false'); toggle.setAttribute('aria-label','Open menu'); toggle.classList.remove('is-open'); unlockScroll(); setTimeout(()=>{ drawer.hidden=true; },250); if(focusToggle) toggle.focus(); }
+
+    toggle.addEventListener('click', ()=> drawer.getAttribute('data-open')==='true' ? closeDrawer() : openDrawer());
     drawer.addEventListener('click', (e)=> { if (e.target.classList.contains('backdrop') || e.target.hasAttribute('data-close')) closeDrawer(false); });
     document.addEventListener('keydown', (e)=> { if (e.key==='Escape' && drawer.getAttribute('data-open')==='true') closeDrawer(); });
     window.addEventListener('hashchange', ()=> { if (drawer.getAttribute('data-open')==='true') closeDrawer(false); });
     window.addEventListener('resize', ()=> { if (window.matchMedia('(min-width:720px)').matches && drawer.getAttribute('data-open')==='true') closeDrawer(false); });
 
-    // Desktop menu: highlight Process when in view
+    // Highlight "Process" in desktop menu when in view
     const processLink = document.querySelector('.menu a[href="#process"]');
     const processEl = document.getElementById('process');
     if (processLink && processEl){
-      const ioProcess = new IntersectionObserver((entries)=>{
+      const io = new IntersectionObserver((entries)=>{
         processLink.setAttribute('aria-current', entries[0].isIntersecting ? 'page' : 'false');
       }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
-      ioProcess.observe(processEl);
+      io.observe(processEl);
     }
 
-    // Pause work video off-screen to save battery
-    (function(){
-      const vid = document.querySelector('.work-video');
-      if(!vid || !('IntersectionObserver' in window)) return;
-      const io = new IntersectionObserver(([entry])=>{
-        if(entry.isIntersecting) vid.play().catch(()=>{});
-        else vid.pause();
-      }, {threshold:0.2});
-      io.observe(vid);
-    })();
-
-    // Quote form (placeholder)
+    // Quote form (placeholder POST)
     const form = document.getElementById('quoteForm');
     const msg  = document.getElementById('formMsg');
     const API_URL = 'https://jabumarket.com.ng/api/quote';
@@ -459,6 +483,15 @@
         msg.textContent='Could not submit right now. Please WhatsApp us instead.';
       }
     });
+
+    // Simple analytics hooks (replace console with your analytics)
+    const track = (e, data)=>console.log('event', e, data);
+    document.querySelectorAll('a.btn, .cta a').forEach(a=>{
+      a.addEventListener('click', ()=> track('cta_click', {text:a.textContent.trim(), href:a.getAttribute('href')}));
+    });
+    document.querySelectorAll('#services a.card, #work a.card').forEach(card=>{
+      card.addEventListener('click', ()=> track('card_click', {section: card.closest('section').id}));
+    });
   </script>
 
   <!-- Schema.org -->
@@ -471,8 +504,9 @@
     "email":"hello@gratitudedevelopers.com",
     "areaServed":"NG",
     "sameAs":["https://jabumarket.com.ng"],
-    "offers":{
-      "@type":"OfferCatalog","name":"Services",
+    "offers": {
+      "@type":"OfferCatalog",
+      "name":"Services",
       "itemListElement":[
         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Website Development"}},
         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Mobile App Development"}},
