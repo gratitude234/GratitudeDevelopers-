@@ -146,8 +146,29 @@
     .cta::after{width:260px;height:260px;background:rgba(251,113,133,.22);left:-80px;bottom:-80px}
 
     /* ===== Sticky mobile CTA ===== */
-    .sticky-cta{position:fixed;left:0;right:0;bottom:max(10px, env(safe-area-inset-bottom));z-index:65;display:flex;justify-content:center;padding:8px;pointer-events:none}
+    .sticky-cta{position:fixed;left:0;right:0;bottom:max(10px, env(safe-area-inset-bottom));z-index:65;display:flex;justify-content:center;padding:8px;pointer-events:none;transition:opacity .2s}
     .sticky-cta .bar{display:flex;gap:.6rem;background:rgba(15,23,32,.9);border:1px solid var(--line);backdrop-filter:blur(10px);border-radius:16px;padding:8px;pointer-events:auto}
+
+    /* ===== Featured project (new classes) ===== */
+    a.card.featured{display:block;overflow:hidden;position:relative;background:#131922;transition:transform .18s ease, box-shadow .18s ease}
+    a.card.featured:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.35)}
+    a.card.featured:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:16px}
+
+    .featured-overlay{
+      position:absolute;inset:auto 12px 12px 12px;
+      display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;
+      padding:12px;border-radius:12px;border:1px solid var(--line);
+      backdrop-filter:blur(8px);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.35)),
+        rgba(0,0,0,.25);
+    }
+    .featured-overlay strong{font-size:1.05rem}
+
+    /* Testimonial */
+    .testimonial{max-width:720px;margin:10px auto 0;font-style:italic}
+    .testimonial::before{content:"“";margin-right:2px}
+    .testimonial::after{content:"”"}
 
     /* ===== FOOTER ===== */
     footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.95rem}
@@ -164,6 +185,14 @@
       .sticky-cta{display:none}
     }
     @media (min-width:1024px){ .nav{height:72px} }
+
+    /* Better rhythm for very small screens */
+    @media (max-width:389px){ .section h2{font-size:1.25rem} }
+
+    @media (max-width:719px){
+      /* prevent sticky bar overlapping content */
+      main{padding-bottom:84px}
+    }
 
     @media (prefers-reduced-motion: reduce){
       .blur-a,.blur-b{display:none}
@@ -266,7 +295,7 @@
             src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop"
             srcset="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=960&auto=format&fit=crop 960w, https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop 1400w"
             sizes="(max-width: 720px) 100vw, 50vw"
-            alt="Product preview" style="border-radius:12px;aspect-ratio:4/3;object-fit:cover" fetchpriority="high" decoding="async">
+            alt="Product preview" style="border-radius:12px;aspect-ratio:4/3;object-fit:cover;object-position:center 35%" fetchpriority="high" decoding="async">
         </div>
       </div>
     </div>
@@ -318,7 +347,7 @@
     </div>
   </section>
 
-  <!-- ===== FEATURED PROJECT (replaces grid) ===== -->
+  <!-- ===== FEATURED PROJECT ===== -->
   <section class="section" id="work" aria-label="Work">
     <div class="container">
       <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap">
@@ -326,7 +355,7 @@
         <a href="./work.html" class="muted" style="font-size:.92rem">See all →</a>
       </div>
 
-      <a class="card" href="./case-study.html" style="margin-top:18px;display:block;overflow:hidden;position:relative;background:#131922">
+      <a class="card featured" href="./case-study.html" aria-label="Read the Jabu Market case study" style="margin-top:18px">
         <img
           src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop"
           srcset="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=640&auto=format&fit=crop 640w,
@@ -334,11 +363,9 @@
                   https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1400&auto=format&fit=crop 1400w"
           sizes="(max-width: 720px) 100vw, 1000px"
           alt="Featured project preview"
-          style="border-radius:12px;aspect-ratio:16/9;object-fit:cover" loading="lazy" decoding="async">
+          style="border-radius:12px;aspect-ratio:16/9;object-fit:cover;object-position:center 35%" loading="lazy" decoding="async">
 
-        <!-- Overlay -->
-        <div style="position:absolute;inset:auto 12px 12px 12px; background:rgba(0,0,0,.45); backdrop-filter:blur(6px);
-                    border:1px solid var(--line); border-radius:12px; padding:12px; display:flex; gap:.6rem; align-items:center; flex-wrap:wrap">
+        <div class="featured-overlay">
           <div style="flex:1 1 auto">
             <div class="muted" style="font-size:.85rem">Student marketplace & study hub</div>
             <strong style="display:block;margin-top:2px">Jabu Market</strong>
@@ -347,9 +374,7 @@
         </div>
       </a>
 
-      <p class="muted" style="margin-top:10px">
-        “They shipped fast and kept comms clear. Our site loads 4× faster.” — Ada, CampusHub
-      </p>
+      <p class="muted testimonial">They shipped fast and kept comms clear. Our site loads 4× faster. — Ada, CampusHub</p>
     </div>
   </section>
 
@@ -492,6 +517,17 @@
     document.querySelectorAll('#services a.card, #work a.card').forEach(card=>{
       card.addEventListener('click', ()=> track('card_click', {section: card.closest('section').id}));
     });
+
+    // Fade sticky CTA near footer so it doesn't cover content
+    const sticky = document.querySelector('.sticky-cta');
+    const footer = document.getElementById('contact');
+    if (sticky && footer && 'IntersectionObserver' in window){
+      const io2 = new IntersectionObserver(([entry])=>{
+        sticky.style.opacity = entry.isIntersecting ? '0' : '1';
+        sticky.style.pointerEvents = entry.isIntersecting ? 'none' : 'auto';
+      }, {rootMargin:'0px 0px -50% 0px'});
+      io2.observe(footer);
+    }
   </script>
 
   <!-- Schema.org -->
